@@ -37,14 +37,14 @@ void StateManager::draw(sf::RenderWindow &window)
 
 void StateManager::update(sf::Time &time)
 {
-	for (unsigned int i = 0; i < activeStates.size(); i++)
-	{
-		activeStates[i]->update(time);
-	}
+	if (activeStates.size() > 0)
+		activeStates.back()->update(time);
 }
 
 int StateManager::pollEvent(sf::Event &event)
 {
 	if (activeStates.size() > 0)
 		return activeStates.back()->pollEvent(event);
+
+	return 0;
 }
