@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
+#include "StateManager.hpp"
 class Game
 {
 protected:
 	sf::RenderWindow window;
+	StateManager stateManager;
 public:
 	Game(int width, int height);
 	void run();

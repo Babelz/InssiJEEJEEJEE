@@ -4,8 +4,6 @@
 class JamGame :
 	public Game
 {
-private:
-	GameplayScreen screen;
 public:
 	JamGame(int width, int height);
 	~JamGame();

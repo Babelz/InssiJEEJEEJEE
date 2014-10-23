@@ -8,7 +8,7 @@ private:
 	std::vector<State*> states;
 	std::vector<State*> activeStates;
 public:
-	int add(State &state);
+	int add(State* state);
 	void change(unsigned int i);
 	void push(unsigned int i);
 	void pop();

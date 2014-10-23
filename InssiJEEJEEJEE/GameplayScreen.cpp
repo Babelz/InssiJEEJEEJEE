@@ -66,3 +66,10 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	world.draw(window);
 	window.display();
 }
+
+void GameplayScreen::activate() {
+
+}
+int GameplayScreen::pollEvent(sf::Event &event) {
+	return 0;
+}

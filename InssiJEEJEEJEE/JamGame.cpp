@@ -3,6 +3,8 @@
 
 JamGame::JamGame(int width, int height) : Game(width, height)
 {
+	stateManager.add(new GameplayScreen());
+	stateManager.change(0);
 }
 
 
@@ -17,9 +19,9 @@ void JamGame::update(sf::Time &tpf) {
 		if (event.type == sf::Event::Closed)
 			window.close();
 	}
-	screen.update(tpf);
+	stateManager.update(tpf);
 }
 
 void JamGame::draw(sf::RenderWindow &window) {
-	screen.draw(window);
+	stateManager.draw(window);
 }

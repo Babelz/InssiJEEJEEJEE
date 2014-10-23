@@ -2,7 +2,8 @@
 
 #include <SFML\Graphics.hpp>
 #include "World.h"
-class GameplayScreen
+#include "State.hpp"
+class GameplayScreen : public State
 {
 private:
 	World world;
@@ -11,5 +12,7 @@ public:
 	~GameplayScreen();
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);
+	void activate();
+	int pollEvent(sf::Event &event);
 };
 

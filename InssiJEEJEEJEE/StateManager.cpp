@@ -1,8 +1,8 @@
 #include "StateManager.hpp"
 
-int StateManager::add(State &state)
+int StateManager::add(State* state)
 {
-	states.push_back(&state);
+	states.push_back(state);
 
 	return states.size() - 1;
 }
