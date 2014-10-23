@@ -1,8 +1,9 @@
 #include "GameObjectComponent.h"
 
 
-GameObjectComponent::GameObjectComponent()
+GameObjectComponent::GameObjectComponent(GameObject* owner)
 {
+	this->owner = owner;
 }
 
 

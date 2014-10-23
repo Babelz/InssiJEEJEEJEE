@@ -8,7 +8,7 @@ World::World() : world(b2Vec2(0.0f, 0.0f))
 
 World::~World()
 {
-	gameObjects.erase(gameObjects.end());
+	// todo tuhoa peliobjectit
 }
 
 void World::addGameObject(GameObject* gameObject) {
@@ -16,6 +16,7 @@ void World::addGameObject(GameObject* gameObject) {
 }
 
 void World::update(sf::Time& tpf) {
+	world.Step(1 / 60.f, 8, 3);
 	std::for_each(gameObjects.begin(), gameObjects.end(), [&tpf](GameObject* go) {
 		go->update(tpf);
 	});

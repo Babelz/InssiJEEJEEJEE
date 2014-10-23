@@ -17,9 +17,9 @@ void JamGame::update(sf::Time &tpf) {
 		if (event.type == sf::Event::Closed)
 			window.close();
 	}
+	screen.update(tpf);
 }
 
 void JamGame::draw(sf::RenderWindow &window) {
-	window.clear(sf::Color::Black);
-	window.display();
+	screen.draw(window);
 }

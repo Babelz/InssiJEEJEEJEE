@@ -1,21 +1,23 @@
 #pragma once
 
 #include <vector>
-#include <GameObjectComponent.h>
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
+class GameObjectComponent;
+#include "GameObjectComponent.h"
 
 class GameObject
 {
 private:
-	std::vector<GameObjectComponent> components;
-	b2BodyDef body;
+	std::vector<GameObjectComponent*> components;
+
 
 public:
+	b2Body *body;
 	GameObject();
 	~GameObject();
 
-	void addComponent(GameObjectComponent &component);
+	void addComponent(GameObjectComponent* component);
 	
 
 	virtual void update(sf::Time &tpf);
@@ -23,11 +25,11 @@ public:
 
 	// get's set's
 	inline void setPosition(float x, float y) {
-		body.position = b2Vec2(x, y);
+		body->SetTransform(b2Vec2(x, y), 0.0f);
 	}
 
-	inline b2Vec2& getPosition() {
-		return body.position;
+	inline const b2Vec2& getPosition() {
+		return body->GetTransform().p;
 	}
 
 	

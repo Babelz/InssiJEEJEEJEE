@@ -7,9 +7,10 @@
 class World
 {
 private:
-	b2World world;
+	
 	std::vector<GameObject*> gameObjects;
 public:
+	b2World world;
 	World();
 	~World();
 
