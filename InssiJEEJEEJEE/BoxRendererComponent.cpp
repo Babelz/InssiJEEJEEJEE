@@ -1,5 +1,5 @@
 #include "BoxRendererComponent.h"
-
+#include "InssiMath.h"
 
 BoxRendererComponent::BoxRendererComponent(GameObject* owner, sf::Texture &texture) 
 	: GameObjectComponent(owner), texture(texture)
@@ -21,7 +21,9 @@ void BoxRendererComponent::draw(sf::RenderWindow& window) {
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
 	sprite.setOrigin(originX, originY);
-	sprite.setPosition(getOwner()->body->GetPosition().x + originX , getOwner()->body->GetPosition().y + originY );
+	sprite.setPosition(
+		Convert::box2dToWorld(getOwner()->body->GetPosition().x) + originX,
+		Convert::box2dToWorld(getOwner()->body->GetPosition().y) + originY);
 	sprite.setRotation(getOwner()->body->GetAngle() * 180 / b2_pi);
 	window.draw(sprite);
 }

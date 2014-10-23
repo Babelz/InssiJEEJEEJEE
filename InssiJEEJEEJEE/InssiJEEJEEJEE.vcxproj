@@ -81,6 +81,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="InputMovementComponent.cpp" />
+    <ClCompile Include="InssiMath.cpp" />
     <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="World.cpp" />
@@ -88,6 +90,8 @@
     <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputMovementComponent.h" />
+    <ClInclude Include="InssiMath.h" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="TestiState.hpp" />

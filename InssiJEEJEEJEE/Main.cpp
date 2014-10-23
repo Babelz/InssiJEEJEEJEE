@@ -3,7 +3,6 @@
 #include "AStarGrid.h"
 #include "AstarPathfinder.h"
 #include "JamGame.h"
-
 int main()
 {
 	JamGame game(1280, 720);
