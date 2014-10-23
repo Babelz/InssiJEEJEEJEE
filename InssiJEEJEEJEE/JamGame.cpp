@@ -1,5 +1,5 @@
 #include "JamGame.h"
-
+#include "GameplayScreen.h"
 
 JamGame::JamGame(int width, int height) : Game(width, height)
 {
@@ -8,8 +8,7 @@ JamGame::JamGame(int width, int height) : Game(width, height)
 }
 
 
-JamGame::~JamGame()
-{
+JamGame::~JamGame() {
 }
 
 void JamGame::update(sf::Time &tpf) {
