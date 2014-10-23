@@ -1,13 +1,13 @@
 #include "JamGame.h"
 
 
-JamGame::JamGame(int width, int height) : Game(width, height)
-{
+JamGame::JamGame(int width, int height) : Game(width, height) {
 }
 
 
-JamGame::~JamGame()
-{
+JamGame::~JamGame() {
+	delete(grid);
+	delete(pathfinder);
 }
 
 void JamGame::update(sf::Time &tpf) {
@@ -21,5 +21,6 @@ void JamGame::update(sf::Time &tpf) {
 
 void JamGame::draw(sf::RenderWindow &window) {
 	window.clear(sf::Color::Black);
+
 	window.display();
 }

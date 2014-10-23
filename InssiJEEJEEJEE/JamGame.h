@@ -1,5 +1,8 @@
 #pragma once
 #include "Game.h"
+#include "AStarGrid.h"
+#include "AStarPathfinder.h"
+
 class JamGame :
 	public Game
 {

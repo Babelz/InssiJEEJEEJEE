@@ -44,7 +44,7 @@ AStarNode* const AStarGrid::getNode(sf::Vector2f position) {
 	return nodes.itemAtIndex(y, x);
 }
 bool AStarGrid::inBounds(int y, int x) {
-	return x < nodes.getWidth() && y < nodes.getWidth() &&
+	return (x < nodes.getWidth() && y < nodes.getHeight()) &&
 		   x >= 0 && y >= 0;
 }
 bool AStarGrid::inBounds(sf::Vector2f position) {
@@ -54,7 +54,7 @@ bool AStarGrid::inBounds(sf::Vector2f position) {
 	int x = (int)((position.x + mX) / nodeSize.x);
 	int y = (int)((position.y + mY) / nodeSize.y);
 
-	return x < nodes.getWidth() && y < nodes.getHeight() &&
+	return (x < nodes.getWidth() && y < nodes.getHeight()) &&
 		   x >= 0 && y >= 0;
 }
 
