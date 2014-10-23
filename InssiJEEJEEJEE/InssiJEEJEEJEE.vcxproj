@@ -73,6 +73,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TestiState.cpp" />
@@ -81,6 +83,10 @@
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="TestiState.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="JamGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
