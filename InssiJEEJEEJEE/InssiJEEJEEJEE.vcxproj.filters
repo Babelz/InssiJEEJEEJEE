@@ -18,6 +18,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="AStarNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,10 +26,17 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AStarPathfinder.cpp">
+=======
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JamGame.cpp">
+>>>>>>> 1731f3f35959b411442c023bfd945b1c2beb10c8
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="JaggedVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,6 +47,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AStarPathfinder.h">
+=======
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JamGame.h">
+>>>>>>> 1731f3f35959b411442c023bfd945b1c2beb10c8
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
