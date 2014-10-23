@@ -74,6 +74,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxRendererComponent.cpp" />
+    <ClCompile Include="AStarGrid.cpp" />
+    <ClCompile Include="AStarNode.cpp" />
+    <ClCompile Include="AStarPathfinder.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
@@ -81,8 +84,13 @@
     <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="State.hpp" />
+    <ClInclude Include="StateManager.hpp" />
+    <ClInclude Include="TestiState.hpp" />
     <ClInclude Include="BoxRendererComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -90,11 +98,10 @@
     <ClInclude Include="GameplayScreen.h" />
     <ClInclude Include="JamGame.h" />
     <ClInclude Include="World.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\..\..\..\box.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-    </Image>
+    <ClInclude Include="AStarGrid.h" />
+    <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="AStarPathfinder.h" />
+    <ClInclude Include="JaggedVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
