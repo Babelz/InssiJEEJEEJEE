@@ -25,7 +25,7 @@ public:
 		leverSound.play();
 	}
 	void playSelection(){selectionSound.play();}
-	void playSmallMonterEntry(){smallMonsterEntrySound.play();}
+	void playSmallMonsterEntry(){smallMonsterEntrySound.play();}
 	void playSmallMonsterDeath(){smallMonsterGruntSound.play();}
 	void playBigMonsterEntry(){bigMonsterEntrySound.play();}
 	void playBigMonsterGrunt(){smallMonsterGruntSound.play();}

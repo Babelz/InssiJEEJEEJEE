@@ -24,9 +24,9 @@ void soundManager::initialiseSound()
 	walkSound1.setBuffer(walkSoundBuffer1);
 	walkSoundBuffer2.loadFromFile("effects/footSteps2.ogg");
 	walkSound2.setBuffer(walkSoundBuffer2);
-	smallMonsterGruntSoundBuffer.loadFromFile("effects/smallEntry.ogg");
+	smallMonsterGruntSoundBuffer.loadFromFile("effects/smallDeath.ogg");
 	smallMonsterGruntSound.setBuffer(smallMonsterGruntSoundBuffer);
-	smallMonsterEntrySoundBuffer.loadFromFile("effects/smallDeath.ogg");
+	smallMonsterEntrySoundBuffer.loadFromFile("effects/smallEntry.ogg");
 	smallMonsterEntrySound.setBuffer(smallMonsterEntrySoundBuffer);
 	bigMonsterEntrySoundBuffer.loadFromFile("effects/bigEntry.ogg");
 	bigMonsterEntrySound.setBuffer(bigMonsterEntrySoundBuffer);

@@ -13,16 +13,15 @@ class FollowState;
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
-b2Body* createMonsterBody(float x, float y, b2World& world);
+//b2Body* createMonsterBody(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
 
-
 GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
-
-	sf::Texture box, gfxMonster1, gfxMonster2;
-	if (!box.loadFromFile("box.png") || !gfxMonster1.loadFromFile("monster1.png") || !gfxMonster2.loadFromFile("monster2.png"))
+	sf::Texture box;
+	if (!box.loadFromFile("box.png"))
 		return;
 
+	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
 	attachBody(player, createPlayerBody(900.f, 128.f, *world.getBoxWorld()));
@@ -36,27 +35,8 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(player);
 	world.setPlayer(player);
 
-	GameObject* monster2 = new GameObject();
-	attachBody(monster2, createMonsterBody(1024.f, 128.f, *world.getBoxWorld()));
-	monster2->addComponent(new BoxRendererComponent(monster2, gfxMonster2));
-	monster2->addComponent(new HealthComponent(monster2, 100));
-
-	FiniteStateMachine* brain = new FiniteStateMachine(monster2);
-	brain->pushState(new FollowState(monster2, brain, &world));
-	monster2->addComponent(brain);
-
-	world.addGameObject(monster2);
-
-	monsterGenerator = new MonsterGenerator(world, "monster1.png");
-}
-
-void generateMonster(World &world, sf::Texture &texture)
-{
-	GameObject* monster1 = new GameObject();
-	monster1->body = createMonsterBody(0, 0, *world.getBoxWorld());
-	monster1->addComponent(new BoxRendererComponent(monster1, texture));
-	monster1->addComponent(new HealthComponent(monster1, 100));
-	world.addGameObject(monster1);
+	monsterGenerator = new MonsterGenerator(world, sound_manager);
+	monsterGenerator->spawnMonsters();
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
@@ -99,25 +79,6 @@ b2Body* createTile(float x, float y, b2World& world) {
 	return body;
 }
 
-b2Body* createMonsterBody(float x, float y, b2World& world) {
-	b2BodyDef BodyDef;
-	BodyDef.position = Convert::worldToBox2d(x, y);
-	BodyDef.type = b2_dynamicBody;
-	BodyDef.fixedRotation = true;
-	BodyDef.linearDamping = 50;
-	b2Body* body = world.CreateBody(&BodyDef);
-
-	b2PolygonShape Shape;
-	// TODO siirrä collider alas
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
-	b2FixtureDef FixtureDef;
-	FixtureDef.friction = 0.7f;
-	FixtureDef.shape = &Shape;
-	body->CreateFixture(&FixtureDef);
-
-	return body;
-}
-
 GameplayScreen::~GameplayScreen()
 {
 	delete monsterGenerator;
@@ -125,7 +86,7 @@ GameplayScreen::~GameplayScreen()
 }
 
 void GameplayScreen::update(sf::Time& tpf) {
-	//monsterGenerator->spawnMonsters();
+	
 	world.update(tpf);
 }
 
