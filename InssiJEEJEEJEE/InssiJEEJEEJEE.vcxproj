@@ -84,6 +84,7 @@
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputMovementComponent.cpp" />
     <ClCompile Include="InssiMath.cpp" />
     <ClCompile Include="InventoryComponent.cpp" />
@@ -101,6 +102,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="InssiMath.h" />
     <ClInclude Include="ForestMapGenerator.h" />
     <ClInclude Include="InputMovementComponent.h" />

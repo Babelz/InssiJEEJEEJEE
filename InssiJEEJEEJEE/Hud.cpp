@@ -1,13 +1,15 @@
 #include "Hud.h"
 
 
-Hud::Hud(int *health, int *souls, int *moonPos, sf::Vector2f windowSize)
+Hud::Hud(GameObject* owner, int *health, int *souls, int *moonPos, sf::Vector2f windowSize, Camera* camera) 
+	: GameObjectComponent(owner)
 {
+	this->camera = camera;
 	this->windowSize = windowSize;
 
 	this->health = health;
 	this->souls = souls;
-	this->moonPosition = moonPosition;
+	this->moonPosition = moonPos;
 
 	font.loadFromFile("BLKCHCRY.ttf");
 	moonTexture.loadFromFile("moon2.png");
@@ -25,12 +27,14 @@ Hud::Hud(int *health, int *souls, int *moonPos, sf::Vector2f windowSize)
 	text.setFont(font);
 	text.setCharacterSize(40);
 
-	moonShape.setPosition(windowSize.x / 2 - moonShape.getRadius(), 0);
-	soulShape.setPosition(windowSize.x - soulShape.getSize().x, windowSize.y - soulShape.getSize().y);
-	text.setPosition(soulShape.getPosition().x - 8,soulShape.getPosition().y);
-}
 
-void Hud::Draw(sf::RenderWindow *window)
+}
+void Hud::update(sf::Time& tpf) { 
+	moonShape.setPosition(windowSize.x / 2 - moonShape.getRadius() + camera->getPosition().x, camera->getPosition().y);
+	soulShape.setPosition(windowSize.x - soulShape.getSize().x + camera->getPosition().x, windowSize.y - soulShape.getSize().y * 1.5f + camera->getPosition().y);
+	text.setPosition(soulShape.getPosition().x - (text.getString().getSize() * 20.f), soulShape.getPosition().y - 10.f );
+}
+void Hud::draw(sf::RenderWindow& window)
 {
 	// muutetaan nykynen saulimäärä stringiksi
 	std::stringstream ss;
@@ -39,36 +43,39 @@ void Hud::Draw(sf::RenderWindow *window)
 	text.setString(str);
 
 
+
 	// healthin piirto
 	int i = 0;
+	float x = camera->getPosition().x;
+	float y = camera->getPosition().y;
 	for (i; i < *health / 3; i++)
 	{
-		healthShape.setPosition(i*healthShape.getSize().x, 0);
-		healthShape.setTextureRect(sf::IntRect(64, 0, 64, 64));
-		window->draw(healthShape);
+		healthShape.setPosition(x + i*healthShape.getSize().x, y);
+		healthShape.setTextureRect(sf::IntRect(0, 0, 64, 64));
+		window.draw(healthShape);
 	}
 	
 	if (*health % 3 == 2)
 	{
-		healthShape.setPosition(i*healthShape.getSize().x, 0);
+		healthShape.setPosition(x + i*healthShape.getSize().x, y);
 		healthShape.setTextureRect(sf::IntRect(64, 0, 64, 64));
-		window->draw(healthShape);
+		window.draw(healthShape);
 	}
 
 	if (*health % 3 == 1)
 	{
-		healthShape.setPosition(i*healthShape.getSize().x, 0);
+		healthShape.setPosition(x + i*healthShape.getSize().x, y);
 		healthShape.setTextureRect(sf::IntRect(128, 0, 64, 64));
-		window->draw(healthShape);
+		window.draw(healthShape);
 	}
 	// soulien piirto
 
-	window->draw(soulShape);
-	window->draw(text);
+	window.draw(soulShape);
+	window.draw(text);
 
 	// kuun piirto
 	moonShape.setTextureRect(sf::IntRect(*moonPosition, 0, 64, 64));
-	window->draw(moonShape);
+	window.draw(moonShape);
 }
 Hud::~Hud()
 {

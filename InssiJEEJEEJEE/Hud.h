@@ -3,13 +3,17 @@
 #include <SFML\System.hpp>
 #include <iostream>
 #include <sstream>
-class Hud
+#include "GameObjectComponent.h"
+#include "Camera.h"
+class Hud : public GameObjectComponent
 {
 public:
-	Hud(int *health, int *souls, int *moonPos, sf::Vector2f windowSize);
-	void Draw(sf::RenderWindow *window);
+	Hud(GameObject* owner, int *health, int *souls, int *moonPos, sf::Vector2f windowSize, Camera* camera);
+	void draw(sf::RenderWindow& window);
+	void update(sf::Time& tpf);
 	~Hud();
 private:
+	Camera* camera;
 	sf::Font font;
 	sf::Text text;
 	sf::Texture moonTexture, soulTexture, healthTexture;
