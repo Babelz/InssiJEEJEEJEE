@@ -8,6 +8,7 @@ b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 b2Body* createMonsterBody(float x, float y, b2World& world);
 GameplayScreen::GameplayScreen() {
+
 	sf::Texture box, gfxMonster1, gfxMonster2;
 	if (!box.loadFromFile("box.png") || !gfxMonster1.loadFromFile("monster1.png") || !gfxMonster2.loadFromFile("monster2.png"))
 		return;

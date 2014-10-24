@@ -7,6 +7,7 @@ class Hud
 {
 public:
 	Hud(int *health, int *souls, int *moonPos, sf::Vector2f windowSize);
+	// sidotaan viewporttiin
 	void Draw(sf::RenderWindow *window);
 	~Hud();
 private:
