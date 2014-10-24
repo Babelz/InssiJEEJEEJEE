@@ -27,9 +27,8 @@ void World::update(sf::Time& tpf) {
 	});
 }
 
-void World::draw(sf::RenderWindow& window) {
-	map->draw(window);
-
+void World::draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY) {
+	map->draw(window, fromX, toX, fromY, toY);
 	std::for_each(gameObjects.begin(), gameObjects.end(), [&window](GameObject* go) {
 		go->draw(window);
 	});

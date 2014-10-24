@@ -21,7 +21,7 @@ public:
 	void initializeTiles();
 
 	void update(sf::Time &tpf);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window, int fromX, int toX, int fromY, int toY);
 
 	~Map();
 };

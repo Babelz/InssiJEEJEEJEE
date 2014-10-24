@@ -3,10 +3,12 @@
 #include <SFML\Graphics.hpp>
 #include "World.h"
 #include "State.hpp"
+#include "Camera.h"
 class GameplayScreen : public State
 {
 private:
 	World world;
+	Camera* camera;
 public:
 	GameplayScreen();
 	~GameplayScreen();

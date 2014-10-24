@@ -16,8 +16,12 @@ public:
 	World();
 	~World();
 
+	Map* getActiveMap() {
+		return map;
+	}
+
 	void update(sf::Time& tpf);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY);
 
 	void addGameObject(GameObject* gobject);
 };

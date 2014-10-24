@@ -5,17 +5,18 @@
 #include "InssiMath.h"
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
-GameplayScreen::GameplayScreen()
-{
+GameplayScreen::GameplayScreen() {
 	sf::Texture box;
 	if (!box.loadFromFile("box.png"))
 		return;
 
 
 	GameObject* player = new GameObject();
+	camera = new Camera(player, world, 1280, 720);
 	player->body = createPlayerBody(0, 720 / 2, world.world);
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
+	player->addComponent(camera);
 	world.addGameObject(player);
 
 	player->body->SetLinearVelocity(b2Vec2(500, 0));
@@ -70,7 +71,24 @@ void GameplayScreen::update(sf::Time& tpf) {
 
 void GameplayScreen::draw(sf::RenderWindow& window) {
 	window.clear(sf::Color::Green);
-	world.draw(window);
+	sf::View view = window.getDefaultView();
+	view.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
+	view.reset(sf::FloatRect(camera->getPosition().x, camera->getPosition().y, camera->width, camera->height));
+	window.setView(view);
+	
+	/*int xPixels = (camera->getViewport().width + camera->getPosition().x) / 32.f;
+	int yPixels = (camera->getViewport().height + camera->getPosition().y) / 32.f;
+	
+	int fromX = std::max(0, (int)camera->getPosition().x / 32 - 1);
+	
+	int fromY = std::max(0, (int)camera->getPosition().y / 32 - 1);
+	
+	int toX = std::min(xPixels + 1, world.getActiveMap()->getWidth());
+	
+	int toY = std::min(yPixels + 1, world.getActiveMap()->getHeight());*/
+	
+	world.draw(window, 0, 0, 0, 0);
+	
 	window.display();
 }
 
