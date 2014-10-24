@@ -2,6 +2,7 @@
 #include "GameplayScreen.h"
 #include "BoxRendererComponent.h"
 #include "InputMovementComponent.h"
+#include "HealthComponent.h"
 #include "InssiMath.h"
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
@@ -18,6 +19,7 @@ GameplayScreen::GameplayScreen() {
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(camera);
+	player->addComponent(new HealthComponent(player, 100));
 	world.addGameObject(player);
 
 	player->body->SetLinearVelocity(b2Vec2(500, 0));
@@ -29,11 +31,13 @@ GameplayScreen::GameplayScreen() {
 	GameObject* monster1 = new GameObject();
 	monster1->body = createMonsterBody(100, 100, world.world);
 	monster1->addComponent(new BoxRendererComponent(monster1, gfxMonster1));
+	monster1->addComponent(new HealthComponent(monster1, 100));
 	world.addGameObject(monster1);
 
 	GameObject* monster2 = new GameObject();
 	monster2->body = createMonsterBody(500, 500, world.world);
 	monster2->addComponent(new BoxRendererComponent(monster2, gfxMonster2));
+	monster2->addComponent(new HealthComponent(monster2, 100));
 	world.addGameObject(monster2);
 }
 
