@@ -86,6 +86,8 @@
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="InputMovementComponent.cpp" />
     <ClCompile Include="InssiMath.cpp" />
+    <ClCompile Include="InventoryComponent.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -102,6 +104,8 @@
     <ClInclude Include="InssiMath.h" />
     <ClInclude Include="ForestMapGenerator.h" />
     <ClInclude Include="InputMovementComponent.h" />
+    <ClInclude Include="InventoryComponent.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="State.hpp" />
