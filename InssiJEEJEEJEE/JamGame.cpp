@@ -1,8 +1,9 @@
 #include "JamGame.h"
 #include "GameplayScreen.h"
 
-JamGame::JamGame(int width, int height) : Game(width, height) {
-	stateManager.add(new GameplayScreen());
+JamGame::JamGame(int width, int height) : Game(width, height)
+{
+	stateManager.add(new GameplayScreen(this));
 	stateManager.change(0);
 }
 

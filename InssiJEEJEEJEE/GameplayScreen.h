@@ -10,14 +10,16 @@
 #include "FollowState.h"
 #include "Camera.h"
 #include "GameState.hpp"
+#include "MonsterGenerator.h"
 
 class GameplayScreen : public GameState
 {
 private:
 	World world;
 	Camera* camera;
+	MonsterGenerator *monsterGenerator;
 public:
-	GameplayScreen();
+	GameplayScreen(Game* game);
 	~GameplayScreen();
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);

@@ -52,7 +52,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(MSBuildProjectDirectory)\SFML\bin\*.dll" "$(TargetDir)" /D /K /Y</Command>
@@ -87,6 +87,7 @@
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputMovementComponent.cpp" />
     <ClCompile Include="InssiMath.cpp" />
     <ClCompile Include="InventoryComponent.cpp" />
@@ -97,12 +98,13 @@
     <ClCompile Include="ModelRegister.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="FollowState.cpp" />
-    <ClCompile Include="FollowState.h" />
+    <ClCompile Include="MouseMovementComponent.cpp" />
+    <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="MonsterGenerator.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileModel.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
-    <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -110,6 +112,7 @@
     <ClInclude Include="DirectionHandler.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="InssiMath.h" />
     <ClInclude Include="ForestMapGenerator.h" />
     <ClInclude Include="InputMovementComponent.h" />
@@ -119,8 +122,11 @@
     <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="MonsterGenerator.h" />
+    <ClInclude Include="MouseMovementComponent.h" />
+    <ClInclude Include="soundManager.h" />
+    <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
-    <ClInclude Include="TestiState.hpp" />
     <ClInclude Include="BoxRendererComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

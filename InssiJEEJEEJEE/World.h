@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include <vector>
 #include "Map.h"
+#include "Hud.h"
 
 class World
 {
