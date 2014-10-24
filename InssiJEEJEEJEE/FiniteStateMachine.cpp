@@ -1,5 +1,7 @@
 #include "FiniteStateMachine.h"
 
+using namespace AI;
+
 CooldownTimer* const FiniteStateMachine::getTimers() {
 	return timers;
 }

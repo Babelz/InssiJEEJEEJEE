@@ -5,6 +5,8 @@
 
 namespace AI 
 {
+	class FiniteStateMachine;
+
 	class State
 	{
 	private:
