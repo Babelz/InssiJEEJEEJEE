@@ -5,12 +5,16 @@
 #include "State.hpp"
 #include "Camera.h"
 #include "MonsterGenerator.h"
+#include "soundManager.h"
+
 class GameplayScreen : public State
 {
 private:
 	World world;
 	Camera* camera;
 	MonsterGenerator *monsterGenerator;
+	soundManager sound_manager;
+
 public:
 	GameplayScreen(Game* game);
 	~GameplayScreen();
