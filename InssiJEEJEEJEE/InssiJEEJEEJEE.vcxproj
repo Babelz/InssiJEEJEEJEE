@@ -77,6 +77,7 @@
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="AStarPathfinder.cpp" />
+    <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
@@ -85,13 +86,20 @@
     <ClCompile Include="InssiMath.cpp" />
     <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ModelRegister.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileModel.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InputMovementComponent.h" />
     <ClInclude Include="InssiMath.h" />
+    <ClInclude Include="ForestMapGenerator.h" />
+    <ClInclude Include="InputMovementComponent.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="TestiState.hpp" />
@@ -101,6 +109,8 @@
     <ClInclude Include="GameObjectComponent.h" />
     <ClInclude Include="GameplayScreen.h" />
     <ClInclude Include="JamGame.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileModel.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="AStarGrid.h" />
     <ClInclude Include="AStarNode.h" />
