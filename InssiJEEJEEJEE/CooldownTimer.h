@@ -1,5 +1,4 @@
 #pragma once
-#include <map>
 #include "GameObjectComponent.h"
 
 typedef struct {
@@ -19,7 +18,7 @@ private:
 public:
 	CooldownTimer(GameObject* owner);
 
-	void addTimer(std::string name);
+	void addTimer(std::string name, int max);
 	void removeTimer(std::string name);
 
 	int getTimerValue(std::string name);

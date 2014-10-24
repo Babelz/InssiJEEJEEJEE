@@ -6,13 +6,18 @@
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="AStarPathfinder.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CooldownTimer.cpp" />
+    <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="InputMovementComponent.cpp" />
     <ClCompile Include="InssiMath.cpp" />
+    <ClCompile Include="InventoryComponent.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="JamGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -23,19 +28,23 @@
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TestiState.cpp" />
-    <ClCompile Include="CooldownTimer.cpp" />
-    <ClCompile Include="FiniteStateMachine.cpp" />
-    <ClCompile Include="States.cpp" />
+    <ClCompile Include="DirectionHandler.cpp" />
+    <ClCompile Include="FollowState.h" />
+    <ClCompile Include="FollowState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CooldownTimer.h" />
+    <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="InssiMath.h" />
     <ClInclude Include="ForestMapGenerator.h" />
     <ClInclude Include="InputMovementComponent.h" />
+    <ClInclude Include="InventoryComponent.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="Random.h" />
-    <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="TestiState.hpp" />
     <ClInclude Include="BoxRendererComponent.h" />
@@ -51,7 +60,7 @@
     <ClInclude Include="AStarNode.h" />
     <ClInclude Include="AStarPathfinder.h" />
     <ClInclude Include="JaggedVector.h" />
-    <ClInclude Include="CooldownTimer.h" />
-    <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="DirectionHandler.h" />
   </ItemGroup>
 </Project>

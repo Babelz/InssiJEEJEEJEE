@@ -12,6 +12,8 @@ Timer* CooldownTimer::getTimer(std::string name) {
 			return timers[i];
 		}
 	}
+
+	return 0;
 }
 
 void CooldownTimer::update(sf::Time& tpf) {
@@ -19,7 +21,7 @@ void CooldownTimer::update(sf::Time& tpf) {
 		return;
 	}
 
-	int elapsed = tpf.asMicroseconds();
+	int elapsed = tpf.asMilliseconds();
 
 	for (int i = 0; i < timers.size(); i++) {
 		timers[i]->elapsed += elapsed;
@@ -29,11 +31,16 @@ void CooldownTimer::update(sf::Time& tpf) {
 void CooldownTimer::draw(sf::RenderWindow& window) {
 }
 
-void CooldownTimer::addTimer(std::string name) {
+void CooldownTimer::addTimer(std::string name, int max) {
 	Timer* timer = getTimer(name);
 
 	if (timer == 0) {
-		timers.push_back(new Timer());
+		timer = new Timer();
+		timer->name = name;
+		timer->max = max;
+		timer->elapsed = 0;
+
+		timers.push_back(timer);
 	}
 }
 void CooldownTimer::removeTimer(std::string name) {

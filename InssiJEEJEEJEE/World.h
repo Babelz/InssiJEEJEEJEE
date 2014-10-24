@@ -12,10 +12,14 @@ private:
 	b2World world;
 	Map* map;
 	std::vector<GameObject*> gameObjects;
+	GameObject* player;
 public:
 	b2World* const getBoxWorld();
 	Map* const getActiveMap();
 	
+	void setPlayer(GameObject* player);
+	GameObject* const getPlayer();
+
 	World();
 
 	void update(sf::Time& tpf);

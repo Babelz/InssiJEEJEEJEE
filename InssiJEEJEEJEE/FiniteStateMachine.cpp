@@ -1,7 +1,5 @@
 #include "FiniteStateMachine.h"
 
-using namespace AI;
-
 CooldownTimer* const FiniteStateMachine::getTimers() {
 	return timers;
 }
@@ -9,14 +7,15 @@ CooldownTimer* const FiniteStateMachine::getTimers() {
 FiniteStateMachine::FiniteStateMachine(GameObject* owner) :
 GameObjectComponent(owner) {
 	timers = new CooldownTimer(owner);
+	timers->start();
 }
 
-void FiniteStateMachine::pushState(State* state) {
+void FiniteStateMachine::pushState(MachineState* state) {
 	states.push(state);
 }
-State* FiniteStateMachine::popState() {
+MachineState* FiniteStateMachine::popState() {
 	if (states.size() != 0) {
-		State* state = states.top();
+		MachineState* state = states.top();
 		states.pop();
 
 		return state;
@@ -30,8 +29,10 @@ bool FiniteStateMachine::hasStates() {
 
 void FiniteStateMachine::update(sf::Time& tpf) {
 	if (hasStates()) {
-		states.top()->Update(tpf);
+		states.top()->update(tpf);
 	}
+
+	timers->update(tpf);
 }
 
 void FiniteStateMachine::draw(sf::RenderWindow& window) {
@@ -39,7 +40,7 @@ void FiniteStateMachine::draw(sf::RenderWindow& window) {
 
 FiniteStateMachine::~FiniteStateMachine() {
 	while (hasStates()) {
-		State* state = popState();
+		MachineState* state = popState();
 
 		delete(state);
 	}

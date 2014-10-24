@@ -6,6 +6,12 @@ b2World* const World::getBoxWorld() {
 Map* const World::getActiveMap() {
 	return map;
 }
+void World::setPlayer(GameObject* player) {
+	this->player = player;
+}
+GameObject* const World::getPlayer() {
+	return player;
+}
 
 World::World() : world(b2Vec2(0.0f, 0.0f)) {
 	ForestMapGenerator generator;

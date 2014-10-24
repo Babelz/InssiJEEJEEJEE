@@ -1,7 +1,7 @@
 #pragma once
-#include "State.hpp"
+#include "GameState.hpp"
 
-class TestiState : public State
+class TestiState : public GameState
 {
 private:
 	sf::CircleShape *shape;

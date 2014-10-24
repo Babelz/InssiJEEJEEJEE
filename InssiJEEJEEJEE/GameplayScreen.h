@@ -1,10 +1,17 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "World.h"
-#include "State.hpp"
+#include "GameObject.h"
+#include "BoxRendererComponent.h"
+#include "InputMovementComponent.h"
+#include "HealthComponent.h"
+#include "InssiMath.h"
+#include "FiniteStateMachine.h"
+#include "FollowState.h"
 #include "Camera.h"
-class GameplayScreen : public State
+#include "GameState.hpp"
+
+class GameplayScreen : public GameState
 {
 private:
 	World world;

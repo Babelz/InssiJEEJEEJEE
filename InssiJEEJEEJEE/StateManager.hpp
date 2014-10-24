@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
-#include "State.hpp"
+#include "GameState.hpp"
 
 class StateManager
 {
 private:
-	std::vector<State*> states;
-	std::vector<State*> activeStates;
+	std::vector<GameState*> states;
+	std::vector<GameState*> activeStates;
 public:
-	int add(State* state);
+	int add(GameState* state);
 	void change(unsigned int i);
 	void push(unsigned int i);
 	void pop();

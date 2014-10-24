@@ -3,11 +3,9 @@
 #include <stack>
 #include "CooldownTimer.h"
 
-namespace AI 
-{
 	class FiniteStateMachine;
 
-	class State
+	class MachineState
 	{
 	private:
 		GameObject* owner;
@@ -20,26 +18,26 @@ namespace AI
 			return stateMachine;
 		}
 	public:
-		State(GameObject* owner, FiniteStateMachine* stateMachine) {
+		MachineState(GameObject* owner, FiniteStateMachine* stateMachine) {
 			this->owner = owner;
 			this->stateMachine = stateMachine;
 		}
 
-		virtual void Update(sf::Time& tpf) = 0;
+		virtual void update(sf::Time& tpf) = 0;
 	};
 
 	class FiniteStateMachine : public GameObjectComponent
 	{
 	private:
-		std::stack<State*> states;
+		std::stack<MachineState*> states;
 		CooldownTimer* timers;
 	public:
 		CooldownTimer* const getTimers();
 
 		FiniteStateMachine(GameObject* owner);
 
-		void pushState(State* state);
-		State* popState();
+		void pushState(MachineState* state);
+		MachineState* popState();
 		bool hasStates();
 
 		virtual void update(sf::Time& tpf);
@@ -47,5 +45,4 @@ namespace AI
 
 		~FiniteStateMachine();
 	};
-}
 

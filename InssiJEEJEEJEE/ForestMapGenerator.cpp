@@ -30,11 +30,11 @@ std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths() {
 	startPoints.push_back(sf::Vector2f(0.0f, (mapHeight * tileHeight) - tileHeight));
 	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) - tileWidth, (mapHeight * tileHeight) - tileHeight));
 
-	for (int i = 0; i < mapWidth; i += 10) {
+	/*for (int i = 0; i < mapWidth; i += 10) {
 		// Ylä ja ala kohdat keskeltä.
 		startPoints.push_back(sf::Vector2f(i * tileWidth, 0.0f));
 		startPoints.push_back(sf::Vector2f(i * tileWidth, (mapHeight * tileHeight) - tileHeight));
-	}
+	}*/
 
 	std::vector<sf::Vector2f> allPaths;
 
@@ -80,9 +80,9 @@ Map* ForestMapGenerator::generate(World& const world) {
 
 			int modelId = 0;
 			if (std::find(paths.begin(), paths.end(), position) != paths.end()) {
-				modelId = random.next(3, 5);
+				modelId = 5;//random.next(3, 5);
 			} else {
-				modelId = random.next(0, 2);
+				modelId = 2; //random.next(0, 2);
 			}
 
 			// Haetaan model id:llä.
@@ -100,6 +100,7 @@ Map* ForestMapGenerator::generate(World& const world) {
 	for (int i = 0; i < mapHeight; i++) {
 		for (int j = 0; j < mapWidth; j++) {
 			grid->nodeAtIndex(i, j)->setNodeType(UNWALKABLE);
+			grid->nodeAtIndex(i, j)->setMod(0);
 		}
 	}
 

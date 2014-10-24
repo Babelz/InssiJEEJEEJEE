@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class State
+class GameState
 {
 public:
 	virtual void activate() = 0;
