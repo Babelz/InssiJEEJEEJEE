@@ -35,11 +35,8 @@ AStarGrid::AStarGrid(int width, int height, sf::Vector2f nodeSize) {
 }
 
 AStarNode* const AStarGrid::getNode(sf::Vector2f position) {
-	float mX = fmod(position.x, nodeSize.x);
-	float mY = fmod(position.y, nodeSize.y);
-
-	int x = (int)((position.x + mX) / nodeSize.x);
-	int y = (int)((position.y + mY) / nodeSize.y);
+	int x = calcIndexX(position.x);
+	int y = calcIndexY(position.y);
 
 	return nodes.itemAtIndex(y, x);
 }
@@ -47,15 +44,22 @@ bool AStarGrid::inBounds(int y, int x) {
 	return x < nodes.getWidth() && y < nodes.getHeight() &&
 		   x >= 0 && y >= 0;
 }
+int AStarGrid::calcIndexX(float x) {
+	float mX = fmod(x, nodeSize.x);
+
+	return (int)((x + mX) / nodeSize.x);
+}
+int AStarGrid::calcIndexY(float y) {
+	float mY = fmod(y, nodeSize.y);
+
+	return (int)((y + mY) / nodeSize.y);
+}
+
 bool AStarGrid::inBounds(sf::Vector2f position) {
-	float mX = fmod(position.x, nodeSize.x);
-	float mY = fmod(position.y, nodeSize.y);
-
-	int x = (int)((position.x + mX) / nodeSize.x);
-	int y = (int)((position.y + mY) / nodeSize.y);
-
-	return  x < nodes.getWidth() && y < nodes.getHeight() &&
-		    x >= 0 && y >= 0;
+	int x = calcIndexX(position.x);
+	int y = calcIndexY(position.y);
+	
+	return inBounds(y, x);
 }
 
 bool AStarGrid::isWalkableAt(sf::Vector2f position) {
@@ -111,6 +115,7 @@ AStarNode* AStarGrid::nodeAtIndex(int y, int x) {
 	return nodes.itemAtIndex(y, x);
 }
 
+// P‰ivitt‰‰ kaikki nodet.
 void AStarGrid::updateNodse() {
 	for (int i = 0; i < nodes.getHeight(); i++) {
 		for (int j = 0; j < nodes.getWidth(); j++) {
@@ -118,6 +123,7 @@ void AStarGrid::updateNodse() {
 		}
 	}
 }
+// Resetoi kaikki nodet.
 void AStarGrid::resetNodes() {
 	for (int i = 0; i < nodes.getHeight(); i++) {
 		for (int j = 0; j < nodes.getWidth(); j++) {
@@ -126,6 +132,5 @@ void AStarGrid::resetNodes() {
 	}
 }
 
-AStarGrid::~AStarGrid()
-{
+AStarGrid::~AStarGrid() {
 }

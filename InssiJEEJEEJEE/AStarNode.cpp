@@ -36,7 +36,6 @@ void AStarNode::setParent(AStarNode* const parent) {
 	this->parent = parent;
 }
 
-
 AStarNode::AStarNode(sf::Vector2f position, sf::Vector2f size) {
 	this->position = position;
 	this->size = size;
@@ -80,7 +79,6 @@ void AStarNode::calculateG() {
 		g = 10.0f;
 	}
 }
-
 
 void AStarNode::update() {	
 	calculateH();

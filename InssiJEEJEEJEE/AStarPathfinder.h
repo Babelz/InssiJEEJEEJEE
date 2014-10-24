@@ -14,6 +14,8 @@ private:
 	bool foundPath;
 
 	std::vector<sf::Vector2f> internalFindPath(bool& foundPath);
+	int calcIndexX(float x);
+	int calcIndexY(float y);
 public:
 	bool getSkipCorners();
 	void setSkipCorners(bool skipCorners);

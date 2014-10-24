@@ -5,43 +5,18 @@ b2Body* createTile(float, float, b2World&);
 ForestMapGenerator::ForestMapGenerator() {
 }
 
-void ForestMapGenerator::generateRooms(int mapWidth, int mapHeight, int tileWidth, int tileHeight, std::vector<sf::Vector2f>& pathsToCenter) {
+void ForestMapGenerator::generateRooms(std::vector<sf::Vector2f>& pathsToCenter) {
 	// Tehd‰‰n temppelille tila keskelle.
 	for (int i =  mapHeight / 2 - 5; i < mapHeight / 2 + 5; i++) {
 		for (int j = mapWidth / 2 - 5; j < mapWidth / 2 + 5; j++) {
 			pathsToCenter.push_back(sf::Vector2f(j * tileWidth, i * tileHeight));
 		}
 	}
-
-	// Tehd‰‰n randomin verran pieni‰ "huoneita".
-	int rooms = 2 + (rand() % (int)(4 - 2 + 1));
-
-	for (int i = 0; i < rooms; i++) {
-		int x = rooms = 0 + (rand() % (int)((mapWidth - 5) - 0 + 1));
-		int y = rooms = 0 + (rand() % (int)((mapHeight - 3) - 0 + 1));
-
-		for (int j = y; j < y + 3; j++) {
-			for (int h = x; h < x + 5; h++) {
-				pathsToCenter.push_back(sf::Vector2f(h * tileWidth, j * tileHeight));
-			}
-		}
-	}
-
-	// Tehd‰‰n randomin verran isoja "huoneita".
-	rooms = 1 + (rand() % (int)(3 - 1 + 1));
-
-	for (int i = 0; i < rooms; i++) {
-		int x = rooms = 0 + (rand() % (int)((mapWidth - 10) - 0 + 1));
-		int y = rooms = 0 + (rand() % (int)((mapHeight - 5) - 0 + 1));
-
-		for (int j = y; j < y + 5; j++) {
-			for (int h = x; h < x + 10; h++) {
-				pathsToCenter.push_back(sf::Vector2f(h * tileWidth, j * tileHeight));
-			}
-		}
-	}
 }
-std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths(int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
+void ForestMapGenerator::generateHouses(std::vector<sf::Vector2f>& room) {
+
+}
+std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths() {
 	AStarGrid grid(mapWidth, mapHeight, sf::Vector2f(tileWidth, tileHeight));
 	AStarPathfinder pathFinder(&grid);
 
@@ -83,9 +58,6 @@ std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths(int mapWidth, int map
 }
 
 Map* ForestMapGenerator::generate(World& const world) {
-	int tileWidth = 32, tileHeight = 32;
-	int mapWidth = 40, mapHeight = 22;
-
 	JaggedVector<Tile>* tiles = new JaggedVector<Tile>(mapWidth, mapHeight);
 	ModelRegister* modelRegister = new ModelRegister();
 
@@ -97,8 +69,8 @@ Map* ForestMapGenerator::generate(World& const world) {
 	modelRegister->registerModel(new TileModel(4, "road2.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(5, "road3.png", sf::Vector2f(tileWidth, tileHeight), false));
 
-	std::vector<sf::Vector2f> paths = resolvePaths(mapWidth, mapHeight, tileWidth, tileHeight);
-	generateRooms(mapWidth, mapHeight, tileWidth, tileHeight, paths);
+	std::vector<sf::Vector2f> paths = resolvePaths();
+	generateRooms(paths);
 
 	for (int i = 0; i < mapHeight; i++) {
 		for (int j = 0; j < mapWidth; j++) {
@@ -107,9 +79,9 @@ Map* ForestMapGenerator::generate(World& const world) {
 
 			int modelId = 0;
 			if (std::find(paths.begin(), paths.end(), position) != paths.end()) {
-				modelId = 3 + (rand() % (int)(5 - 3 + 1));
+				modelId = random.next(3, 5);
 			} else {
-				modelId = 0 + (rand() % (int)(2 - 0 + 1));
+				modelId = random.next(0, 2);
 			}
 
 			// Haetaan model id:ll‰.
@@ -122,7 +94,7 @@ Map* ForestMapGenerator::generate(World& const world) {
 		}
 	}
 	
-	Map* map = new Map(tiles, modelRegister, paths);
+	Map* map = new Map(tiles, modelRegister, paths, tileWidth, tileHeight);
 	map->initializeTiles();
 
 	return map;

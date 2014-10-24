@@ -2,8 +2,7 @@
 
 
 Game::Game(int width, int height) : 
-	window(sf::VideoMode(width, height), "InssiJeeJee")
-{
+	window(sf::VideoMode(width, height), "InssiJeeJee") {
 	window.setFramerateLimit(60);
 }
 
@@ -17,6 +16,5 @@ void Game::run() {
 	}
 }
 
-Game::~Game()
-{
+Game::~Game() {
 }
