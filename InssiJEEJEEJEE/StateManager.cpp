@@ -1,6 +1,6 @@
 #include "StateManager.hpp"
 
-int StateManager::add(State* state)
+int StateManager::add(GameState* state)
 {
 	states.push_back(state);
 

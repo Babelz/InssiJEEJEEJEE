@@ -6,11 +6,23 @@ int Map::getWidth() {
 int Map::getHeight() {
 	return tiles->getHeight();
 }
+int Map::getTileHeight() {
+	return tileHeight;
+}
+int Map::getTileWidth() {
+	return tileWidth;
+}
+AStarGrid* const Map::getAStarGrid() {
+	return grid;
+}
 
-Map::Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister, std::vector<sf::Vector2f> paths) {
+Map::Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister, std::vector<sf::Vector2f> paths, int tileWidth, int tileHeight, AStarGrid* grid) {
 	this->tiles = tiles;
 	this->modelRegister = modelRegister;
 	this->paths = paths;
+	this->tileWidth = tileWidth;
+	this->tileHeight = tileHeight;
+	this->grid = grid;
 }
 
 void Map::initializeTiles() {

@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObjectComponent.h"
 #include "SFML/Graphics/RectangleShape.hpp"
-#include "InssiMath.h"
 
 class HealthComponent : public GameObjectComponent
 {

@@ -1,12 +1,10 @@
 #include "GameObjectComponent.h"
 
 
-GameObjectComponent::GameObjectComponent(GameObject* owner)
-{
+GameObjectComponent::GameObjectComponent(GameObject* owner) {
 	this->owner = owner;
 }
 
 
-GameObjectComponent::~GameObjectComponent()
-{
+GameObjectComponent::~GameObjectComponent() {
 }

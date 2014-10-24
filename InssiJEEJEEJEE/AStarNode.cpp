@@ -8,13 +8,13 @@ void AStarNode::setNodeType(NodeType nodeType) {
 	this->nodeType = nodeType;
 }
 
-float AStarNode::getF() {
+int AStarNode::getF() {
 	return this->h + this->g + this->mod;
 }
-float AStarNode::getH() {
+int AStarNode::getH() {
 	return this->h;
 }
-float AStarNode::getG() {
+int AStarNode::getG() {
 	return this->g;
 }
 
@@ -22,10 +22,10 @@ sf::Vector2f AStarNode::getPosition() {
 	return position;
 }
 
-float AStarNode::getMod() {
+int AStarNode::getMod() {
 	return this->mod;
 }
-void AStarNode::setMod(float mod) {
+void AStarNode::setMod(int mod) {
 	this->mod = mod;
 }
 
@@ -35,7 +35,6 @@ AStarNode* AStarNode::getParent() {
 void AStarNode::setParent(AStarNode* const parent) {
 	this->parent = parent;
 }
-
 
 AStarNode::AStarNode(sf::Vector2f position, sf::Vector2f size) {
 	this->position = position;
@@ -80,7 +79,6 @@ void AStarNode::calculateG() {
 		g = 10.0f;
 	}
 }
-
 
 void AStarNode::update() {	
 	calculateH();

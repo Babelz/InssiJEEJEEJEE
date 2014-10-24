@@ -8,6 +8,8 @@ void Tile::setModel(TileModel* const model) {
 
 	sprite.setTexture(*model->getTexture());
 	sprite.setPosition(getPosition().x, getPosition().y);
+	sprite.setScale(2.0f, 2.0f);
+
 	if (!model->getBlocked()) {
 		body->GetWorld()->DestroyBody(body);
 	}

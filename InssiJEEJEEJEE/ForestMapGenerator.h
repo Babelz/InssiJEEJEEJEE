@@ -6,14 +6,24 @@
 #include "ModelRegister.h"
 #include "AStarGrid.h"
 #include "AStarPathfinder.h"
+#include "Random.h"
 
 class World;
 
 class ForestMapGenerator
 {
 private:
-	std::vector<sf::Vector2f> resolvePaths(int mapWidth, int mapHeight, int tileWidth, int tileHeight);
-	void generateRooms(int mapWidth, int mapHeight, int tileWidth, int tileHeight, std::vector<sf::Vector2f>& pathsToCenter);
+	const int mapWidth = 80;
+	const int mapHeight = 50;
+	const int tileWidth = 32;
+	const int tileHeight = 32;
+
+	Random random;
+	AStarGrid* grid;
+
+	std::vector<sf::Vector2f> resolvePaths();
+	void generateRooms(std::vector<sf::Vector2f>& pathsToCenter);
+	void generateHouses(std::vector<sf::Vector2f>& rooms);
 public:
 	ForestMapGenerator();
 

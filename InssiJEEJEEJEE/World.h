@@ -10,21 +10,23 @@
 class World
 {
 private:
+	b2World world;
 	Map* map;
 	std::vector<GameObject*> gameObjects;
-	//Hud hud;
+	GameObject* player;
 public:
-	b2World world;
-	World();
-	~World();
+	b2World* const getBoxWorld();
+	Map* const getActiveMap();
+	
+	void setPlayer(GameObject* player);
+	GameObject* const getPlayer();
 
-	Map* getActiveMap() {
-		return map;
-	}
+	World();
 
 	void update(sf::Time& tpf);
 	void draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY);
-
 	void addGameObject(GameObject* gobject);
+
+	~World();
 };
 
