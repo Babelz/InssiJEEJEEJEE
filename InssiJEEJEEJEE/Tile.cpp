@@ -8,6 +8,9 @@ void Tile::setModel(TileModel* const model) {
 
 	sprite.setTexture(*model->getTexture());
 	sprite.setPosition(getPosition().x, getPosition().y);
+	if (!model->getBlocked()) {
+		body->GetWorld()->DestroyBody(body);
+	}
 }
 
 Tile::Tile(int modelId, sf::Vector2f position, b2Body* body) {

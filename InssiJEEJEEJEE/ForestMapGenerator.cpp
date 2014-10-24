@@ -84,7 +84,7 @@ std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths(int mapWidth, int map
 
 Map* ForestMapGenerator::generate(World& const world) {
 	int tileWidth = 32, tileHeight = 32;
-	int mapWidth = 40, mapHeight = 22;
+	int mapWidth = 80, mapHeight = 50;
 
 	JaggedVector<Tile>* tiles = new JaggedVector<Tile>(mapWidth, mapHeight);
 	ModelRegister* modelRegister = new ModelRegister();

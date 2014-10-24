@@ -76,7 +76,7 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	view.reset(sf::FloatRect(camera->getPosition().x, camera->getPosition().y, camera->width, camera->height));
 	window.setView(view);
 	
-	/*int xPixels = (camera->getViewport().width + camera->getPosition().x) / 32.f;
+	int xPixels = (camera->getViewport().width + camera->getPosition().x) / 32.f;
 	int yPixels = (camera->getViewport().height + camera->getPosition().y) / 32.f;
 	
 	int fromX = std::max(0, (int)camera->getPosition().x / 32 - 1);
@@ -85,9 +85,15 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	
 	int toX = std::min(xPixels + 1, world.getActiveMap()->getWidth());
 	
-	int toY = std::min(yPixels + 1, world.getActiveMap()->getHeight());*/
+	int toY = std::min(yPixels + 1, world.getActiveMap()->getHeight());
 	
-	world.draw(window, 0, 0, 0, 0);
+	world.draw(window, fromX, toX, fromY, toY);
+	
+	/*
+	sf::View minimapView;
+	minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+	window.setView(minimapView);
+	world.draw(window, fromX, toX, fromY, toY);*/
 	
 	window.display();
 }

@@ -21,7 +21,7 @@ void World::addGameObject(GameObject* gameObject) {
 void World::update(sf::Time& tpf) {
 	map->update(tpf);
 
-	world.Step(1 / 60.f, 8, 3);
+	world.Step(1 / 60.f, 100, 3);
 	std::for_each(gameObjects.begin(), gameObjects.end(), [&tpf](GameObject* go) {
 		go->update(tpf);
 	});
