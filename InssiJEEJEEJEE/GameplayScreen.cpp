@@ -10,6 +10,7 @@ class FollowState;
 #include "Hud.h"
 #include "InssiMath.h"
 #include "Game.h"
+#include "PlayerComponents.h"
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
@@ -30,13 +31,16 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
-	player->addComponent(new Hud(player, new int(10), new int(5000000), new int(2), sf::Vector2f(1280.f, 720.f), camera));
 	player->addComponent(new HealthComponent(player, 100));
+	player->addComponent(new SoulComponent(player));
+	player->addComponent(new MoonComponent(player));
+	player->addComponent(new Hud(player, sf::Vector2f(1280.f, 720.f), camera));
+
 	world.addGameObject(player);
 	world.setPlayer(player);
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
-	monsterGenerator->spawnMonsters();
+	
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
@@ -88,6 +92,7 @@ GameplayScreen::~GameplayScreen()
 void GameplayScreen::update(sf::Time& tpf) {
 	
 	world.update(tpf);
+	//monsterGenerator->spawnMonsters();
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

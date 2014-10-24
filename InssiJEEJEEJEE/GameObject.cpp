@@ -19,5 +19,6 @@ void GameObject::draw(sf::RenderWindow& window) {
 	});
 }
 
+
 GameObject::~GameObject() {
 }
