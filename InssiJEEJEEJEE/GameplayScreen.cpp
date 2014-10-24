@@ -10,6 +10,7 @@
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 b2Body* createMonsterBody(float x, float y, b2World& world);
+void attachBody(GameObject* owner, b2Body* body);
 
 GameplayScreen::GameplayScreen(Game* game) : State(game) {
 	sf::Texture box, gfxMonster1, gfxMonster2;
@@ -20,30 +21,23 @@ GameplayScreen::GameplayScreen(Game* game) : State(game) {
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
 	camera = new Camera(player, world, 1280, 720);
-	player->body = createPlayerBody(0, 720 / 2, world.world);
+	attachBody(player, createPlayerBody(0, 720 / 2, world.world));
 	player->addComponent(camera);
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
-	player->addComponent(new MouseMovementComponent(player, camera, game->getWindow()));
+	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
 	player->addComponent(new Hud(player, new int(10), new int(5000000), new int(2), sf::Vector2f(1280.f, 720.f), camera));
-	
 	player->addComponent(new HealthComponent(player, 100));
 	world.addGameObject(player);
 
-	player->body->SetLinearVelocity(b2Vec2(500, 0));
-	GameObject* player2 = new GameObject();
-	player2->body = createTile(100, 720 / 2, world.world);
-	player2->addComponent(new BoxRendererComponent(player2, box));
-	world.addGameObject(player2);
-
 	GameObject* monster1 = new GameObject();
-	monster1->body = createMonsterBody(100, 100, world.world);
+	attachBody(monster1, createMonsterBody(100, 100, world.world));
 	monster1->addComponent(new BoxRendererComponent(monster1, gfxMonster1));
 	monster1->addComponent(new HealthComponent(monster1, 100));
 	world.addGameObject(monster1);
 
 	GameObject* monster2 = new GameObject();
-	monster2->body = createMonsterBody(500, 500, world.world);
+	attachBody(monster2, createMonsterBody(500, 500, world.world));
 	monster2->addComponent(new BoxRendererComponent(monster2, gfxMonster2));
 	monster2->addComponent(new HealthComponent(monster2, 100));
 	world.addGameObject(monster2);
@@ -69,6 +63,11 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 	return body;
 }
 
+void attachBody(GameObject* owner, b2Body* body) {
+	owner->body = body;
+	body->SetUserData(owner);
+}
+
 b2Body* createTile(float x, float y, b2World& world) {
 	b2BodyDef BodyDef;
 	BodyDef.position = Convert::worldToBox2d(x, y);
@@ -77,7 +76,6 @@ b2Body* createTile(float x, float y, b2World& world) {
 	b2PolygonShape Shape;
 	Shape.SetAsBox(Convert::worldToBox2d(32.f / 2.f), Convert::worldToBox2d(32.f / 2.f));
 	b2FixtureDef FixtureDef;
-	FixtureDef.friction = 0.7f;
 	FixtureDef.shape = &Shape;
 	body->CreateFixture(&FixtureDef);
 	return body;
