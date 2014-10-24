@@ -4,11 +4,13 @@
 #include "World.h"
 #include "State.hpp"
 #include "Camera.h"
+#include "MonsterGenerator.h"
 class GameplayScreen : public State
 {
 private:
 	World world;
 	Camera* camera;
+	MonsterGenerator *monsterGenerator;
 public:
 	GameplayScreen();
 	~GameplayScreen();

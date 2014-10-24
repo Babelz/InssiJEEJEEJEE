@@ -4,9 +4,12 @@
 #include "InputMovementComponent.h"
 #include "HealthComponent.h"
 #include "InssiMath.h"
+
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 b2Body* createMonsterBody(float x, float y, b2World& world);
+void generateMonster(World &world, sf::Texture &texture);
+
 GameplayScreen::GameplayScreen() {
 	sf::Texture box, gfxMonster1, gfxMonster2;
 	if (!box.loadFromFile("box.png") || !gfxMonster1.loadFromFile("monster1.png") || !gfxMonster2.loadFromFile("monster2.png"))
@@ -39,6 +42,17 @@ GameplayScreen::GameplayScreen() {
 	monster2->addComponent(new BoxRendererComponent(monster2, gfxMonster2));
 	monster2->addComponent(new HealthComponent(monster2, 100));
 	world.addGameObject(monster2);
+
+	monsterGenerator = new MonsterGenerator(world, "monster1.png");
+}
+
+void generateMonster(World &world, sf::Texture &texture)
+{
+	GameObject* monster1 = new GameObject();
+	monster1->body = createMonsterBody(0, 0, world.world);
+	monster1->addComponent(new BoxRendererComponent(monster1, texture));
+	monster1->addComponent(new HealthComponent(monster1, 100));
+	world.addGameObject(monster1);
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
@@ -95,9 +109,12 @@ b2Body* createMonsterBody(float x, float y, b2World& world) {
 
 GameplayScreen::~GameplayScreen()
 {
+	delete monsterGenerator;
+	monsterGenerator = NULL;
 }
 
 void GameplayScreen::update(sf::Time& tpf) {
+	monsterGenerator->spawnMonsters();
 	world.update(tpf);
 }
 
