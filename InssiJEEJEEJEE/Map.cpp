@@ -1,5 +1,12 @@
 #include "Map.h"
 
+int Map::getWidth() {
+	return tiles->getWidth();
+}
+int Map::getHeight() {
+	return tiles->getHeight();
+}
+
 Map::Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister) {
 	this->tiles = tiles;
 	this->modelRegister = modelRegister;

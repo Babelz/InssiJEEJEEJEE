@@ -6,7 +6,6 @@ int Tile::getModelId() {
 void Tile::setModel(TileModel* const model) {
 	this->model = model;
 
-	sprite.setScale(0.25f, 0.25f);
 	sprite.setTexture(*model->getTexture());
 	sprite.setPosition(getPosition().x, getPosition().y);
 }

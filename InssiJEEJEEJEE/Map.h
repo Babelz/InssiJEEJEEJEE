@@ -13,6 +13,9 @@ private:
 	JaggedVector<Tile>* tiles;
 	ModelRegister* modelRegister;
 public:
+	int getWidth();
+	int getHeight();
+
 	Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister);
 
 	void initializeTiles();

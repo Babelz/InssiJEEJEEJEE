@@ -8,12 +8,12 @@ ForestMapGenerator::ForestMapGenerator() {
 Map* ForestMapGenerator::generate(World& const world) {
 	int min = 0, max = 2;
 
-	JaggedVector<Tile>* tiles = new JaggedVector<Tile>(40, 22);
+	JaggedVector<Tile>* tiles = new JaggedVector<Tile>(80, 50);
 	ModelRegister* modelRegister = new ModelRegister();
 
-	modelRegister->registerModel(new TileModel(0, "forestfloor1.png", sf::Vector2f(32.f, 32.f), false));
-	modelRegister->registerModel(new TileModel(1, "forestfloor2.png", sf::Vector2f(32.f, 32.f), false));
-	modelRegister->registerModel(new TileModel(2, "forestfloor3.png", sf::Vector2f(32.f, 32.f), false));
+	modelRegister->registerModel(new TileModel(0, "grass1.png", sf::Vector2f(32.f, 32.f), false));
+	modelRegister->registerModel(new TileModel(1, "grass2.png", sf::Vector2f(32.f, 32.f), false));
+	modelRegister->registerModel(new TileModel(2, "grass3.png", sf::Vector2f(32.f, 32.f), false));
 
 	for (int i = 0; i < tiles->getHeight(); i++) {
 		for (int j = 0; j < tiles->getWidth(); j++) {
@@ -32,6 +32,8 @@ Map* ForestMapGenerator::generate(World& const world) {
 			tiles->setItemAtIndex(i, j, tile);
 		}
 	}
+
+	modelRegister->registerModel(new TileModel(3, "blocked.png", sf::Vector2f(32.f, 32.f), false));
 	
 	Map* map = new Map(tiles, modelRegister);
 	map->initializeTiles();
