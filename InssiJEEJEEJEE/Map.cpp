@@ -7,9 +7,10 @@ int Map::getHeight() {
 	return tiles->getHeight();
 }
 
-Map::Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister) {
+Map::Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister, std::vector<sf::Vector2f> paths) {
 	this->tiles = tiles;
 	this->modelRegister = modelRegister;
+	this->paths = paths;
 }
 
 void Map::initializeTiles() {

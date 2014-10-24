@@ -12,11 +12,12 @@ class Map
 private:
 	JaggedVector<Tile>* tiles;
 	ModelRegister* modelRegister;
+	std::vector<sf::Vector2f> paths;
 public:
 	int getWidth();
 	int getHeight();
 
-	Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister);
+	Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister, std::vector<sf::Vector2f> paths);
 
 	void initializeTiles();
 
