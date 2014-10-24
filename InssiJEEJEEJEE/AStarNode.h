@@ -36,7 +36,7 @@ public:
 
 	float getMod();
 	void setMod(float mod);
-	void setParent(AStarNode* parent);
+	void setParent(AStarNode* const parent);
 	AStarNode* getParent();
 
 	AStarNode(sf::Vector2f position, sf::Vector2f size);

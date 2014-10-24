@@ -32,7 +32,7 @@ void AStarNode::setMod(float mod) {
 AStarNode* AStarNode::getParent() {
 	return this->parent;
 }
-void AStarNode::setParent(AStarNode* parent) {
+void AStarNode::setParent(AStarNode* const parent) {
 	this->parent = parent;
 }
 
@@ -89,6 +89,7 @@ void AStarNode::update() {
 void AStarNode::reset() {
 	h = 0;
 	g = 0;
+	parent = 0;
 }
 
 AStarNode::~AStarNode(){
