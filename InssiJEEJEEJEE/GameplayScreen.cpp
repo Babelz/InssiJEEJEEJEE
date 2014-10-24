@@ -2,20 +2,24 @@
 #include "GameplayScreen.h"
 #include "BoxRendererComponent.h"
 #include "InputMovementComponent.h"
+#include "MouseMovementComponent.h"
 #include "InssiMath.h"
+#include "Game.h"
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
-GameplayScreen::GameplayScreen() {
+GameplayScreen::GameplayScreen(Game* game) : State(game) {
 	sf::Texture box;
 	if (!box.loadFromFile("box.png"))
 		return;
 
-
+	sf::Mouse::setPosition(sf::Vector2i(1280 / 2, 720 / 2), game->getWindow());
+	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
 	camera = new Camera(player, world, 1280, 720);
 	player->body = createPlayerBody(0, 720 / 2, world.world);
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
+	player->addComponent(new MouseMovementComponent(player, camera, game->getWindow()));
 	player->addComponent(camera);
 	world.addGameObject(player);
 
@@ -89,11 +93,11 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	
 	world.draw(window, fromX, toX, fromY, toY);
 	
-	
+	/*
 	sf::View minimapView;
 	minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 	window.setView(minimapView);
-	world.draw(window, fromX, toX, fromY, toY);
+	world.draw(window, fromX, toX, fromY, toY);*/
 	
 	window.display();
 }

@@ -4,13 +4,14 @@
 #include "World.h"
 #include "State.hpp"
 #include "Camera.h"
+
 class GameplayScreen : public State
 {
 private:
 	World world;
 	Camera* camera;
 public:
-	GameplayScreen();
+	GameplayScreen(Game* game);
 	~GameplayScreen();
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);

@@ -89,11 +89,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ModelRegister.cpp" />
+    <ClCompile Include="MouseMovementComponent.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileModel.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
-    <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -102,9 +102,9 @@
     <ClInclude Include="InputMovementComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ModelRegister.h" />
+    <ClInclude Include="MouseMovementComponent.h" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
-    <ClInclude Include="TestiState.hpp" />
     <ClInclude Include="BoxRendererComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

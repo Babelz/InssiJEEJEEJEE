@@ -12,6 +12,10 @@ public:
 	void run();
 	virtual void update(sf::Time &tpf) = 0;
 	virtual void draw(sf::RenderWindow &win) = 0;
+
+	sf::RenderWindow& getWindow() {
+		return window;
+	}
 	~Game();
 
 };
