@@ -89,11 +89,11 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	
 	world.draw(window, fromX, toX, fromY, toY);
 	
-	/*
+	
 	sf::View minimapView;
 	minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 	window.setView(minimapView);
-	world.draw(window, fromX, toX, fromY, toY);*/
+	world.draw(window, fromX, toX, fromY, toY);
 	
 	window.display();
 }
