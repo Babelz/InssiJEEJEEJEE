@@ -11,17 +11,24 @@ AStarPathfinder::AStarPathfinder(AStarGrid* const grid) {
 	this->grid = grid;
 }
 
+int AStarPathfinder::calcIndexX(float x) {
+	return (int)(x / grid->getNodeSize().x);
+}
+int AStarPathfinder::calcIndexY(float y) {
+	return (int)(y / grid->getNodeSize().y);
+}
+
 // Privaatti implementaatio.
 std::vector<sf::Vector2f> AStarPathfinder::internalFindPath(bool& foundPath) {
 	if (!grid->hasGoal() || !grid->hasStart()) {
-		throw "Grid must have goal and start.";
+		//throw "Grid must have goal and start.";
 	}
 
 	std::vector<AStarNode*> openList;
 	std::vector<AStarNode*> closedList;
 
-	int x = (int)(grid->getStartPosition().x / grid->getNodeSize().x);
-	int y = (int)(grid->getStartPosition().y / grid->getNodeSize().y);
+	int x = calcIndexX(grid->getStartPosition().x);
+	int y = calcIndexY(grid->getStartPosition().y);
 
 	AStarNode* current = grid->nodeAtIndex(y, x);
 	openList.push_back(current);
@@ -34,8 +41,8 @@ std::vector<sf::Vector2f> AStarPathfinder::internalFindPath(bool& foundPath) {
 
 		closedList.push_back(current);
 
-		int x = (int)(current->getPosition().x / grid->getNodeSize().x);
-		int y = (int)(current->getPosition().y / grid->getNodeSize().y);
+		int x = calcIndexX(current->getPosition().x);
+		int y = calcIndexY(current->getPosition().y);
 
 		std::vector<AStarNode*> newNodes;
 
@@ -92,6 +99,7 @@ std::vector<sf::Vector2f> AStarPathfinder::internalFindPath(bool& foundPath) {
 					newNodes[i]->update();
 				}
 			} else {
+				// Uusi node, lisätään se openiin ja asetetaan parentti.
 				newNodes[i]->setParent(current);
 				newNodes[i]->update();
 
@@ -99,17 +107,18 @@ std::vector<sf::Vector2f> AStarPathfinder::internalFindPath(bool& foundPath) {
 			}
 		}
 
-		std::sort(openList.begin(), openList.end(), 
-			[](AStarNode* a, AStarNode* b) -> bool
-		{
-			int aF = a->getF();
-			int bF = b->getF();
-
-			return aF < bF;
-		});
-
 		if (openList.size() == 0) {
 			break;
+		} else {
+			// Sorttaa kaikki nodet F arvon perusteella.
+			std::sort(openList.begin(), openList.end(),
+				[](AStarNode* a, AStarNode* b) -> bool
+			{
+				int aF = a->getF();
+				int bF = b->getF();
+
+				return aF < bF;
+			});
 		}
 
 		current = openList[0];

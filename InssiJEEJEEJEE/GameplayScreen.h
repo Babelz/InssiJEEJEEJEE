@@ -1,15 +1,23 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "World.h"
-#include "State.hpp"
+#include "GameObject.h"
+#include "BoxRendererComponent.h"
+#include "InputMovementComponent.h"
+#include "HealthComponent.h"
+#include "InssiMath.h"
+#include "FiniteStateMachine.h"
+#include "FollowState.h"
 #include "Camera.h"
+#include "GameState.hpp"
+#include "MonsterGenerator.h"
 
-class GameplayScreen : public State
+class GameplayScreen : public GameState
 {
 private:
 	World world;
 	Camera* camera;
+	MonsterGenerator *monsterGenerator;
 public:
 	GameplayScreen(Game* game);
 	~GameplayScreen();

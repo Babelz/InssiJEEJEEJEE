@@ -8,13 +8,13 @@ void AStarNode::setNodeType(NodeType nodeType) {
 	this->nodeType = nodeType;
 }
 
-float AStarNode::getF() {
+int AStarNode::getF() {
 	return this->h + this->g + this->mod;
 }
-float AStarNode::getH() {
+int AStarNode::getH() {
 	return this->h;
 }
-float AStarNode::getG() {
+int AStarNode::getG() {
 	return this->g;
 }
 
@@ -22,11 +22,15 @@ sf::Vector2f AStarNode::getPosition() {
 	return position;
 }
 
-float AStarNode::getMod() {
+int AStarNode::getMod() {
 	return this->mod;
 }
-void AStarNode::setMod(float mod) {
+void AStarNode::setMod(int mod) {
 	this->mod = mod;
+}
+
+void AStarNode::setGoal(sf::Vector2f goal) {
+	this->goal = goal;
 }
 
 AStarNode* AStarNode::getParent() {
@@ -35,7 +39,6 @@ AStarNode* AStarNode::getParent() {
 void AStarNode::setParent(AStarNode* const parent) {
 	this->parent = parent;
 }
-
 
 AStarNode::AStarNode(sf::Vector2f position, sf::Vector2f size) {
 	this->position = position;
@@ -52,12 +55,12 @@ void AStarNode::calculateH() {
 	float endX = startX == position.x ? goal.x : position.x;
 	float endY = startY == position.y ? goal.y : position.y;
 
-	while (startX != endX) {
+	while (startX < endX) {
 		startX += size.x;
 		nodes++;
 	}
 
-	while (startY != endY) {
+	while (startY < endY) {
 		startY += size.y;
 		nodes++;
 	}
@@ -81,7 +84,6 @@ void AStarNode::calculateG() {
 	}
 }
 
-
 void AStarNode::update() {	
 	calculateH();
 	calculateG();
@@ -90,6 +92,7 @@ void AStarNode::reset() {
 	h = 0;
 	g = 0;
 	parent = 0;
+	goal = sf::Vector2f(0.0f, 0.0f);
 }
 
 AStarNode::~AStarNode(){

@@ -1,5 +1,8 @@
-#include "GameObject.h"
 #include "GameplayScreen.h"
+
+class FollowState;
+
+
 #include "BoxRendererComponent.h"
 #include "InputMovementComponent.h"
 #include "MouseMovementComponent.h"
@@ -7,21 +10,23 @@
 #include "Hud.h"
 #include "InssiMath.h"
 #include "Game.h"
+
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 b2Body* createMonsterBody(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
 
-GameplayScreen::GameplayScreen(Game* game) : State(game) {
+
+GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
+
 	sf::Texture box, gfxMonster1, gfxMonster2;
 	if (!box.loadFromFile("box.png") || !gfxMonster1.loadFromFile("monster1.png") || !gfxMonster2.loadFromFile("monster2.png"))
 		return;
 
-	sf::Mouse::setPosition(sf::Vector2i(1280 / 2, 720 / 2), game->getWindow());
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
-	camera = new Camera(player, world, 1280, 720);
-	attachBody(player, createPlayerBody(0, 720 / 2, world.world));
+	attachBody(player, createPlayerBody(900.f, 128.f, *world.getBoxWorld()));
+	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
@@ -29,18 +34,29 @@ GameplayScreen::GameplayScreen(Game* game) : State(game) {
 	player->addComponent(new Hud(player, new int(10), new int(5000000), new int(2), sf::Vector2f(1280.f, 720.f), camera));
 	player->addComponent(new HealthComponent(player, 100));
 	world.addGameObject(player);
-
-	GameObject* monster1 = new GameObject();
-	attachBody(monster1, createMonsterBody(100, 100, world.world));
-	monster1->addComponent(new BoxRendererComponent(monster1, gfxMonster1));
-	monster1->addComponent(new HealthComponent(monster1, 100));
-	world.addGameObject(monster1);
+	world.setPlayer(player);
 
 	GameObject* monster2 = new GameObject();
-	attachBody(monster2, createMonsterBody(500, 500, world.world));
+	attachBody(monster2, createMonsterBody(1024.f, 128.f, *world.getBoxWorld()));
 	monster2->addComponent(new BoxRendererComponent(monster2, gfxMonster2));
 	monster2->addComponent(new HealthComponent(monster2, 100));
+
+	FiniteStateMachine* brain = new FiniteStateMachine(monster2);
+	brain->pushState(new FollowState(monster2, brain, &world));
+	monster2->addComponent(brain);
+
 	world.addGameObject(monster2);
+
+	monsterGenerator = new MonsterGenerator(world, "monster1.png");
+}
+
+void generateMonster(World &world, sf::Texture &texture)
+{
+	GameObject* monster1 = new GameObject();
+	monster1->body = createMonsterBody(0, 0, *world.getBoxWorld());
+	monster1->addComponent(new BoxRendererComponent(monster1, texture));
+	monster1->addComponent(new HealthComponent(monster1, 100));
+	world.addGameObject(monster1);
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
@@ -72,11 +88,13 @@ b2Body* createTile(float x, float y, b2World& world) {
 	b2BodyDef BodyDef;
 	BodyDef.position = Convert::worldToBox2d(x, y);
 	BodyDef.type = b2_staticBody;
+
 	b2Body* body = world.CreateBody(&BodyDef);
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32.f / 2.f), Convert::worldToBox2d(32.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(64.f / 2.f), Convert::worldToBox2d(64.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.shape = &Shape;
+
 	body->CreateFixture(&FixtureDef);
 	return body;
 }
@@ -102,9 +120,12 @@ b2Body* createMonsterBody(float x, float y, b2World& world) {
 
 GameplayScreen::~GameplayScreen()
 {
+	delete monsterGenerator;
+	monsterGenerator = NULL;
 }
 
 void GameplayScreen::update(sf::Time& tpf) {
+	//monsterGenerator->spawnMonsters();
 	world.update(tpf);
 }
 
@@ -112,15 +133,15 @@ void GameplayScreen::draw(sf::RenderWindow& window) {
 	window.clear(sf::Color::Green);
 	sf::View view = window.getDefaultView();
 	view.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
-	view.reset(sf::FloatRect(camera->getPosition().x, camera->getPosition().y, camera->width, camera->height));
+	view.reset(sf::FloatRect(camera->getPosition().x, camera->getPosition().y, camera->getWidth(), camera->getHeight()));
 	window.setView(view);
 	
-	int xPixels = (camera->getViewport().width + camera->getPosition().x) / 32.f;
-	int yPixels = (camera->getViewport().height + camera->getPosition().y) / 32.f;
+	int xPixels = (camera->getWidth()+ camera->getPosition().x) / world.getActiveMap()->getTileWidth();
+	int yPixels = (camera->getHeight() + camera->getPosition().y) / world.getActiveMap()->getTileHeight();
 	
-	int fromX = std::max(0, (int)camera->getPosition().x / 32 - 1);
+	int fromX = std::max(0, (int)camera->getPosition().x / world.getActiveMap()->getTileWidth() - 1);
 	
-	int fromY = std::max(0, (int)camera->getPosition().y / 32 - 1);
+	int fromY = std::max(0, (int)camera->getPosition().y / world.getActiveMap()->getTileHeight() - 1);
 	
 	int toX = std::min(xPixels + 1, world.getActiveMap()->getWidth());
 	

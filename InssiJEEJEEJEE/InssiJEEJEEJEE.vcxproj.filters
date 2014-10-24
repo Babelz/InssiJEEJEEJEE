@@ -1,20 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="BoxRendererComponent.cpp" />
+    <ClCompile Include="AStarGrid.cpp" />
+    <ClCompile Include="AStarNode.cpp" />
+    <ClCompile Include="AStarPathfinder.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CooldownTimer.cpp" />
+    <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="ForestMapGenerator.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectComponent.cpp" />
+    <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="InputMovementComponent.cpp" />
+    <ClCompile Include="InssiMath.cpp" />
+    <ClCompile Include="InventoryComponent.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="JamGame.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ModelRegister.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileModel.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="TestiState.cpp" />
+    <ClCompile Include="DirectionHandler.cpp" />
+    <ClCompile Include="FollowState.h" />
+    <ClCompile Include="FollowState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CooldownTimer.h" />
+    <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="InssiMath.h" />
+    <ClInclude Include="ForestMapGenerator.h" />
+    <ClInclude Include="InputMovementComponent.h" />
+    <ClInclude Include="InventoryComponent.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="ModelRegister.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="StateManager.hpp" />
+    <ClInclude Include="TestiState.hpp" />
+    <ClInclude Include="BoxRendererComponent.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectComponent.h" />
+    <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="JamGame.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileModel.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="AStarGrid.h" />
+    <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="AStarPathfinder.h" />
+    <ClInclude Include="JaggedVector.h" />
+    <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="DirectionHandler.h" />
+=======
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,6 +142,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,5 +233,9 @@
     <ClInclude Include="Hud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> 28b161bda9b635e6f0aee9d457eab1ce63d05694
   </ItemGroup>
 </Project>

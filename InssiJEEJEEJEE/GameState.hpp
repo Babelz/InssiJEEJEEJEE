@@ -2,12 +2,13 @@
 #include <SFML/Graphics.hpp>
 
 class Game;
-class State
+
+class GameState
 {
 private:
 	Game* game;
 public:
-	State(Game* game) {
+	GameState(Game* game) {
 		this->game = game;
 	}
 	Game* getGame() {

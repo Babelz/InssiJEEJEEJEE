@@ -17,9 +17,9 @@ private:
 	sf::Vector2f size;
 	sf::Vector2f goal;
 
-	float h;
-	float g;
-	float mod;
+	int h;
+	int g;
+	int mod;
 
 	void calculateH();
 	void calculateG();
@@ -28,14 +28,15 @@ public:
 	// Getterit ja setterit.
 	NodeType getNodeType();
 	void setNodeType(NodeType nodeType);
-	float getF();
-	float getH();
-	float getG();
+	void setGoal(sf::Vector2f goal);
+	int getF();
+	int getH();
+	int getG();
 
 	sf::Vector2f getPosition();
 
-	float getMod();
-	void setMod(float mod);
+	int getMod();
+	void setMod(int mod);
 	void setParent(AStarNode* const parent);
 	AStarNode* getParent();
 

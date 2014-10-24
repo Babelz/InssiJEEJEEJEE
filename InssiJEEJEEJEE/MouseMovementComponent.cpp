@@ -36,7 +36,7 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 		area.upperBound = upper;
 		ClosestGameObjectsCallback query;
 
-		world.world.QueryAABB(&query, area);
+		world.getBoxWorld()->QueryAABB(&query, area);
 		// TODO tee kolmio ja eti 
 		GameObject *owner = getOwner();
 		std::for_each(query.bodies.begin(), query.bodies.end(), [owner](b2Body* body) {

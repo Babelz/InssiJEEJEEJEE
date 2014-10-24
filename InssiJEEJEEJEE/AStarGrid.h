@@ -17,6 +17,8 @@ private:
 	AStarNode* const getNode(sf::Vector2f position);
 	bool inBounds(int y, int x);
 	bool inBounds(sf::Vector2f position);
+	int calcIndexX(float x);
+	int calcIndexY(float y);
 public:
 	sf::Vector2f getStartPosition();
 	sf::Vector2f getGoalPosition();
