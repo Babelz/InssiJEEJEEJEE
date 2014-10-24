@@ -20,7 +20,7 @@ private:
 	soundManager &sound_manager;
 
 	void addTexture(char *texturePath);
-	b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World &world);
+	b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world);
 public:
 	MonsterGenerator(World &world, soundManager &sound_manager);
 	~MonsterGenerator();

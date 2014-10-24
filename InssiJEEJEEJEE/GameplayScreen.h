@@ -12,8 +12,9 @@
 #include "GameState.hpp"
 #include "MonsterGenerator.h"
 #include "soundManager.h"
+#include "GameState.hpp"
 
-class GameplayScreen : public State
+class GameplayScreen : public GameState
 {
 private:
 	World world;

@@ -10,10 +10,11 @@ class FollowState;
 #include "Hud.h"
 #include "InssiMath.h"
 #include "Game.h"
+
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 
-GameplayScreen::GameplayScreen(Game* game) : State(game) {
+GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sf::Texture box;
 	if (!box.loadFromFile("box.png"))
 		return;

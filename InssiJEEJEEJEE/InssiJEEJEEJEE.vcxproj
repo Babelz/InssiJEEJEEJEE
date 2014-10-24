@@ -125,7 +125,6 @@
     <ClInclude Include="MonsterGenerator.h" />
     <ClInclude Include="MouseMovementComponent.h" />
     <ClInclude Include="soundManager.h" />
-    <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="BoxRendererComponent.h" />
     <ClInclude Include="Game.h" />

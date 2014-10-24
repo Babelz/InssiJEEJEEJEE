@@ -36,7 +36,7 @@ void MonsterGenerator::spawnMonsters()
 		int spawnPoint = uniform_dist(generator);
 
 		GameObject* monster = new GameObject();
-		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.world);
+		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
 		monster->addComponent(new BoxRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
 		world.addGameObject(monster);
@@ -49,13 +49,13 @@ void MonsterGenerator::spawnMonsters()
 	}
 }
 
-b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World &world) {
+b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 	b2BodyDef BodyDef;
 	BodyDef.position = Convert::worldToBox2d(x, y);
 	BodyDef.type = b2_dynamicBody;
 	BodyDef.fixedRotation = true;
 	BodyDef.linearDamping = 50;
-	b2Body* body = world.CreateBody(&BodyDef);
+	b2Body* body = world->CreateBody(&BodyDef);
 
 	b2PolygonShape Shape;
 	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
