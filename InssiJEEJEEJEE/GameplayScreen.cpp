@@ -13,12 +13,12 @@ GameplayScreen::GameplayScreen()
 
 	GameObject* player = new GameObject();
 	player->body = createPlayerBody(0, 720 / 2, world.world);
-	player->addComponent(new BoxRendererComponent(player, box));
+	//player->addComponent(new BoxRendererComponent(player, box));
 	world.addGameObject(player);
 	player->body->SetLinearVelocity(b2Vec2(500, 0));
 	GameObject* player2 = new GameObject();
 	player2->body = createTile(100, 720 / 2, world.world);
-	player2->addComponent(new BoxRendererComponent(player2, box));
+	//player2->addComponent(new BoxRendererComponent(player2, box));
 	world.addGameObject(player2);
 
 }

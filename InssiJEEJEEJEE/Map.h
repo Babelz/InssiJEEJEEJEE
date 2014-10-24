@@ -1,11 +1,25 @@
 #pragma once
 
-class Map
+#include "SFML\Graphics\Text.hpp"
+#include "SFML\Graphics\RenderWindow.hpp"
+#include "JaggedVector.h"
+#include "Tile.h"
+#include "TileModel.h"
+#include "ModelRegister.h"
+
+class Map 
 {
 private:
-
+	JaggedVector<Tile>* tiles;
+	ModelRegister* modelRegister;
 public:
-	Map();
+	Map(JaggedVector<Tile>* tiles, ModelRegister* modelRegister);
+
+	void initializeTiles();
+
+	void update(sf::Time &tpf);
+	void draw(sf::RenderWindow &window);
+
 	~Map();
 };
 

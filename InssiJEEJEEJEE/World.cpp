@@ -3,6 +3,9 @@
 
 World::World() : world(b2Vec2(0.0f, 0.0f))
 {
+	ForestMapGenerator* g = new ForestMapGenerator();
+
+	map = g->generate(*this);
 }
 
 
@@ -16,6 +19,8 @@ void World::addGameObject(GameObject* gameObject) {
 }
 
 void World::update(sf::Time& tpf) {
+	map->update(tpf);
+
 	world.Step(1 / 60.f, 8, 3);
 	std::for_each(gameObjects.begin(), gameObjects.end(), [&tpf](GameObject* go) {
 		go->update(tpf);
@@ -23,6 +28,7 @@ void World::update(sf::Time& tpf) {
 }
 
 void World::draw(sf::RenderWindow& window) {
+	map->draw(window);
 
 	std::for_each(gameObjects.begin(), gameObjects.end(), [&window](GameObject* go) {
 		go->draw(window);
