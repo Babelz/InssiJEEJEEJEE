@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "GameObjectComponent.h"
+class Camera;
 #include "Camera.h"
 class Hud : public GameObjectComponent
 {
