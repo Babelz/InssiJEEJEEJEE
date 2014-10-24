@@ -3,7 +3,7 @@
 
 JamGame::JamGame(int width, int height) : Game(width, height)
 {
-	stateManager.add(new GameplayScreen());
+	stateManager.add(new GameplayScreen(this));
 	stateManager.change(0);
 }
 

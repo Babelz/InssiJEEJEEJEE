@@ -5,12 +5,14 @@
 #include "GameObject.h"
 #include <vector>
 #include "Map.h"
+#include "Hud.h"
 
 class World
 {
 private:
 	Map* map;
 	std::vector<GameObject*> gameObjects;
+	//Hud hud;
 public:
 	b2World world;
 	World();

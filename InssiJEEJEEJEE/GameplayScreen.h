@@ -12,7 +12,7 @@ private:
 	Camera* camera;
 	MonsterGenerator *monsterGenerator;
 public:
-	GameplayScreen();
+	GameplayScreen(Game* game);
 	~GameplayScreen();
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);

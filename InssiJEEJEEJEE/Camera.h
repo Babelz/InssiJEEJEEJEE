@@ -2,6 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "GameObjectComponent.h"
+class World;
 #include "World.h"
 class Camera : public GameObjectComponent
 {
