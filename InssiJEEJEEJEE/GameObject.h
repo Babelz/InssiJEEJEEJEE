@@ -31,8 +31,5 @@ public:
 	inline const b2Vec2& getPosition() {
 		return body->GetTransform().p;
 	}
-
-	
-	
 };
 

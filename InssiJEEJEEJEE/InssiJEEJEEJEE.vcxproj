@@ -77,6 +77,9 @@
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="AStarPathfinder.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CooldownTimer.cpp" />
+    <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -89,6 +92,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ModelRegister.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="States.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileModel.cpp" />
     <ClCompile Include="World.cpp" />
@@ -96,6 +100,9 @@
     <ClCompile Include="TestiState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CooldownTimer.h" />
+    <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="InssiMath.h" />
     <ClInclude Include="ForestMapGenerator.h" />
     <ClInclude Include="InputMovementComponent.h" />

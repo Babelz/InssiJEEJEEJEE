@@ -9,16 +9,19 @@
 class World
 {
 private:
+	b2World world;
 	Map* map;
 	std::vector<GameObject*> gameObjects;
 public:
-	b2World world;
+	b2World* const getBoxWorld();
+	Map* const getActiveMap();
+	
 	World();
-	~World();
 
 	void update(sf::Time& tpf);
-	void draw(sf::RenderWindow& window);
-
+	void draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY);
 	void addGameObject(GameObject* gobject);
+
+	~World();
 };
 

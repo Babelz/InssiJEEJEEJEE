@@ -17,7 +17,9 @@ private:
 	const int mapHeight = 50;
 	const int tileWidth = 32;
 	const int tileHeight = 32;
+
 	Random random;
+	AStarGrid* grid;
 
 	std::vector<sf::Vector2f> resolvePaths();
 	void generateRooms(std::vector<sf::Vector2f>& pathsToCenter);

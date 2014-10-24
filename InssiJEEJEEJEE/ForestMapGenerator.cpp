@@ -17,41 +17,42 @@ void ForestMapGenerator::generateHouses(std::vector<sf::Vector2f>& room) {
 
 }
 std::vector<sf::Vector2f> ForestMapGenerator::resolvePaths() {
-	AStarGrid grid(mapWidth, mapHeight, sf::Vector2f(tileWidth, tileHeight));
-	AStarPathfinder pathFinder(&grid);
+	grid = new AStarGrid(mapWidth, mapHeight, sf::Vector2f(tileWidth, tileHeight));
+	AStarPathfinder pathFinder(grid);
 
-	grid.setGoal(sf::Vector2f(tileWidth * mapWidth / 2, tileHeight * mapHeight / 2));
-
-	for (int i = 0; i < mapHeight; i++) {
-		for (int j = 0; j < mapWidth; j++) {
-			grid.nodeAtIndex(i, j)->setMod(rand());
-		}
-	}
+	grid->setGoal(sf::Vector2f(tileWidth * mapWidth / 2, tileHeight * mapHeight / 2));
 
 	std::vector<sf::Vector2f> startPoints;
+
+	// Kaikki kulmat.
 	startPoints.push_back(sf::Vector2f(0.f, 0.f));
 	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) - tileWidth, 0.f));
 	startPoints.push_back(sf::Vector2f(0.0f, (mapHeight * tileHeight) - tileHeight));
 	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) - tileWidth, (mapHeight * tileHeight) - tileHeight));
-	
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 2, 0.0f));
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 2, (mapHeight * tileHeight) - tileHeight));
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 4, 0.0f));
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 4, (mapHeight * tileHeight) - tileHeight));
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 3, 0.0f));
-	startPoints.push_back(sf::Vector2f((mapWidth * tileWidth) / 3, (mapHeight * tileHeight) - tileHeight));
+
+	for (int i = 0; i < mapWidth; i += 10) {
+		// Ylä ja ala kohdat keskeltä.
+		startPoints.push_back(sf::Vector2f(i * tileWidth, 0.0f));
+		startPoints.push_back(sf::Vector2f(i * tileWidth, (mapHeight * tileHeight) - tileHeight));
+	}
 
 	std::vector<sf::Vector2f> allPaths;
 
 	for (int i = 0; i < startPoints.size(); i++) {
-		grid.setStart(startPoints[i]);
+		grid->setStart(startPoints[i]);
 		
 		std::vector<sf::Vector2f> path = pathFinder.findPath();
 
 		allPaths.reserve(allPaths.size() + path.size());
 		allPaths.insert(allPaths.end(), path.begin(), path.end());
 
-		grid.resetNodes();
+		for (int i = 0; i < mapHeight; i++) {
+			for (int j = 0; j < mapWidth; j++) {
+				grid->nodeAtIndex(i, j)->setMod(random.next(100, 2000));
+			}
+		}
+
+		grid->resetNodes();
 	}
 
 	return allPaths;
@@ -88,13 +89,25 @@ Map* ForestMapGenerator::generate(World& const world) {
 			TileModel* model = modelRegister->getModelWithId(modelId);
 
 			// Alustetaan tile ja annetaan sille tieto modelin id:stä.
-			Tile *tile = new Tile(model->getId(), position, createTile(position.x, position.y, world.world));
+			Tile *tile = new Tile(model->getId(), position, createTile(position.x, position.y, *world.getBoxWorld()));
 
 			tiles->setItemAtIndex(i, j, tile);
 		}
 	}
+
+	grid->resetNodes();
+
+	for (int i = 0; i < mapHeight; i++) {
+		for (int j = 0; j < mapWidth; j++) {
+			grid->nodeAtIndex(i, j)->setNodeType(UNWALKABLE);
+		}
+	}
+
+	for (int i = 0; i < paths.size(); i++) {
+		grid->setNodeWalkable(paths[i]);
+	}
 	
-	Map* map = new Map(tiles, modelRegister, paths, tileWidth, tileHeight);
+	Map* map = new Map(tiles, modelRegister, paths, tileWidth, tileHeight, grid);
 	map->initializeTiles();
 
 	return map;

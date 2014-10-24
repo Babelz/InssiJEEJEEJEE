@@ -5,22 +5,25 @@
 #include "InssiMath.h"
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
-GameplayScreen::GameplayScreen()
-{
+
+GameplayScreen::GameplayScreen() {
 	sf::Texture box;
 	if (!box.loadFromFile("box.png"))
 		return;
 
 
 	GameObject* player = new GameObject();
-	player->body = createPlayerBody(0, 720 / 2, world.world);
+	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
+
+	player->body = createPlayerBody(0, 720 / 2, *world.getBoxWorld());
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
+	player->addComponent(camera);
 	world.addGameObject(player);
 
 	player->body->SetLinearVelocity(b2Vec2(500, 0));
 	GameObject* player2 = new GameObject();
-	player2->body = createTile(100, 720 / 2, world.world);
+	player2->body = createTile(100, 720 / 2, *world.getBoxWorld());
 	player2->addComponent(new BoxRendererComponent(player2, box));
 	world.addGameObject(player2);
 
@@ -70,7 +73,30 @@ void GameplayScreen::update(sf::Time& tpf) {
 
 void GameplayScreen::draw(sf::RenderWindow& window) {
 	window.clear(sf::Color::Green);
-	world.draw(window);
+	sf::View view = window.getDefaultView();
+	view.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
+	view.reset(sf::FloatRect(camera->getPosition().x, camera->getPosition().y, camera->getWidth(), camera->getHeight()));
+	window.setView(view);
+	
+	int xPixels = (camera->getWidth()+ camera->getPosition().x) / world.getActiveMap()->getTileWidth();
+	int yPixels = (camera->getHeight() + camera->getPosition().y) / world.getActiveMap()->getTileHeight();
+	
+	int fromX = std::max(0, (int)camera->getPosition().x / world.getActiveMap()->getTileWidth() - 1);
+	
+	int fromY = std::max(0, (int)camera->getPosition().y / world.getActiveMap()->getTileHeight() - 1);
+	
+	int toX = std::min(xPixels + 1, world.getActiveMap()->getWidth());
+	
+	int toY = std::min(yPixels + 1, world.getActiveMap()->getHeight());
+	
+	world.draw(window, fromX, toX, fromY, toY);
+	
+	/*
+	sf::View minimapView;
+	minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+	window.setView(minimapView);
+	world.draw(window, fromX, toX, fromY, toY);*/
+	
 	window.display();
 }
 

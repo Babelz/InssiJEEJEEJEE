@@ -8,13 +8,13 @@ void AStarNode::setNodeType(NodeType nodeType) {
 	this->nodeType = nodeType;
 }
 
-float AStarNode::getF() {
+int AStarNode::getF() {
 	return this->h + this->g + this->mod;
 }
-float AStarNode::getH() {
+int AStarNode::getH() {
 	return this->h;
 }
-float AStarNode::getG() {
+int AStarNode::getG() {
 	return this->g;
 }
 
@@ -22,10 +22,10 @@ sf::Vector2f AStarNode::getPosition() {
 	return position;
 }
 
-float AStarNode::getMod() {
+int AStarNode::getMod() {
 	return this->mod;
 }
-void AStarNode::setMod(float mod) {
+void AStarNode::setMod(int mod) {
 	this->mod = mod;
 }
 
