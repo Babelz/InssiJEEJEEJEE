@@ -74,6 +74,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AltarComponents.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
+    <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="MonsterRendererComponent.cpp" />
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
@@ -118,6 +120,7 @@
     <ClInclude Include="DropComponent.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="InssiMath.h" />
@@ -126,6 +129,7 @@
     <ClInclude Include="InventoryComponent.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="PickUpComponent.h" />
     <ClInclude Include="PlayerComponents.h" />

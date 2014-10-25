@@ -21,6 +21,7 @@ void HealthComponent::update(sf::Time& tpf) {
 		{
 			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
 			//getOwner()->getWorld()->getGame()->setGameRunning(false);
+			getOwner()->getWorld()->getGame()->getStateManager()->change(2);
 		}
 		else
 		{

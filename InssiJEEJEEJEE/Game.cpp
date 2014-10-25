@@ -4,6 +4,7 @@
 Game::Game(int width, int height) : 
 	window(sf::VideoMode(width, height), "InssiJeeJee"), gameRunning(true) {
 	window.setFramerateLimit(60);
+	sound_manager.initialiseSound();
 }
 
 
