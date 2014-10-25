@@ -7,8 +7,9 @@ SwitchComponent::SwitchComponent(GameObject* owner)
 SwitchComponent::~SwitchComponent() {
 
 }
-void SwitchComponent::update(sf::Time& tpf) {
-
+void SwitchComponent::update(sf::Time& tpf) 
+{
+	
 }
 void SwitchComponent::draw(sf::RenderWindow& win) {
 
@@ -21,7 +22,11 @@ void SwitchComponent::interactWith(GameObject* gobject) {
 
 	MoonComponent* moon = (MoonComponent*)gobject->getComponent<MoonComponent>();
 	assert(moon != NULL);
-	moon->setMoonState(moon->getMoonState() + 1);
 
+	moon->setMoonState(moon->getMoonState() + 1);
+	if (moon->getMoonState() > 645)
+	{
+		moon->setMoonState(8);
+	}
 }
 

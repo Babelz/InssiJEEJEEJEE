@@ -2,7 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "GameObject.h"
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 #include "InputMovementComponent.h"
 #include "HealthComponent.h"
 #include "InssiMath.h"
@@ -28,6 +28,6 @@ public:
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);
 	void activate();
-	int pollEvent(sf::Event &event);
+	int pollEvent(sf::Event &event);	
 };
 

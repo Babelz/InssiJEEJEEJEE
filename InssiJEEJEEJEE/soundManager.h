@@ -35,6 +35,7 @@ public:
 	void playMenuSelection(){newGameSound.play();}
 	void playWizardEntry(){wizardEntrySound.play();}
 	void playWizardDeath(){wizardPoofSound.play();}
+	void playDogBark(){ dogBarkSound.play(); }
 
 	void playAttackSound()
 	{
@@ -132,7 +133,8 @@ private:
 	sf::Sound playerGruntSound;
 	sf::SoundBuffer playerDeathSoundBuffer;
 	sf::Sound playerDeathSound;
-
+	sf::SoundBuffer dogBarkSoundBuffer;
+	sf::Sound dogBarkSound;
 
 
 	sf::Music menuMusic;

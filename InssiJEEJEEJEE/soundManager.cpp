@@ -49,6 +49,8 @@ void soundManager::initialiseSound()
 	playerGruntSound.setBuffer(playerGruntSoundBuffer);
 	playerDeathSoundBuffer.loadFromFile("effects/playerDeath.ogg");
 	playerDeathSound.setBuffer(playerDeathSoundBuffer);
+	dogBarkSoundBuffer.loadFromFile("effects/dogBark.ogg");
+	dogBarkSound.setBuffer(dogBarkSoundBuffer);
 
 
 }

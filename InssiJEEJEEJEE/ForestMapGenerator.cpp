@@ -63,7 +63,7 @@ Map* ForestMapGenerator::generate(World& const world) {
 	ModelRegister* modelRegister = new ModelRegister();
 
 	// Modelien alustus.
-	/*modelRegister->registerModel(new TileModel(0, "dirt1.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(0, "dirt1.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(1, "dirt2.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(2, "dirt3.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(3, "tree1.png", sf::Vector2f(tileWidth, tileHeight), true));
@@ -74,13 +74,13 @@ Map* ForestMapGenerator::generate(World& const world) {
 	modelRegister->registerModel(new TileModel(7, "grass2.png", sf::Vector2f(tileWidth, tileHeight), true));
 	modelRegister->registerModel(new TileModel(8, "grass3.png", sf::Vector2f(tileWidth, tileHeight), true));
 	modelRegister->registerModel(new TileModel(9, "grass4.png", sf::Vector2f(tileWidth, tileHeight), true));
-	modelRegister->registerModel(new TileModel(10, "grass5.png", sf::Vector2f(tileWidth, tileHeight), true));*/
-
+	modelRegister->registerModel(new TileModel(10, "grass5.png", sf::Vector2f(tileWidth, tileHeight), true));
+	/*
 	modelRegister->registerModel(new TileModel(0, "floor1.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(1, "floor2.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(2, "floor3.png", sf::Vector2f(tileWidth, tileHeight), false));
 	modelRegister->registerModel(new TileModel(3, "lava1.png", sf::Vector2f(tileWidth, tileHeight), true));
-
+	*/
 	std::vector<sf::Vector2f> paths = resolvePaths();
 	generateRooms(paths);
 
@@ -93,7 +93,7 @@ Map* ForestMapGenerator::generate(World& const world) {
 			if (std::find(paths.begin(), paths.end(), position) != paths.end()) {
 				modelId = random.next(0, 2);
 			} else {
-				modelId = 3;
+				modelId = random.next(3, 10);
 			}
 
 			// Haetaan model id:llä.

@@ -48,20 +48,20 @@ void MonsterGenerator::spawnMonsters()
 		//monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
 		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[0].x, spawnPoints[0].y, world.getBoxWorld());
 		monster->body->SetUserData(monster);
-		monster->addComponent(new BoxRendererComponent(monster, textures[uniform_dist2(generator)]));
+		monster->addComponent(new MonsterRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
 		monster->addComponent(new DropComponent(monster));
 		monster->addComponent(new EnemyComponent(monster));
 		FiniteStateMachine* brain = new FiniteStateMachine(monster);
 		brain->pushState(new FollowState(monster, brain, &world));
 		monster->addComponent(brain);
-		world.addGameObject(monster);
-
-		sound_manager.playSmallMonsterEntry();
-
+		world.addGameObjectNextFrame(monster);
+	
 		if(spawnFrequency > 1 && (spawnFrequency *= 0.95) < 1) spawnFrequency = 1;
 
 		lastSpawn = clock.getElapsedTime().asSeconds();
+		if (lastSpawn > 3)
+			sound_manager.playSmallMonsterEntry();
 	}
 }
 
@@ -74,7 +74,7 @@ b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 	b2Body* body = world->CreateBody(&BodyDef);
 
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.friction = 0.7f;
 	FixtureDef.shape = &Shape;
@@ -87,7 +87,7 @@ void MonsterGenerator::generateTo(float x, float y) {
 	GameObject* monster = new GameObject();
 	monster->body = createMonsterBody(x, y, world.getBoxWorld());
 	monster->body->SetUserData(monster);
-	monster->addComponent(new BoxRendererComponent(monster, textures[0]));
+	monster->addComponent(new MonsterRendererComponent(monster, textures[0]));
 	monster->addComponent(new HealthComponent(monster, 100));
 	FiniteStateMachine* brain = new FiniteStateMachine(monster);
 	brain->pushState(new FollowState(monster, brain, &world));
