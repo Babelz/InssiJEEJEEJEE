@@ -7,10 +7,14 @@ MonsterGenerator::MonsterGenerator(World &world, soundManager &sound_manager) : 
 	float height = world.getActiveMap()->getHeight();
 	float tWidth = world.getActiveMap()->getTileWidth();
 	float tHeight = world.getActiveMap()->getTileHeight();
-	spawnPoints.push_back(sf::Vector2f(0, 0));
+
+	spawnPoints.push_back(sf::Vector2f(10.f, 0));
+
 	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, 0));
-	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, height*tHeight - tHeight));
-	spawnPoints.push_back(sf::Vector2f(0, height*tHeight - tHeight));
+
+	//spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, height * tHeight - tHeight));
+
+	//spawnPoints.push_back(sf::Vector2f(0, height * tHeight - tHeight));
 
 	MonsterGenerator::addTexture("monster1.png");
 	MonsterGenerator::addTexture("monster2.png");
@@ -41,12 +45,14 @@ void MonsterGenerator::spawnMonsters()
 		int spawnPoint = uniform_dist(generator);
 
 		GameObject* monster = new GameObject();
-		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
+		//monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
+		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[0].x, spawnPoints[0].y, world.getBoxWorld());
 		monster->body->SetUserData(monster);
 		monster->addComponent(new BoxRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
 		FiniteStateMachine* brain = new FiniteStateMachine(monster);
 		brain->pushState(new FollowState(monster, brain, &world));
+		monster->addComponent(brain);
 		world.addGameObject(monster);
 
 		sound_manager.playSmallMonsterEntry();
@@ -66,7 +72,7 @@ b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 	b2Body* body = world->CreateBody(&BodyDef);
 
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.friction = 0.7f;
 	FixtureDef.shape = &Shape;

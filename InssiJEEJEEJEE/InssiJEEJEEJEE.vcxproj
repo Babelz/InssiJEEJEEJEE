@@ -79,7 +79,6 @@
     <ClCompile Include="AStarPathfinder.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CooldownTimer.cpp" />
-    <ClCompile Include="DirectionHandler.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -110,7 +109,6 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CooldownTimer.h" />
-    <ClInclude Include="DirectionHandler.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="Hud.h" />

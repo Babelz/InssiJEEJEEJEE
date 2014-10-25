@@ -39,7 +39,19 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(player);
 	world.setPlayer(player);
 
+	GameObject* monster2 = new GameObject();
+	monster2->body = createPlayerBody(1024, 128, *world.getBoxWorld());
+	monster2->addComponent(new BoxRendererComponent(monster2, box));
+	monster2->addComponent(new HealthComponent(monster2, 100));
+
+	FiniteStateMachine* brain = new FiniteStateMachine(monster2);
+	brain->pushState(new FollowState(monster2, brain, &world));
+	monster2->addComponent(brain);
+
+	world.addGameObject(monster2);
+
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
+
 	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
@@ -53,11 +65,13 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 	BodyDef.linearDamping = 50;
 	b2Body* body = world.CreateBody(&BodyDef);
 
+
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32.f / 2.f), Convert::worldToBox2d(32.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
+	
 	b2FixtureDef FixtureDef;
 	FixtureDef.density = 0.1f;
-	FixtureDef.friction = 0.01f;
+	FixtureDef.friction = 0.1f;
 	//FixtureDef.restitution = 0.f;
 	
 	FixtureDef.shape = &Shape;
@@ -94,7 +108,7 @@ GameplayScreen::~GameplayScreen()
 void GameplayScreen::update(sf::Time& tpf) {
 	
 	world.update(tpf);
-	//monsterGenerator->spawnMonsters();
+	monsterGenerator->spawnMonsters();
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

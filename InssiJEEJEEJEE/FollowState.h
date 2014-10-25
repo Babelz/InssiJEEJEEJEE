@@ -12,7 +12,15 @@ private:
 	AStarPathfinder* pathFinder;
 	std::vector<sf::Vector2f> currentPath;
 	sf::Vector2f currentDestination;
-	DirectionHandler dirHandler;
+	sf::Vector2f currentDirection;
+	sf::Vector2f last;
+
+	int updatesInSameSpot;
+
+	void updateDirection();
+	float roundPosX();
+	float roundPosY();
+	bool atDest();
 public:
 	FollowState(GameObject* owner, FiniteStateMachine* stateMachine, World* world);
 

@@ -40,7 +40,6 @@ public:
 	void setStart(sf::Vector2f position);
 	AStarNode* nodeAtIndex(int y, int x);
 
-	void updateNodse();
 	void resetNodes();
 
 	~AStarGrid();

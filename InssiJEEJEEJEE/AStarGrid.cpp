@@ -116,20 +116,11 @@ void AStarGrid::setStart(sf::Vector2f position) {
 	AStarNode* const starNode = getNode(position);
 
 	if (starNode != 0) {
-		start = position;
+		start = starNode->getPosition();
 	}
 }
 AStarNode* AStarGrid::nodeAtIndex(int y, int x) {
 	return nodes.itemAtIndex(y, x);
-}
-
-// P‰ivitt‰‰ kaikki nodet.
-void AStarGrid::updateNodse() {
-	for (int i = 0; i < nodes.getHeight(); i++) {
-		for (int j = 0; j < nodes.getWidth(); j++) {
-			nodes.itemAtIndex(i, j)->update();
-		}
-	}
 }
 // Resetoi kaikki nodet.
 void AStarGrid::resetNodes() {

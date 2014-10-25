@@ -34,8 +34,7 @@ std::vector<sf::Vector2f> AStarPathfinder::internalFindPath(bool& foundPath) {
 	openList.push_back(current);
 
 	while (true) {
-		if (openList.size() == 0 || 
-			(current->getPosition().x == grid->getGoalPosition().x && current->getPosition().y == grid->getGoalPosition().y)) {
+		if (current->getPosition().x == grid->getGoalPosition().x && current->getPosition().y == grid->getGoalPosition().y) {
 			break;
 		}
 

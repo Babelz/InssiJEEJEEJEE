@@ -63,12 +63,23 @@ Map* ForestMapGenerator::generate(World& const world) {
 	ModelRegister* modelRegister = new ModelRegister();
 
 	// Modelien alustus.
-	modelRegister->registerModel(new TileModel(0, "grass1.png", sf::Vector2f(tileWidth, tileHeight), true));
-	modelRegister->registerModel(new TileModel(1, "grass2.png", sf::Vector2f(tileWidth, tileHeight), true));
-	modelRegister->registerModel(new TileModel(2, "grass3.png", sf::Vector2f(tileWidth, tileHeight), true));
-	modelRegister->registerModel(new TileModel(3, "road1.png", sf::Vector2f(tileWidth, tileHeight), false));
-	modelRegister->registerModel(new TileModel(4, "road2.png", sf::Vector2f(tileWidth, tileHeight), false));
-	modelRegister->registerModel(new TileModel(5, "road3.png", sf::Vector2f(tileWidth, tileHeight), false));
+	/*modelRegister->registerModel(new TileModel(0, "dirt1.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(1, "dirt2.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(2, "dirt3.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(3, "tree1.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(4, "tree2.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(5, "tree3.png", sf::Vector2f(tileWidth, tileHeight), true));
+
+	modelRegister->registerModel(new TileModel(6, "grass1.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(7, "grass2.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(8, "grass3.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(9, "grass4.png", sf::Vector2f(tileWidth, tileHeight), true));
+	modelRegister->registerModel(new TileModel(10, "grass5.png", sf::Vector2f(tileWidth, tileHeight), true));*/
+
+	modelRegister->registerModel(new TileModel(0, "floor1.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(1, "floor2.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(2, "floor3.png", sf::Vector2f(tileWidth, tileHeight), false));
+	modelRegister->registerModel(new TileModel(3, "lava1.png", sf::Vector2f(tileWidth, tileHeight), true));
 
 	std::vector<sf::Vector2f> paths = resolvePaths();
 	generateRooms(paths);
@@ -80,9 +91,9 @@ Map* ForestMapGenerator::generate(World& const world) {
 
 			int modelId = 0;
 			if (std::find(paths.begin(), paths.end(), position) != paths.end()) {
-				modelId = 5;//random.next(3, 5);
+				modelId = random.next(0, 2);
 			} else {
-				modelId = 2; //random.next(0, 2);
+				modelId = 3;
 			}
 
 			// Haetaan model id:llä.
