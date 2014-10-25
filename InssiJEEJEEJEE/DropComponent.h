@@ -4,9 +4,9 @@
 class DropComponent : public GameObjectComponent
 {
 private:
-	sf::Texture &itemTexture;
+	sf::Texture itemTexture;
 public:
-	DropComponent(GameObject *owner, sf::Texture &texture);
+	DropComponent(GameObject *owner);
 	~DropComponent();
 
 	void update(sf::Time& tpf);
