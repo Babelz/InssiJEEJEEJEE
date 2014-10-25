@@ -55,12 +55,12 @@ void MonsterGenerator::spawnMonsters()
 		brain->pushState(new FollowState(monster, brain, &world));
 		monster->addComponent(brain);
 		world.addGameObjectNextFrame(monster);
-
-		sound_manager.playSmallMonsterEntry();
-
+	
 		if(spawnFrequency > 1 && (spawnFrequency *= 0.95) < 1) spawnFrequency = 1;
 
 		lastSpawn = clock.getElapsedTime().asSeconds();
+		if (lastSpawn > 3)
+			sound_manager.playSmallMonsterEntry();
 	}
 }
 

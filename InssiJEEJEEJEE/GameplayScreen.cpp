@@ -14,6 +14,7 @@ class FollowState;
 #include "AltarComponents.h"
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
+b2Body* createSusiBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 //b2Body* createMonsterBody(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
@@ -41,16 +42,20 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(player);
 	world.setPlayer(player);
 
-	GameObject* monster2 = new GameObject();
-	monster2->body = createPlayerBody(1024, 128, *world.getBoxWorld());
-	monster2->addComponent(new BoxRendererComponent(monster2, gfxSusi));
-	monster2->addComponent(new HealthComponent(monster2, 100));
+	sound_manager.playBattleMusic();
 
-	FiniteStateMachine* brain = new FiniteStateMachine(monster2);
-	brain->pushState(new FollowState(monster2, brain, &world));
-	monster2->addComponent(brain);
+	GameObject* susi = new GameObject();
+	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
+	susi->addComponent(new BoxRendererComponent(susi, gfxSusi));
+	susi->addComponent(new HealthComponent(susi, 100));
 
-	world.addGameObject(monster2);
+	FiniteStateMachine* brain = new FiniteStateMachine(susi);
+	brain->pushState(new FollowState(susi, brain, &world));
+	susi->addComponent(brain);
+
+	world.addGameObject(susi);
+
+	//sound_manager.playDogBark();
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
 
@@ -66,7 +71,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	moonSwitch->addComponent(new SwitchComponent(moonSwitch));
 }
 
-b2Body* createPlayerBody(float x, float y, b2World& world) {
+b2Body* createSusiBody(float x, float y, b2World& world) {
 	b2BodyDef BodyDef;
 	BodyDef.position = Convert::worldToBox2d(x, y);
 	BodyDef.type = b2_dynamicBody;
@@ -79,10 +84,33 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32 / 2.f));
 	
 	b2FixtureDef FixtureDef;
-	FixtureDef.density = 0.1f;
+	FixtureDef.density = 0.005f;
 	FixtureDef.friction = 0.1f;
 	//FixtureDef.restitution = 0.f;
 	
+
+	FixtureDef.shape = &Shape;
+	body->CreateFixture(&FixtureDef);
+	return body;
+}
+
+b2Body* createPlayerBody(float x, float y, b2World& world) {
+	b2BodyDef BodyDef;
+	BodyDef.position = Convert::worldToBox2d(x, y);
+	BodyDef.type = b2_dynamicBody;
+	BodyDef.fixedRotation = true;
+	BodyDef.linearDamping = 50;
+	b2Body* body = world.CreateBody(&BodyDef);
+
+
+	b2PolygonShape Shape;
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32 / 2.f));
+
+	b2FixtureDef FixtureDef;
+	FixtureDef.density = 0.1f;
+	FixtureDef.friction = 0.1f;
+	//FixtureDef.restitution = 0.f;
+
 	FixtureDef.shape = &Shape;
 	body->CreateFixture(&FixtureDef);
 	return body;
