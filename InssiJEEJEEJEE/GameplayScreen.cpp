@@ -51,6 +51,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(monster2);
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
+
 	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
@@ -64,10 +65,10 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 	BodyDef.linearDamping = 50;
 	b2Body* body = world.CreateBody(&BodyDef);
 
-	b2CircleShape Shape;
-	Shape.m_radius = Convert::worldToBox2d(16.f);
+
+	b2PolygonShape Shape;
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
 	
-	//Shape.SetAsBox(Convert::worldToBox2d(32.f / 2.f), Convert::worldToBox2d(32.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.density = 0.1f;
 	FixtureDef.friction = 0.1f;
@@ -107,7 +108,7 @@ GameplayScreen::~GameplayScreen()
 void GameplayScreen::update(sf::Time& tpf) {
 	
 	world.update(tpf);
-	//monsterGenerator->spawnMonsters();
+	monsterGenerator->spawnMonsters();
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

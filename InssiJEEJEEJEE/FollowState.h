@@ -13,6 +13,9 @@ private:
 	std::vector<sf::Vector2f> currentPath;
 	sf::Vector2f currentDestination;
 	sf::Vector2f currentDirection;
+	sf::Vector2f last;
+
+	int updatesInSameSpot;
 
 	void updateDirection();
 	float roundPosX();

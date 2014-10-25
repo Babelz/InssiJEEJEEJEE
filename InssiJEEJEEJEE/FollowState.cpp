@@ -12,6 +12,7 @@ MachineState(owner, stateMachine) {
 	sf::Vector2f position(b2v.x, b2v.y);
 
 	pathFinder = new AStarPathfinder(world->getActiveMap()->getAStarGrid());
+
 	world->getActiveMap()->getAStarGrid()->setStart(position);
 	world->getActiveMap()->getAStarGrid()->setGoal(pos);
 	
@@ -55,24 +56,51 @@ void FollowState::updateDirection() {
 	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
 	sf::Vector2f position(b2v.x, b2v.y);
 
-	float x = position.x;
-	float y = position.y;
+	float x = (int)position.x;
+	float y = (int)position.y;
 
 	float dirX = 0.0f;
 	float dirY = 0.0f;
 
 	if (x < currentDestination.x) {
-		dirX = 1.0f;
-	}
-	else if(x > currentDestination.x) {
-		dirX = -1.0f;
+		while (fmod(x, 64.f) > 0) {
+			x = x - 1.f;
+		}
 	}
 
-	if (y < currentDestination.y) {	
-		dirY = 1.0f;
+	if (y < currentDestination.y) {
+		while (fmod(y, 64.f) > 0) {
+			y = y - 1.f;
+		}
 	}
-	else if(y > currentDestination.y) {
-		dirY = -1.0f;
+
+	while (fmod(y, 64.f) > 0) {
+		y = y + 1.f;
+	}
+
+	while (fmod(x, 64.f) > 0) {
+		x = x + 1.f;
+	}
+
+	if (x != currentDestination.x) {
+		if (x < currentDestination.x) {
+			dirX = 1.0f;
+			currentDirection = sf::Vector2f(dirX, dirY);
+		}
+		else if (x > currentDestination.x) {
+			dirX = -1.0f;
+			currentDirection = sf::Vector2f(dirX, dirY);
+		}
+	}
+
+	
+	if (y != currentDestination.y) {
+		if (y <= currentDestination.y) {
+			dirY = 1.0f;
+		}
+		else if (y >= currentDestination.y) {
+			dirY = -1.0f;
+		}
 	}
 
 	currentDirection = sf::Vector2f(dirX, dirY);
@@ -124,7 +152,7 @@ bool FollowState::atDest() {
 
 	if (currentDirection.x != 0) {
 		if (currentDirection.x == -1) {
-			return position.x < currentDestination.x + 2.f;
+			return position.x < currentDestination.x;
 		}
 		else {
 			return position.x > currentDestination.x;
@@ -133,12 +161,14 @@ bool FollowState::atDest() {
 
 	if (currentDirection.y != 0) {
 		if (currentDirection.y == -1) {
-			return position.y < currentDestination.y + 2.f;
+			return position.y <= currentDestination.y;
 		}
 		else {
-			return position.y > currentDestination.y + 30.f;
+			return position.y >= currentDestination.y;
 		}
 	}
+
+	return true;
 }
 
 // 14.999
@@ -148,7 +178,7 @@ void FollowState::update(sf::Time& tpf) {
 	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
 	sf::Vector2f position(b2v.x, b2v.y);
 
-	if (currentPath.size() == 0 /*|| getStateMachine()->getTimers()->expired("FindPath")*/) {
+	if (currentPath.size() == 0 || updatesInSameSpot == 100 /*|| getStateMachine()->getTimers()->expired("FindPath")*/) {
 		b2Vec2 playerPos = Convert::box2dToWorld(world->getPlayer()->getPosition());
 		sf::Vector2f pos(playerPos.x, playerPos.y);
 		
@@ -167,7 +197,10 @@ void FollowState::update(sf::Time& tpf) {
 			return;
 		}
 
+		last = currentDestination;
 		currentDestination = currentPath[0];
+
+		updatesInSameSpot = 0;
 
 		updateDirection();
 	}
@@ -179,9 +212,15 @@ void FollowState::update(sf::Time& tpf) {
 			return;
 		}
 
+		last = currentDestination;
 		currentDestination = currentPath[0];
 
+		updatesInSameSpot = 0;
+
 		updateDirection();
+	}
+	else {
+		updatesInSameSpot++;
 	}
 
 	b2Vec2 velo(currentDirection.x * velocityMod, currentDirection.y * velocityMod);
