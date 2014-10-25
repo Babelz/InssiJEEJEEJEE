@@ -92,7 +92,6 @@ void AStarNode::reset() {
 	h = 0;
 	g = 0;
 	parent = 0;
-	goal = sf::Vector2f(0.0f, 0.0f);
 }
 
 AStarNode::~AStarNode(){

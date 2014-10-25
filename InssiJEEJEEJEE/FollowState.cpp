@@ -8,12 +8,14 @@ MachineState(owner, stateMachine) {
 	b2Vec2 playerPos = Convert::box2dToWorld(world->getPlayer()->getPosition());
 	sf::Vector2f pos(playerPos.x, playerPos.y);
 
-	pathFinder = new AStarPathfinder(world->getActiveMap()->getAStarGrid());
-	world->getActiveMap()->getAStarGrid()->setStart(sf::Vector2f(0.f, 0.f));
-	world->getActiveMap()->getAStarGrid()->setGoal(pos);
+	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
+	sf::Vector2f position(b2v.x, b2v.y);
 
-	stateMachine->getTimers()->addTimer("FindPath", 500);
-	//stateMachine->getTimers()->addTimer("ChangeDir", 250);
+	pathFinder = new AStarPathfinder(world->getActiveMap()->getAStarGrid());
+	world->getActiveMap()->getAStarGrid()->setStart(position);
+	world->getActiveMap()->getAStarGrid()->setGoal(pos);
+	
+	//stateMachine->getTimers()->addTimer("FindPath", 5000);
 
 	currentPath = pathFinder->findPath();
 	world->getActiveMap()->getAStarGrid()->resetNodes();
@@ -21,53 +23,168 @@ MachineState(owner, stateMachine) {
 	currentPath.erase(std::remove(currentPath.begin(), currentPath.end(), currentDestination), currentPath.end());
 	currentDestination = currentPath[0];
 
-	dirHandler.setOffset(sf::Vector2f(.0f, .0f));
-
-	dirHandler.changeDirection(sf::Vector2f(0.f, 0.f), currentDestination);
+	updateDirection();
 }
+
+float FollowState::roundPosX() {
+	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
+	sf::Vector2f position(b2v.x, b2v.y);
+
+	float min = std::min(position.x, currentDestination.x);
+	float max = std::max(position.x, currentDestination.x);
+
+	float rX = fmod(max, min) + max;
+
+	return rX - fmod(rX, min);
+}
+float FollowState::roundPosY() {
+	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
+	sf::Vector2f position(b2v.x, b2v.y);
+
+	float min = std::min(position.y, currentDestination.y);
+	float max = std::max(position.y, currentDestination.y);
+
+	float rY = fmod(max, min) + max;
+
+	return rY - fmod(rY, min);
+}
+void FollowState::updateDirection() {
+	//float x = roundPosX();
+	//float y = roundPosY();
+
+	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
+	sf::Vector2f position(b2v.x, b2v.y);
+
+	float x = position.x;
+	float y = position.y;
+
+	float dirX = 0.0f;
+	float dirY = 0.0f;
+
+	if (x < currentDestination.x) {
+		dirX = 1.0f;
+	}
+	else if(x > currentDestination.x) {
+		dirX = -1.0f;
+	}
+
+	if (y < currentDestination.y) {	
+		dirY = 1.0f;
+	}
+	else if(y > currentDestination.y) {
+		dirY = -1.0f;
+	}
+
+	currentDirection = sf::Vector2f(dirX, dirY);
+}
+bool FollowState::atDest() {
+	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
+	sf::Vector2f position(b2v.x, b2v.y);
+
+	/*float rX = roundPosX();
+	float rY = roundPosY();
+
+	if (currentDirection.x != 0.f) {
+		if (fmod(rX, currentDestination.x) < 64.0f) {
+			return true;
+		} else {
+			float min = std::min(rX, currentDestination.x);
+			float max = std::max(rX, currentDestination.x);
+
+			float mX = fmod(max, min);
+
+			if (rX > currentDestination.y) {
+				return (int)(rX - mX) == (int)currentDestination.x;
+			}
+			else {
+				return (int)rX + (int)mX == (int)currentDestination.x;
+			}
+		}
+	}
+
+	if (currentDirection.y != 0.f) {
+		if (fmod(rY, currentDestination.y) < 64.0f) {
+			return true;
+		}
+		else {
+			float min = std::min(rY, currentDestination.y);
+			float max = std::max(rY, currentDestination.y);
+
+			float mY = fmod(max, min);
+
+			if (rY > currentDestination.y) {
+				return (int)(rY - mY) == (int)currentDestination.y;
+			} else {
+				return (int)rY + (int)mY == (int)currentDestination.y;
+			}
+		}
+	}
+
+	return true;*/
+
+	if (currentDirection.x != 0) {
+		if (currentDirection.x == -1) {
+			return position.x < currentDestination.x + 2.f;
+		}
+		else {
+			return position.x > currentDestination.x;
+		}
+	}
+
+	if (currentDirection.y != 0) {
+		if (currentDirection.y == -1) {
+			return position.y < currentDestination.y + 2.f;
+		}
+		else {
+			return position.y > currentDestination.y + 30.f;
+		}
+	}
+}
+
+// 14.999
+const float velocityMod = 14.f;
 
 void FollowState::update(sf::Time& tpf) {
 	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
 	sf::Vector2f position(b2v.x, b2v.y);
 
-	if (currentPath.size() == 0) {
+	if (currentPath.size() == 0 /*|| getStateMachine()->getTimers()->expired("FindPath")*/) {
 		b2Vec2 playerPos = Convert::box2dToWorld(world->getPlayer()->getPosition());
-		sf::Vector2f pPos(playerPos.x, playerPos.y);
-		world->getActiveMap()->getAStarGrid()->setGoal(pPos);
-
-		b2Vec2 myPos = Convert::box2dToWorld(getOwner()->getPosition());
-		sf::Vector2f mPos(myPos.x, myPos.y);
-		world->getActiveMap()->getAStarGrid()->setStart(mPos);
+		sf::Vector2f pos(playerPos.x, playerPos.y);
+		
+		world->getActiveMap()->getAStarGrid()->setStart(position);
+		world->getActiveMap()->getAStarGrid()->setGoal(pos);
 
 		currentPath = pathFinder->findPath();
+
 		world->getActiveMap()->getAStarGrid()->resetNodes();
 
+		//getStateMachine()->getTimers()->resetTimer("FindPath");
 
-		getStateMachine()->getTimers()->resetTimer("FindPath");
-		
-		if (currentPath.size() == 0) {
-			return;
-		}
-
-		currentDestination = currentPath[0];
-
-		dirHandler.changeDirection(position, currentDestination);
-	}
-
-	if (dirHandler.passedGoal(position)) {
 		currentPath.erase(std::remove(currentPath.begin(), currentPath.end(), currentDestination), currentPath.end());
-		
+
 		if (currentPath.size() == 0) {
 			return;
 		}
-		
+
 		currentDestination = currentPath[0];
 
-		dirHandler.changeDirection(position, currentDestination);
+		updateDirection();
 	}
 
-	sf::Vector2f trans = dirHandler.translate();
-	b2Vec2 velo(12.5f * -(trans.x), 12.5f * -(trans.y));
+	if (atDest()) {
+		currentPath.erase(std::remove(currentPath.begin(), currentPath.end(), currentDestination), currentPath.end());
+
+		if (currentPath.size() == 0) {
+			return;
+		}
+
+		currentDestination = currentPath[0];
+
+		updateDirection();
+	}
+
+	b2Vec2 velo(currentDirection.x * velocityMod, currentDirection.y * velocityMod);
 
 	getOwner()->body->SetLinearVelocity(velo);
 }

@@ -116,7 +116,7 @@ void AStarGrid::setStart(sf::Vector2f position) {
 	AStarNode* const starNode = getNode(position);
 
 	if (starNode != 0) {
-		start = position;
+		start = starNode->getPosition();
 	}
 }
 AStarNode* AStarGrid::nodeAtIndex(int y, int x) {
