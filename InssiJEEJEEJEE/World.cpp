@@ -44,6 +44,11 @@ void World::addGameObject(GameObject* gameObject) {
 	gameObject->setWorld(this);
 	gameObjects.push_back(gameObject);
 }
+
+void World::addGameObjectNextFrame(GameObject* gameObject) {
+	gameObject->setWorld(this);
+	queue.push(gameObject);
+}
 void World::update(sf::Time& tpf) {
 	for (int i = gameObjects.size() - 1; i >= 0; i--) {
 		GameObject* g = gameObjects[i];
@@ -52,19 +57,25 @@ void World::update(sf::Time& tpf) {
 		g->destroy();
 		gameObjects.erase(gameObjects.begin() + i);
 	}
+	while (queue.size() > 0) {
+		gameObjects.push_back(queue.front());
+		queue.pop();
+	}
+	world.Step(1 / 60.f, 8, 3);
 	map->update(tpf);
-
-	world.Step(1 / 60.f, 100, 3);
-	std::for_each(gameObjects.begin(), gameObjects.end(), [&tpf](GameObject* gameObject) {
+	for (int i = 0; i < gameObjects.size(); i++) {
+		GameObject* gameObject = gameObjects[i];
 		gameObject->update(tpf);
-	});
+	}
+	
 }
 void World::draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY) {
 	map->draw(window, fromX, toX, fromY, toY);
 
-	std::for_each(gameObjects.begin(), gameObjects.end(), [&window](GameObject* gameObject) {
+	for (int i = 0; i < gameObjects.size(); i++) {
+		GameObject* gameObject = gameObjects[i];
 		gameObject->draw(window);
-	});
+	}
 }
 
 World::~World() {

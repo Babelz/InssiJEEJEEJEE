@@ -54,7 +54,7 @@ void MonsterGenerator::spawnMonsters()
 		FiniteStateMachine* brain = new FiniteStateMachine(monster);
 		brain->pushState(new FollowState(monster, brain, &world));
 		monster->addComponent(brain);
-		world.addGameObject(monster);
+		world.addGameObjectNextFrame(monster);
 
 		sound_manager.playSmallMonsterEntry();
 

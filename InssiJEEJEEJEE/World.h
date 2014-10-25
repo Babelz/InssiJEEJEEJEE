@@ -6,7 +6,7 @@
 #include <vector>
 #include "Map.h"
 #include "Hud.h"
-
+#include <queue>
 class World
 {
 private:
@@ -14,6 +14,7 @@ private:
 	Map* map;
 	std::vector<GameObject*> gameObjects;
 	GameObject* player;
+	std::queue<GameObject*> queue;
 public:
 	b2World* const getBoxWorld();
 	Map* const getActiveMap();
@@ -22,7 +23,7 @@ public:
 	GameObject* const getPlayer();
 
 	World();
-
+	void addGameObjectNextFrame(GameObject* gameObject);
 	void update(sf::Time& tpf);
 	void draw(sf::RenderWindow& window, int fromX, int toX, int fromY, int toY);
 	void addGameObject(GameObject* gobject);

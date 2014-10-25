@@ -16,6 +16,7 @@ void PickUpComponent::update(sf::Time& tpf) {
 		b2Body* bodyb = edge->contact->GetFixtureB()->GetBody();
 
 		GameObject* g = (GameObject*)bodyb->GetUserData();
+		if (g == NULL) return;
 		SoulComponent* s = (SoulComponent*)g->getComponent<SoulComponent>();
 		if (s == NULL) return;
 		s->setSouls(s->getSouls() + 10);
