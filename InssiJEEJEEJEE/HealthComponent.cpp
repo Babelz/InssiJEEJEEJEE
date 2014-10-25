@@ -19,10 +19,10 @@ void HealthComponent::update(sf::Time& tpf) {
 	if (getHp() <= 0) {
 		// Jos vaikka lopetetaan peli jos pelaaja kuolee
 		if (getOwner()->body == getOwner()->getWorld()->getPlayer()->body)
-		{
+		{	
 			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
 			//getOwner()->getWorld()->getGame()->setGameRunning(false);
-			getOwner()->getWorld()->getGame()->getStateManager()->change(2);
+			//getOwner()->getWorld()->getGame()->getStateManager()->change(2);
 		}
 		else
 		{
