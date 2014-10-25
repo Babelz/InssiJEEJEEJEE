@@ -41,6 +41,7 @@ World::World() : world(b2Vec2(0.0f, 0.0f)) {
 }
 
 void World::addGameObject(GameObject* gameObject) {
+	gameObject->setWorld(this);
 	gameObjects.push_back(gameObject);
 }
 void World::update(sf::Time& tpf) {

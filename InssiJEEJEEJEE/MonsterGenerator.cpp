@@ -74,3 +74,15 @@ b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 
 	return body;
 }
+//debug
+void MonsterGenerator::generateTo(float x, float y) {
+	GameObject* monster = new GameObject();
+	monster->body = createMonsterBody(x, y, world.getBoxWorld());
+	monster->body->SetUserData(monster);
+	monster->addComponent(new BoxRendererComponent(monster, textures[0]));
+	monster->addComponent(new HealthComponent(monster, 100));
+	FiniteStateMachine* brain = new FiniteStateMachine(monster);
+	brain->pushState(new FollowState(monster, brain, &world));
+	world.addGameObject(monster);
+}
+

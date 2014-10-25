@@ -12,6 +12,7 @@ public:
 	~HealthComponent();
 	void update(sf::Time& tpf);
 	void draw(sf::RenderWindow& window);
+	void takeDamage(int amount);
 	int getHp() {
 		return hitPoints;
 	}

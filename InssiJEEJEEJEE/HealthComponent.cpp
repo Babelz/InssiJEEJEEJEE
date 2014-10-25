@@ -12,7 +12,13 @@ HealthComponent::~HealthComponent()
 }
 
 void HealthComponent::update(sf::Time& tpf) {
+	if (getHp() <= 0) {
+		getOwner()->destroy();
+	}
+}
 
+void HealthComponent::takeDamage(int amount) {
+	this->hitPoints -= amount;
 }
 
 void HealthComponent::draw(sf::RenderWindow& window) {

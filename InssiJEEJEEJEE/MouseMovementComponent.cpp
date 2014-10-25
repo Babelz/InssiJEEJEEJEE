@@ -44,7 +44,9 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 				GameObject* other = (GameObject*)body->GetUserData();
 				HealthComponent* component = (HealthComponent*)other->getComponent<HealthComponent>();
 				assert(component != NULL);
-				//std::find_if()
+				component->takeDamage(10);
+
+				
 			}
 		});
 	}

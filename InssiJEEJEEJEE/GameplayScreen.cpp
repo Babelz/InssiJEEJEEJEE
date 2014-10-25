@@ -25,7 +25,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
-	attachBody(player, createPlayerBody(64.f * 79, 0.f, *world.getBoxWorld()));
+	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
 	player->addComponent(new BoxRendererComponent(player, box));
@@ -40,7 +40,9 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.setPlayer(player);
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
-	
+	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
+	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
+	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
