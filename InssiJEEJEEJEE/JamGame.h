@@ -4,6 +4,8 @@
 class JamGame :
 	public Game
 {
+private:
+	
 public:
 	JamGame(int width, int height);
 

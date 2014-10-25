@@ -1,7 +1,8 @@
 #include "MonsterGenerator.h"
 #include "FiniteStateMachine.h"
 #include "FollowState.h"
-MonsterGenerator::MonsterGenerator(World &world, soundManager &sound_manager) : world(world), sound_manager(sound_manager), lastSpawn(0.f), spawnFrequency(5.f)
+MonsterGenerator::MonsterGenerator(World &world, soundManager *sound_manager) 
+: world(world), sound_manager(*sound_manager), lastSpawn(0.f), spawnFrequency(5.f)
 {
 	float width = world.getActiveMap()->getWidth();
 	float height = world.getActiveMap()->getHeight();
@@ -59,6 +60,7 @@ void MonsterGenerator::spawnMonsters()
 	
 		if(spawnFrequency > 1 && (spawnFrequency *= 0.95) < 1) spawnFrequency = 1;
 
+
 		lastSpawn = clock.getElapsedTime().asSeconds();
 	}
 
@@ -67,6 +69,7 @@ void MonsterGenerator::spawnMonsters()
 		
 		soundTimer.restart();
 	}
+	
 }
 
 b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {

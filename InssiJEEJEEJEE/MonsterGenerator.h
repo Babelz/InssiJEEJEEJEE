@@ -23,10 +23,11 @@ private:
 	sf::Clock soundTimer;
 	soundManager &sound_manager;
 
+
 	void addTexture(char *texturePath);
 	b2Body* createMonsterBody(float x, float y, b2World *world);
 public:
-	MonsterGenerator(World &world, soundManager &sound_manager);
+	MonsterGenerator(World &world, soundManager *sound_manager);
 	~MonsterGenerator();
 	void generateTo(float x, float y);
 	void spawnMonsters();

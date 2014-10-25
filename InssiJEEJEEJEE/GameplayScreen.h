@@ -11,7 +11,6 @@
 #include "Camera.h"
 #include "GameState.hpp"
 #include "MonsterGenerator.h"
-#include "soundManager.h"
 #include "GameState.hpp"
 
 class GameplayScreen : public GameState
@@ -23,6 +22,7 @@ private:
 	soundManager sound_manager;
 	// Dirty haxxx.
 	//SwitchComponent* switchComponent;
+
 public:
 	GameplayScreen(Game* game);
 	~GameplayScreen();

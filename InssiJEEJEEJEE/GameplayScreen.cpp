@@ -16,6 +16,7 @@ class FollowState;
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createSusiBody(float x, float y, b2World& world);
+b2Body* createTile(bool isSensor, float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
 //b2Body* createMonsterBody(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
@@ -23,15 +24,37 @@ void attachBody(GameObject* owner, b2Body* body);
 SwitchComponent* switchComponent;
 
 GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
-	sf::Texture box, gfxPlayer, gfxSusi;
-	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
+	sf::Texture box, gfxPlayer, gfxSusi, altar;
+	if (!box.loadFromFile("alttari1.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png") || !altar.loadFromFile("temppeli.png"))
 		return;
 
-	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
+
+	GameObject* alttari = new GameObject();
+	attachBody(alttari, 
+		createTile(
+		true,
+		(world.getActiveMap()->getWidth() * 64.f) / 2 - 160.f,
+		(world.getActiveMap()->getHeight() * 64.f) / 2 - 160.f, 
+		*world.getBoxWorld()));
+
+	world.addGameObject(alttari);
+
+	MonsterRendererComponent* altarRenderer = new MonsterRendererComponent(alttari, altar);
+	altarRenderer->sizeX = 320.f;
+	altarRenderer->sizeY = 320.f;
+	alttari->addComponent(altarRenderer);
+
+	GameObject* moonSwitch = new GameObject();
+	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
+	world.addGameObject(moonSwitch);
+	switchComponent = new SwitchComponent(moonSwitch);
+	moonSwitch->addComponent(new MonsterRendererComponent(moonSwitch, box));
+	moonSwitch->addComponent(switchComponent);
+
 	player->addComponent(camera);
 	player->addComponent(new PlayerRendererComponent(player, gfxPlayer));
 	player->addComponent(new InputMovementComponent(player));
@@ -45,10 +68,10 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(player);
 	world.setPlayer(player);
 
-	sound_manager.playBattleMusic();
+	game->getSoundManager()->playBattleMusic();
 
 	GameObject* susi = new GameObject();
-	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
+	susi->body = createSusiBody(2400, 1550, *world.getBoxWorld());
 	susi->addComponent(new MonsterRendererComponent(susi, gfxSusi));
 	susi->addComponent(new HealthComponent(susi, 100));
 
@@ -58,22 +81,14 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	world.addGameObject(susi);
 
-	sound_manager.playDogBark();
+	game->getSoundManager()->playDogBark();
 
-	monsterGenerator = new MonsterGenerator(world, sound_manager);
+	monsterGenerator = new MonsterGenerator(world, game->getSoundManager());
 
 	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
 
-
-	GameObject* moonSwitch = new GameObject();
-	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
-	world.addGameObject(moonSwitch);
-
-	switchComponent = new SwitchComponent(moonSwitch);
-	moonSwitch->addComponent(new MonsterRendererComponent(moonSwitch, box));
-	moonSwitch->addComponent(switchComponent);
 }
 
 b2Body* createSusiBody(float x, float y, b2World& world) {
@@ -126,8 +141,10 @@ void attachBody(GameObject* owner, b2Body* body) {
 	body->SetUserData(owner);
 }
 
-b2Body* createTile(float x, float y, b2World& world) {
+b2Body* createTile(bool isSensor, float x, float y, b2World& world) {
+
 	b2BodyDef BodyDef;
+
 	BodyDef.position = Convert::worldToBox2d(x, y);
 	BodyDef.type = b2_staticBody;
 
@@ -136,9 +153,14 @@ b2Body* createTile(float x, float y, b2World& world) {
 	Shape.SetAsBox(Convert::worldToBox2d(64.f / 2.f), Convert::worldToBox2d(64.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.shape = &Shape;
+	FixtureDef.isSensor = isSensor;
 
 	body->CreateFixture(&FixtureDef);
 	return body;
+}
+
+b2Body* createTile(float x, float y, b2World& world) {
+	return createTile(false, x, y, world);
 }
 
 GameplayScreen::~GameplayScreen()
@@ -153,7 +175,7 @@ void GameplayScreen::update(sf::Time& tpf) {
 
 	if (switchComponent->moonStateChanged()) {
 		std::vector<GameObject*>* gameObjects = world.getGameObjects();
-		
+
 		GameObject* p = world.getPlayer();
 
 		for (int i = 0; i < gameObjects->size(); i++) {
@@ -166,12 +188,15 @@ void GameplayScreen::update(sf::Time& tpf) {
 				}
 
 				int moonVal = switchComponent->getMoonStateVal();
+				int m = switchComponent->getMoonStateVal() / 5;
 
-				if (moonVal < 512) {
-					int m = switchComponent->getMoonStateVal() / 5;
-
+				if (moonVal > 100 && moonVal < 400) {
 					c->addHitPoints(m);
-				} else {
+				}
+				else if (moonVal > 400 && moonVal < 700) {
+					c->removeHitPoints(m);
+				}
+				else {
 					c->resetToDefault();
 				}
 			}

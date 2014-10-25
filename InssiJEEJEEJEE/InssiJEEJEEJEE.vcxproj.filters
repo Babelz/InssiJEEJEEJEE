@@ -35,9 +35,11 @@
     <ClCompile Include="AltarComponents.cpp" />
     <ClCompile Include="DropComponent.cpp" />
     <ClCompile Include="PickUpComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="MonsterRendererComponent.cpp" />
     <ClCompile Include="PlayerRendererComponent.cpp" />
-    <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="MenuScreen.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -74,8 +76,10 @@
     <ClInclude Include="AltarComponents.h" />
     <ClInclude Include="DropComponent.h" />
     <ClInclude Include="PickUpComponent.h" />
-    <ClInclude Include="MonsterRendererComponent.h" />
-    <ClInclude Include="PlayerRendererComponent.h" />
     <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="PlayerRendererComponent.h" />
+    <ClInclude Include="MonsterRendererComponent.h" />
+    <ClInclude Include="MenuScreen.h" />
+    <ClInclude Include="GameOverScreen.h" />
   </ItemGroup>
 </Project>

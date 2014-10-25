@@ -92,21 +92,21 @@ void soundManager::playBattleMusic()
 	{
 		battleMusic1.openFromFile("music/battleMusic1.ogg");
 		battleMusic1.setLoop(true);
-		battleMusic1.setVolume(40);
+		battleMusic1.setVolume(15);
 		battleMusic1.play();
 	}
 	else if( random == 1)
 	{
 		battleMusic2.openFromFile("music/battleMusic2.ogg");
 		battleMusic2.setLoop(true);
-		battleMusic2.setVolume(40);
+		battleMusic2.setVolume(15);
 		battleMusic2.play();
 	}
 	else if(random == 2)
 	{
 		battleMusic3.openFromFile("music/battleMusic3.ogg");
 		battleMusic3.setLoop(true);
-		battleMusic3.setVolume(40);
+		battleMusic3.setVolume(15);
 		battleMusic3.play();
 	}
 

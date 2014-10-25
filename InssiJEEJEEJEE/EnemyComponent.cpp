@@ -1,6 +1,7 @@
 #include "EnemyComponent.h"
 #include "HealthComponent.h"
 #include "World.h"
+#include "soundManager.h"
 
 EnemyComponent::EnemyComponent(GameObject *owner) : GameObjectComponent(owner), lastHit(0.f), hitFrequency(0.5f), damage(30.f)
 {
@@ -29,6 +30,8 @@ void EnemyComponent::draw(sf::RenderWindow& win)
 				GameObject* g = (GameObject*)playa->body->GetUserData();
 				HealthComponent* h = (HealthComponent*)g->getComponent<HealthComponent>();
 				h->takeDamage(damage);
+				soundManager::getSound().playPlayerGrunt();
+				
 
 				lastHit = clock.getElapsedTime().asSeconds();
 			}

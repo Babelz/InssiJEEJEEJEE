@@ -3,6 +3,7 @@
 #include "DropComponent.h"
 #include "World.h"
 #include "GameplayScreen.h"
+#include "soundManager.h"
 
 
 void HealthComponent::addHitPoints(int amount) {
@@ -14,7 +15,6 @@ void HealthComponent::removeHitPoints(int amount) {
 	hitPoints += amount;
 }
 void HealthComponent::resetToDefault() {
-	
 	int diff = maxHitPoints - defMaxHitPoints;
 
 	hitPoints -= diff;
@@ -35,9 +35,10 @@ void HealthComponent::update(sf::Time& tpf) {
 	if (getHp() <= 0) {
 		// Jos vaikka lopetetaan peli jos pelaaja kuolee
 		if (getOwner()->body == getOwner()->getWorld()->getPlayer()->body)
-		{
+		{	
 			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
 			//getOwner()->getWorld()->getGame()->setGameRunning(false);
+			//getOwner()->getWorld()->getGame()->getStateManager()->change(2);
 		}
 		else
 		{
@@ -47,6 +48,7 @@ void HealthComponent::update(sf::Time& tpf) {
 		{
 			// TODO spawnaa itemi tähän positioon
 			dropComponent->dropItem(getOwner()->getPosition().x, getOwner()->getPosition().y, getOwner()->getWorld());
+			soundManager::getSound().playSmallMonsterDeath();
 		}
 		getOwner()->setRemoveOnNextUpdate(true);
 	}
@@ -58,9 +60,9 @@ void HealthComponent::takeDamage(int amount) {
 }
 
 void HealthComponent::draw(sf::RenderWindow& window) {
-	sf::RectangleShape shape;
+ 	/*sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(32.f * hitPoints/maxHitPoints, 4.f));
 	shape.setFillColor(sf::Color::Red);
 	shape.setPosition(Convert::box2dToWorld(getOwner()->body->GetPosition().x) + 16.f, Convert::box2dToWorld(getOwner()->body->GetPosition().y) - 8.f);
-	window.draw(shape);
+	window.draw(shape);*/
 }

@@ -5,6 +5,11 @@ MouseMovementComponent::MouseMovementComponent(GameObject* owner, Camera* camera
 	: GameObjectComponent(owner), window(win), world(world)
 {
 	this->camera = camera;
+	tex.loadFromFile("Miekka.png");
+	swordRect = sf::RectangleShape(sf::Vector2f(16, 48));
+	swordRect.setOrigin(8, 48);
+	swordRect.setTexture(&tex);
+	direction = true;
 }
 
 
@@ -14,17 +19,24 @@ MouseMovementComponent::~MouseMovementComponent()
 
 
 void MouseMovementComponent::update(sf::Time& tpf) {
+	b2Vec2 charPosition = Convert::box2dToWorld(getOwner()->body->GetPosition());
+	swordRect.setPosition(charPosition.x+20, charPosition.y+40);
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left)) return;
-	
+	sword = true;
 	sf::Vector2i position = sf::Mouse::getPosition(window);
 	b2Vec2 mousePosition = b2Vec2(
 		camera->getPosition().x + position.x,
 		camera->getPosition().y + position.y);
-
-	b2Vec2 charPosition = Convert::box2dToWorld(getOwner()->body->GetPosition());
+	
 	
 	b2Vec2 toTarget =   mousePosition - charPosition;
 	
+	if (mousePosition.x < charPosition.x)
+	{
+		direction = true;
+	}
+	else
+		direction = false;
 
 	float angle = atan2f(-toTarget.x, toTarget.y);
 	//getOwner()->body->SetTransform(getOwner()->body->GetPosition(), angle);
@@ -45,7 +57,7 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 			GameObject* other = (GameObject*)body->GetUserData();
 			HealthComponent* component = (HealthComponent*)other->getComponent<HealthComponent>();
 			if (component != NULL) {
-				component->takeDamage(5);
+				component->takeDamage(20);
 
 				/*
 				b2PolygonShape triangle;
@@ -74,7 +86,7 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 }
 void MouseMovementComponent::draw(sf::RenderWindow& win) {
 	b2Vec2 pos = Convert::box2dToWorld(getOwner()->getPosition());
-	b2PolygonShape triangle;
+	/*b2PolygonShape triangle;*/
 	b2Vec2 verts[3] = {
 		Convert::worldToBox2d(16.f, -16.f),
 		Convert::worldToBox2d(-16.f, -16.f),
@@ -83,9 +95,9 @@ void MouseMovementComponent::draw(sf::RenderWindow& win) {
 	};
 	b2Rot rot;
 	rot.Set(45 * b2_pi / 180);
-	triangle.Set(verts, 3);
+	/*triangle.Set(verts, 3);*/
 	
-	sf::ConvexShape shape;
+	/*sf::ConvexShape shape;
 	shape.setPointCount(3);
 	for (int i = 0; i < 3; i++) {
 		b2Vec2 vertex = Convert::box2dToWorld(triangle.GetVertex(i));
@@ -94,11 +106,25 @@ void MouseMovementComponent::draw(sf::RenderWindow& win) {
 			sf::Vector2f( 
 				vertex.x,
 				vertex.y
-			));
+			));*/
+	//}
+	//b2Vec2 v = Convert::box2dToWorld(getOwner()->getPosition());
+	//shape.setPosition(v.x +32.f, v.y);
+	////b2TestOverlap()
+	//shape.setOrigin(sf::Vector2f(16.f, 16.f));
+	/*win.draw(shape);*/
+	if (sword)
+	{
+		swordRect.setRotation(-90);
+		sword = false;
 	}
-	b2Vec2 v = Convert::box2dToWorld(getOwner()->getPosition());
-	shape.setPosition(v.x +32.f, v.y);
-	//b2TestOverlap()
-	shape.setOrigin(sf::Vector2f(16.f, 16.f));
-	win.draw(shape);
+	else
+	{
+		swordRect.setRotation(0);
+	}
+	if (!direction)
+	{
+		swordRect.rotate(180);
+	}
+	win.draw(swordRect);
 }
