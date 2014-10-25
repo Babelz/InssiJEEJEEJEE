@@ -19,6 +19,7 @@ private:
 	Game* game;
 	std::queue<GameObject*> queue;
 public:
+	std::vector<GameObject*>* getGameObjects();
 	b2World* const getBoxWorld();
 	Map* const getActiveMap();
 	Game* const getGame();

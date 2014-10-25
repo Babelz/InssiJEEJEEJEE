@@ -16,7 +16,7 @@ MachineState(owner, stateMachine) {
 	world->getActiveMap()->getAStarGrid()->setStart(position);
 	world->getActiveMap()->getAStarGrid()->setGoal(pos);
 	
-	//stateMachine->getTimers()->addTimer("FindPath", 5000);
+	stateMachine->getTimers()->addTimer("FindPath", 3500);
 
 	currentPath = pathFinder->findPath();
 	world->getActiveMap()->getAStarGrid()->resetNodes();
@@ -178,7 +178,7 @@ void FollowState::update(sf::Time& tpf) {
 	b2Vec2 b2v = Convert::box2dToWorld(getOwner()->getPosition());
 	sf::Vector2f position(b2v.x, b2v.y);
 
-	if (currentPath.size() == 0 || updatesInSameSpot == 100 /*|| getStateMachine()->getTimers()->expired("FindPath")*/) {
+	if (currentPath.size() == 0 || updatesInSameSpot == 100 || getStateMachine()->getTimers()->expired("FindPath") /*|| getStateMachine()->getTimers()->expired("FindPath")*/) {
 		b2Vec2 playerPos = Convert::box2dToWorld(world->getPlayer()->getPosition());
 		sf::Vector2f pos(playerPos.x, playerPos.y);
 		
@@ -189,7 +189,7 @@ void FollowState::update(sf::Time& tpf) {
 
 		world->getActiveMap()->getAStarGrid()->resetNodes();
 
-		//getStateMachine()->getTimers()->resetTimer("FindPath");
+		getStateMachine()->getTimers()->resetTimer("FindPath");
 
 		currentPath.erase(std::remove(currentPath.begin(), currentPath.end(), currentDestination), currentPath.end());
 

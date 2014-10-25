@@ -18,8 +18,11 @@ private:
 	std::vector<sf::Vector2f> spawnPoints;
 	float lastSpawn;
 	float spawnFrequency;
+
 	sf::Clock clock;
-	soundManager *sound_manager;
+	sf::Clock soundTimer;
+	soundManager &sound_manager;
+
 
 	void addTexture(char *texturePath);
 	b2Body* createMonsterBody(float x, float y, b2World *world);

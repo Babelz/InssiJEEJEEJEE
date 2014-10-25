@@ -1,7 +1,8 @@
 #include "MonsterGenerator.h"
 #include "FiniteStateMachine.h"
 #include "FollowState.h"
-MonsterGenerator::MonsterGenerator(World &world, soundManager *sound_manager) : world(world), sound_manager(sound_manager), lastSpawn(0.f), spawnFrequency(5.f)
+MonsterGenerator::MonsterGenerator(World &world, soundManager *sound_manager) 
+: world(world), sound_manager(*sound_manager), lastSpawn(0.f), spawnFrequency(5.f)
 {
 	float width = world.getActiveMap()->getWidth();
 	float height = world.getActiveMap()->getHeight();
@@ -12,9 +13,9 @@ MonsterGenerator::MonsterGenerator(World &world, soundManager *sound_manager) : 
 
 	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, 0));
 
-	//spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, height * tHeight - tHeight));
+	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, height * tHeight - tHeight));
 
-	//spawnPoints.push_back(sf::Vector2f(0, height * tHeight - tHeight));
+	spawnPoints.push_back(sf::Vector2f(0, height * tHeight - tHeight));
 
 	MonsterGenerator::addTexture("monster1.png");
 	MonsterGenerator::addTexture("monster2.png");
@@ -45,8 +46,8 @@ void MonsterGenerator::spawnMonsters()
 		int spawnPoint = uniform_dist(generator);
 
 		GameObject* monster = new GameObject();
-		//monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
-		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[0].x, spawnPoints[0].y, world.getBoxWorld());
+		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
+		//monster->body = MonsterGenerator::createMonsterBody(spawnPoints[0].x, spawnPoints[0].y, world.getBoxWorld());
 		monster->body->SetUserData(monster);
 		monster->addComponent(new MonsterRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
@@ -61,7 +62,12 @@ void MonsterGenerator::spawnMonsters()
 
 
 		lastSpawn = clock.getElapsedTime().asSeconds();
+	}
 
+	if (soundTimer.getElapsedTime().asSeconds() > 7) {
+		sound_manager.playSmallMonsterEntry();
+		
+		soundTimer.restart();
 	}
 	
 }
@@ -75,10 +81,12 @@ b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 	b2Body* body = world->CreateBody(&BodyDef);
 
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.friction = 0.7f;
 	FixtureDef.shape = &Shape;
+	FixtureDef.filter.categoryBits = 0x2;
+	FixtureDef.filter.maskBits = ~0x2;
 	body->CreateFixture(&FixtureDef);
 
 	return body;

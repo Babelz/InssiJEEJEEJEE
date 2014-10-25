@@ -18,7 +18,6 @@ private:
 	const int tileWidth = 64;
 	const int tileHeight = 64;
 
-	Random random;
 	AStarGrid* grid;
 
 	std::vector<sf::Vector2f> resolvePaths();

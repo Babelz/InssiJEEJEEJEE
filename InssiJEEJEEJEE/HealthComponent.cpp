@@ -6,9 +6,25 @@
 #include "soundManager.h"
 #include "GameOverScreen.h"
 
+
+void HealthComponent::addHitPoints(int amount) {
+	maxHitPoints + amount;
+	hitPoints += amount;
+}
+void HealthComponent::removeHitPoints(int amount) {
+	maxHitPoints -= amount;
+	hitPoints += amount;
+}
+void HealthComponent::resetToDefault() {
+	int diff = maxHitPoints - defMaxHitPoints;
+
+	hitPoints -= diff;
+}
+
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
 {
+	defMaxHitPoints = maxHP;
 }
 
 
@@ -50,9 +66,9 @@ void HealthComponent::takeDamage(int amount) {
 }
 
 void HealthComponent::draw(sf::RenderWindow& window) {
-	sf::RectangleShape shape;
+ 	/*sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(32.f * hitPoints/maxHitPoints, 4.f));
 	shape.setFillColor(sf::Color::Red);
 	shape.setPosition(Convert::box2dToWorld(getOwner()->body->GetPosition().x) + 16.f, Convert::box2dToWorld(getOwner()->body->GetPosition().y) - 8.f);
-	window.draw(shape);
+	window.draw(shape);*/
 }

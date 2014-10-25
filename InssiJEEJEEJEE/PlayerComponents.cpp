@@ -14,29 +14,22 @@ SoulComponent::~SoulComponent() { }
 void SoulComponent::update(sf::Time& tpf) { }
 void SoulComponent::draw(sf::RenderWindow& win) { }
 
-
-
 MoonComponent::MoonComponent(GameObject* owner) 
 	: GameObjectComponent(owner) {
 	setMoonState(0);
 }
 
+// Moon component
 MoonComponent::~MoonComponent() { }
 
 void MoonComponent::update(sf::Time& tpf) { }
 void MoonComponent::draw(sf::RenderWindow& win) { }
 
-
-
-
-
-
-
-
 InteractionComponent::InteractionComponent(GameObject* owner)
 	: GameObjectComponent(owner) {
 	((SoulComponent*)owner->getComponent<SoulComponent>())->setSouls(100);
 }
+
 
 InteractionComponent::~InteractionComponent() {
 
@@ -58,10 +51,11 @@ void InteractionComponent::update(sf::Time& tpf){
 
 	std::for_each(query.bodies.begin(), query.bodies.end(), [owner](b2Body* body){
 		if (body->GetUserData() != NULL && body != owner->body) {
-			
-			SwitchComponent* moonSwitch = (SwitchComponent*) ((GameObject*)body->GetUserData())->getComponent<SwitchComponent>();
+
+			SwitchComponent* moonSwitch = (SwitchComponent*)((GameObject*)body->GetUserData())->getComponent<SwitchComponent>();
+
 			moonSwitch->interactWith(owner);
-		}
+		}	
 	});
 
 }

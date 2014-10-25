@@ -19,6 +19,9 @@ private:
 	World world;
 	Camera* camera;
 	MonsterGenerator *monsterGenerator;
+	soundManager sound_manager;
+	// Dirty haxxx.
+	//SwitchComponent* switchComponent;
 
 public:
 	GameplayScreen(Game* game);

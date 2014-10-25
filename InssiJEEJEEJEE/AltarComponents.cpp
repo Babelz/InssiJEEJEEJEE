@@ -1,5 +1,19 @@
 #include "AltarComponents.h"
 
+
+bool SwitchComponent::moonStateChanged() {
+	if (changed) {
+		changed = false;
+
+		return true;
+	}
+
+	return false;
+}
+int SwitchComponent::getMoonStateVal() {
+	return currentMoonVal;
+}
+
 SwitchComponent::SwitchComponent(GameObject* owner)
 	: GameObjectComponent(owner) {
 
@@ -9,8 +23,15 @@ SwitchComponent::~SwitchComponent() {
 }
 void SwitchComponent::update(sf::Time& tpf)
 {
+	if (moonComponent != 0) {
+		currentMoonVal = moonComponent->getMoonState();
+		
+		if (currentMoonVal != lastMoonVal) {
+			changed = true;
+		}
+	}
 
-
+	lastMoonVal = currentMoonVal;
 }
 void SwitchComponent::draw(sf::RenderWindow& win) {
 
@@ -19,6 +40,12 @@ void SwitchComponent::draw(sf::RenderWindow& win) {
 void SwitchComponent::interactWith(GameObject* gobject) {
 	SoulComponent* souls = (SoulComponent*)gobject->getComponent<SoulComponent>();
 	assert(souls != NULL);
+
+	MoonComponent* moon = (MoonComponent*)gobject->getComponent<MoonComponent>();
+	assert(moon != NULL);
+
+	moonComponent = moon;
+
 	if (souls->getSouls() > 0)
 	{
 		souls->setSouls(souls->getSouls() - 1);
