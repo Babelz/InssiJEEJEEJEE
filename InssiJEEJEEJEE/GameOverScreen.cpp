@@ -1,6 +1,6 @@
 #include "GameOverScreen.h"
 #include "Game.h"
-
+#include "MenuScreen.h"
 GameOverScreen::GameOverScreen(Game *game) : GameState(game)
 {
 	if (!defeatTexture.loadFromFile("defeat.png"))
@@ -31,13 +31,18 @@ void GameOverScreen::draw(sf::RenderWindow &window)
 
 void GameOverScreen::update(sf::Time &time)
 {
+	
 }
 
 int GameOverScreen::pollEvent(sf::Event &event)
 {
+ 
 	if (event.type == sf::Event::KeyPressed)
 	{
-		getGame()->getStateManager()->change(0);
+		Game* game = getGame();
+		getGame()->doNextUpdate([game]() {
+			game->getStateManager()->push(new MenuScreen(game));
+		});
 	}
 	return 0;
 }

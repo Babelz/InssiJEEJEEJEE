@@ -85,10 +85,6 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	monsterGenerator = new MonsterGenerator(world, game->getSoundManager());
 
-	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
-	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
-	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
-
 }
 
 b2Body* createSusiBody(float x, float y, b2World& world) {
