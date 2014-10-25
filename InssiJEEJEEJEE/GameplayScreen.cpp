@@ -44,7 +44,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	game->getSoundManager()->playBattleMusic();
 
 	GameObject* susi = new GameObject();
-	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
+	susi->body = createSusiBody(2400, 1550, *world.getBoxWorld());
 	susi->addComponent(new MonsterRendererComponent(susi, gfxSusi));
 	susi->addComponent(new HealthComponent(susi, 100));
 
