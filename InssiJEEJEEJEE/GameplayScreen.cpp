@@ -19,8 +19,8 @@ b2Body* createTile(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
 
 GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
-	sf::Texture box;
-	if (!box.loadFromFile("box.png"))
+	sf::Texture box, gfxPlayer, gfxSusi;
+	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
 		return;
 
 	sound_manager.initialiseSound();
@@ -29,7 +29,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
-	player->addComponent(new BoxRendererComponent(player, box));
+	player->addComponent(new BoxRendererComponent(player, gfxPlayer));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
 	player->addComponent(new HealthComponent(player, 100));
@@ -43,7 +43,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	GameObject* monster2 = new GameObject();
 	monster2->body = createPlayerBody(1024, 128, *world.getBoxWorld());
-	monster2->addComponent(new BoxRendererComponent(monster2, box));
+	monster2->addComponent(new BoxRendererComponent(monster2, gfxSusi));
 	monster2->addComponent(new HealthComponent(monster2, 100));
 
 	FiniteStateMachine* brain = new FiniteStateMachine(monster2);
@@ -76,7 +76,7 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 
 
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32 / 2.f));
 	
 	b2FixtureDef FixtureDef;
 	FixtureDef.density = 0.1f;

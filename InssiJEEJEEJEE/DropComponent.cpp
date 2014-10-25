@@ -4,8 +4,10 @@
 #include "InssiMath.h"
 #include "World.h"
 
-DropComponent::DropComponent(GameObject *owner, sf::Texture &texture) : GameObjectComponent(owner), itemTexture(texture)
+DropComponent::DropComponent(GameObject *owner) : GameObjectComponent(owner)
 {
+	if (!itemTexture.loadFromFile("moon_drop.png"))
+		return;
 }
 
 DropComponent::~DropComponent()
@@ -29,7 +31,7 @@ void DropComponent::dropItem(float x, float y, World *world)
 
 	b2Body* body = world->getBoxWorld()->CreateBody(&BodyDef);
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(16.f / 2.f), Convert::worldToBox2d(16.f / 2.f));
+	Shape.SetAsBox(Convert::worldToBox2d(10 / 2.f), Convert::worldToBox2d(10 / 2.f));
 	b2FixtureDef FixtureDef;
 	FixtureDef.shape = &Shape;
 	FixtureDef.isSensor = true;
