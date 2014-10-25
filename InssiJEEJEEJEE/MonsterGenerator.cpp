@@ -3,10 +3,14 @@
 #include "FollowState.h"
 MonsterGenerator::MonsterGenerator(World &world, soundManager &sound_manager) : world(world), sound_manager(sound_manager), lastSpawn(0.f), spawnFrequency(5.f)
 {
+	float width = world.getActiveMap()->getWidth();
+	float height = world.getActiveMap()->getHeight();
+	float tWidth = world.getActiveMap()->getTileWidth();
+	float tHeight = world.getActiveMap()->getTileHeight();
 	spawnPoints.push_back(sf::Vector2f(0, 0));
-	spawnPoints.push_back(sf::Vector2f(2544, 0));
-	spawnPoints.push_back(sf::Vector2f(2544, 1552));
-	spawnPoints.push_back(sf::Vector2f(0, 1552));
+	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, 0));
+	spawnPoints.push_back(sf::Vector2f(width * tWidth - tWidth, height*tHeight - tHeight));
+	spawnPoints.push_back(sf::Vector2f(0, height*tHeight - tHeight));
 
 	MonsterGenerator::addTexture("monster1.png");
 	MonsterGenerator::addTexture("monster2.png");
@@ -38,6 +42,7 @@ void MonsterGenerator::spawnMonsters()
 
 		GameObject* monster = new GameObject();
 		monster->body = MonsterGenerator::createMonsterBody(spawnPoints[spawnPoint].x, spawnPoints[spawnPoint].y, world.getBoxWorld());
+		monster->body->SetUserData(monster);
 		monster->addComponent(new BoxRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
 		FiniteStateMachine* brain = new FiniteStateMachine(monster);
@@ -69,3 +74,15 @@ b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {
 
 	return body;
 }
+//debug
+void MonsterGenerator::generateTo(float x, float y) {
+	GameObject* monster = new GameObject();
+	monster->body = createMonsterBody(x, y, world.getBoxWorld());
+	monster->body->SetUserData(monster);
+	monster->addComponent(new BoxRendererComponent(monster, textures[0]));
+	monster->addComponent(new HealthComponent(monster, 100));
+	FiniteStateMachine* brain = new FiniteStateMachine(monster);
+	brain->pushState(new FollowState(monster, brain, &world));
+	world.addGameObject(monster);
+}
+

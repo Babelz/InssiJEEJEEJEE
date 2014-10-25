@@ -32,6 +32,7 @@
     <ClCompile Include="TileModel.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="PlayerComponents.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -65,5 +66,6 @@
     <ClInclude Include="AStarNode.h" />
     <ClInclude Include="AStarPathfinder.h" />
     <ClInclude Include="JaggedVector.h" />
+    <ClInclude Include="PlayerComponents.h" />
   </ItemGroup>
 </Project>

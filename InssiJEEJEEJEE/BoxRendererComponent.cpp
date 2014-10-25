@@ -18,8 +18,8 @@ void BoxRendererComponent::draw(sf::RenderWindow& window) {
 	sprite.setTexture(texture);
 	sprite.setOrigin(originX, originY);
 	sprite.setPosition(
-		Convert::box2dToWorld(getOwner()->body->GetPosition().x) + originX,
-		Convert::box2dToWorld(getOwner()->body->GetPosition().y) + originY);
+		Convert::box2dToWorld(getOwner()->body->GetPosition().x) + originX *2.f,
+		Convert::box2dToWorld(getOwner()->body->GetPosition().y) + originY*2.f);
 	sprite.setRotation(getOwner()->body->GetAngle() * 180 / b2_pi);
 	
 	window.draw(sprite);

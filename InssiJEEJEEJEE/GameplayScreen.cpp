@@ -10,6 +10,7 @@ class FollowState;
 #include "Hud.h"
 #include "InssiMath.h"
 #include "Game.h"
+#include "PlayerComponents.h"
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
@@ -24,14 +25,17 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
-	attachBody(player, createPlayerBody(900.f, 128.f, *world.getBoxWorld()));
+	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
 	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
-	player->addComponent(new Hud(player, new int(10), new int(5000000), new int(2), sf::Vector2f(1280.f, 720.f), camera));
 	player->addComponent(new HealthComponent(player, 100));
+	player->addComponent(new SoulComponent(player));
+	player->addComponent(new MoonComponent(player));
+	player->addComponent(new Hud(player, sf::Vector2f(1280.f, 720.f), camera));
+
 	world.addGameObject(player);
 	world.setPlayer(player);
 
@@ -47,7 +51,9 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(monster2);
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
-	monsterGenerator->spawnMonsters();
+	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
+	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
+	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {
@@ -101,6 +107,7 @@ GameplayScreen::~GameplayScreen()
 void GameplayScreen::update(sf::Time& tpf) {
 	
 	world.update(tpf);
+	//monsterGenerator->spawnMonsters();
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

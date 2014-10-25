@@ -1,15 +1,11 @@
 #include "Hud.h"
 
 
-Hud::Hud(GameObject* owner, int *health, int *souls, int *moonPos, sf::Vector2f windowSize, Camera* camera) 
+Hud::Hud(GameObject* owner, sf::Vector2f windowSize, Camera* camera) 
 	: GameObjectComponent(owner)
 {
 	this->camera = camera;
 	this->windowSize = windowSize;
-
-	this->health = health;
-	this->souls = souls;
-	this->moonPosition = moonPos;
 
 	font.loadFromFile("BLKCHCRY.ttf");
 	moonTexture.loadFromFile("moon2.png");
@@ -27,6 +23,9 @@ Hud::Hud(GameObject* owner, int *health, int *souls, int *moonPos, sf::Vector2f 
 	text.setFont(font);
 	text.setCharacterSize(40);
 
+	souls = (SoulComponent*)owner->getComponent<SoulComponent>();
+	moon = (MoonComponent*)owner->getComponent<MoonComponent>();
+	health = (HealthComponent*)owner->getComponent<HealthComponent>();
 
 }
 void Hud::update(sf::Time& tpf) { 
@@ -38,7 +37,7 @@ void Hud::draw(sf::RenderWindow& window)
 {
 	// muutetaan nykynen saulim‰‰r‰ stringiksi
 	std::stringstream ss;
-	ss << *souls;
+	ss << souls->getSouls();
 	std::string str = ss.str();
 	text.setString(str);
 
@@ -48,21 +47,21 @@ void Hud::draw(sf::RenderWindow& window)
 	int i = 0;
 	float x = camera->getPosition().x;
 	float y = camera->getPosition().y;
-	for (i; i < *health / 3; i++)
+	for (i; i < health->getHp() / 3; i++)
 	{
 		healthShape.setPosition(x + i*healthShape.getSize().x, y);
 		healthShape.setTextureRect(sf::IntRect(0, 0, 64, 64));
 		window.draw(healthShape);
 	}
 	
-	if (*health % 3 == 2)
+	if (health->getHp() % 3 == 2)
 	{
 		healthShape.setPosition(x + i*healthShape.getSize().x, y);
 		healthShape.setTextureRect(sf::IntRect(64, 0, 64, 64));
 		window.draw(healthShape);
 	}
 
-	if (*health % 3 == 1)
+	if (health->getHp() % 3 == 1)
 	{
 		healthShape.setPosition(x + i*healthShape.getSize().x, y);
 		healthShape.setTextureRect(sf::IntRect(128, 0, 64, 64));
@@ -74,7 +73,7 @@ void Hud::draw(sf::RenderWindow& window)
 	window.draw(text);
 
 	// kuun piirto
-	moonShape.setTextureRect(sf::IntRect(*moonPosition, 0, 64, 64));
+	moonShape.setTextureRect(sf::IntRect(moon->getMoonState(), 0, 64, 64));
 	window.draw(moonShape);
 }
 Hud::~Hud()

@@ -95,6 +95,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ModelRegister.cpp" />
+    <ClCompile Include="PlayerComponents.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="FollowState.cpp" />
     <ClCompile Include="MouseMovementComponent.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ModelRegister.h" />
+    <ClInclude Include="PlayerComponents.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="MonsterGenerator.h" />

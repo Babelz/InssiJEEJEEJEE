@@ -19,5 +19,15 @@ void GameObject::draw(sf::RenderWindow& window) {
 	});
 }
 
+void GameObject::destroy() {
+	if (body != NULL) {
+		body->GetWorld()->DestroyBody(body);
+	
+		// TODO poista worldista
+		// TODO tuhoa komponentit
+		components.clear();
+	}
+}
+
 GameObject::~GameObject() {
 }
