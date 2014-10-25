@@ -13,7 +13,7 @@ protected:
 public:
 	Game(int width, int height);
 	void run();
-	inline StateManager* getStateManager() { return &stateManager; };
+	inline StateManager* getStateManager() { return &stateManager; }
 	inline soundManager* getSoundManager() { return &sound_manager; }
 	inline void setGameRunning(bool b) { gameRunning = b; }
 	virtual void update(sf::Time &tpf) = 0;

@@ -1,8 +1,12 @@
 #pragma once
 #include "GameState.hpp"
+
 class MenuScreen :
 	public GameState
 {
+private:
+	sf::Texture menuTexture;
+	sf::RectangleShape shape;
 public:
 	MenuScreen(Game *game);
 	~MenuScreen();

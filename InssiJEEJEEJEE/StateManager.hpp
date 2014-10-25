@@ -9,6 +9,7 @@ private:
 	std::vector<GameState*> activeStates;
 public:
 	int add(GameState* state);
+	void remove(unsigned int i);
 	void change(unsigned int i);
 	void push(unsigned int i);
 	void pop();

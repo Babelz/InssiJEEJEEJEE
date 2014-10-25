@@ -3,6 +3,9 @@
 class GameOverScreen :
 	public GameState
 {
+private:
+	sf::Texture defeatTexture;
+	sf::RectangleShape shape;
 public:
 	GameOverScreen(Game *game);
 	~GameOverScreen();

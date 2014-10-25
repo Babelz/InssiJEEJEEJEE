@@ -1,7 +1,7 @@
 #include "JamGame.h"
 #include "GameplayScreen.h"
-#include "GameOverScreen.h"
 #include "MenuScreen.h"
+#include "GameOverScreen.h"
 
 JamGame::JamGame(int width, int height) : Game(width, height)
 {
@@ -18,6 +18,7 @@ void JamGame::update(sf::Time &tpf) {
 		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
+
 		stateManager.pollEvent(event);
 	}
 
