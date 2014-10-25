@@ -47,7 +47,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	GameObject* susi = new GameObject();
 	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
-	susi->addComponent(new BoxRendererComponent(susi, gfxSusi));
+	susi->addComponent(new MonsterRendererComponent(susi, gfxSusi));
 	susi->addComponent(new HealthComponent(susi, 100));
 
 	FiniteStateMachine* brain = new FiniteStateMachine(susi);

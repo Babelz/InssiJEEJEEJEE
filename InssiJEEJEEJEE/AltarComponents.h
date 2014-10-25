@@ -8,8 +8,6 @@ public:
 	void update(sf::Time& tpf);
 	void draw(sf::RenderWindow& win);
 	void interactWith(GameObject* gobject);
-	private:
-	MoonComponent *moonp;
 
 };
 
