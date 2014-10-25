@@ -40,8 +40,10 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 		// TODO tee kolmio ja eti 
 		GameObject *owner = getOwner();
 		std::for_each(query.bodies.begin(), query.bodies.end(), [owner](b2Body* body) {
-			if (body != owner->body) {
+			if (body != owner->body && body->GetUserData() != NULL) {
 				GameObject* other = (GameObject*)body->GetUserData();
+				HealthComponent* component = (HealthComponent*)other->getComponent<HealthComponent>();
+				assert(component != NULL);
 				//std::find_if()
 			}
 		});

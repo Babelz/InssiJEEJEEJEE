@@ -25,7 +25,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
-	attachBody(player, createPlayerBody(900.f, 128.f, *world.getBoxWorld()));
+	attachBody(player, createPlayerBody(64.f * 79, 0.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
 	player->addComponent(new BoxRendererComponent(player, box));
