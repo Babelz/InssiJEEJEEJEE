@@ -19,17 +19,19 @@ void SwitchComponent::draw(sf::RenderWindow& win) {
 void SwitchComponent::interactWith(GameObject* gobject) {
 	SoulComponent* souls = (SoulComponent*)gobject->getComponent<SoulComponent>();
 	assert(souls != NULL);
-	souls->setSouls(souls->getSouls() - 10);
-
-	MoonComponent* moon = (MoonComponent*)gobject->getComponent<MoonComponent>();
-	assert(moon != NULL);
-
-	moon->setMoonState(moon->getMoonState() + 1);
-	if (moon->getMoonState() > 645)
+	if (souls->getSouls() > 0)
 	{
-		moon->setMoonState(8);
+		souls->setSouls(souls->getSouls() - 1);
+	
+		MoonComponent* moon = (MoonComponent*)gobject->getComponent<MoonComponent>();
+		assert(moon != NULL);
+	
+		moon->setMoonState(moon->getMoonState() + 2);
+		if (moon->getMoonState() > 645)
+		{
+			moon->setMoonState(8);
+		}
 	}
-
 }
 //master purkka
 //if (moonp != NULL)

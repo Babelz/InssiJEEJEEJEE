@@ -35,7 +35,7 @@ void MoonComponent::draw(sf::RenderWindow& win) { }
 
 InteractionComponent::InteractionComponent(GameObject* owner)
 	: GameObjectComponent(owner) {
-	((SoulComponent*)owner->getComponent<SoulComponent>())->setSouls(5000);
+	((SoulComponent*)owner->getComponent<SoulComponent>())->setSouls(100);
 }
 
 InteractionComponent::~InteractionComponent() {

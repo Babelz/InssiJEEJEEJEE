@@ -8,6 +8,10 @@ private:
 	Camera* camera;
 	sf::RenderWindow& window;
 	World& world;
+	bool sword;
+	bool direction;
+	sf::Texture tex;
+	sf::RectangleShape swordRect;
 public:
 	MouseMovementComponent(GameObject* owner, Camera* camera, World& world, sf::RenderWindow &window);
 	~MouseMovementComponent();

@@ -21,8 +21,8 @@ b2Body* createTile(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
 
 GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
-	sf::Texture box, gfxPlayer, gfxSusi;
-	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
+	sf::Texture box, gfxPlayer, gfxSusi, altar;
+	if (!box.loadFromFile("temppeli.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png") || !altar.loadFromFile("temppeli.png"))
 		return;
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
@@ -62,6 +62,13 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
 
+
+
+
+	GameObject* alttari = new GameObject();
+	attachBody(alttari, createTile(320.f*40, 320.f*23 , *world.getBoxWorld()));
+	world.addGameObject(alttari);
+	alttari->addComponent(new MonsterRendererComponent(alttari, altar));
 
 	GameObject* moonSwitch = new GameObject();
 	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
