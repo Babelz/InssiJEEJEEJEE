@@ -4,14 +4,13 @@ InssiJEEJEEJEE
 10/10 -IGN
 Too MLG 
 
-Tekijät
-=======
-Joonas Aaltonen (Äänet, inssigrafiikkaa, ohjelmointi (äänimoottori))
-Eemeli Syynimaa (Kolmas apukäsi ohjelmoinnissa, grafiikka)
-Niko Salmela (Ohjelmointi (AI, pathfinder, kartta), grafiikka)
-Jani Vattula (Grafiikka, ääni, projektin johtaja)
-Jani Niemelä (Ohjelmointi (Runko, logiikka, abstraktiot))
-Vesa Karjalainen (Ohjelmointi (HUD/GUI), grafiikka )
+### Tekijät
+* Joonas Aaltonen (Äänet, inssigrafiikkaa, ohjelmointi (äänimoottori))
+* Eemeli Syynimaa (Kolmas apukäsi ohjelmoinnissa, grafiikka)
+* Niko Salmela (Ohjelmointi (AI, pathfinder, kartta), grafiikka)
+* Jani Vattula (Grafiikka, ääni, projektin johtaja)
+* Jani Niemelä (Ohjelmointi (Runko, logiikka, abstraktiot))
+* Vesa Karjalainen (Ohjelmointi (HUD/GUI), grafiikka )
 
 Ohjeet
 ====
