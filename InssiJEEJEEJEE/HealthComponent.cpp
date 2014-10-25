@@ -1,6 +1,7 @@
 #include "HealthComponent.h"
 #include "InssiMath.h"
 #include "DropComponent.h"
+#include "World.h"
 
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
@@ -14,14 +15,23 @@ HealthComponent::~HealthComponent()
 
 void HealthComponent::update(sf::Time& tpf) {
 	if (getHp() <= 0) {
-		DropComponent *dropComponent = (DropComponent*)getOwner()->getComponent<DropComponent>();
-
-		if (dropComponent)
+		// Jos vaikka lopetetaan peli jos pelaaja kuolee
+		if (getOwner()->body == getOwner()->getWorld()->getPlayer()->body)
 		{
-			// TODO spawnaa itemi tähän positioon
-			dropComponent->dropItem(getOwner()->getPosition().x, getOwner()->getPosition().y, getOwner()->getWorld());
+			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
+			//getOwner()->getWorld()->getGame()->setGameRunning(false);
 		}
-		getOwner()->setRemoveOnNextUpdate(true);
+		else
+		{
+			DropComponent *dropComponent = (DropComponent*)getOwner()->getComponent<DropComponent>();
+
+			if (dropComponent)
+			{
+				// TODO spawnaa itemi tähän positioon
+				dropComponent->dropItem(getOwner()->getPosition().x, getOwner()->getPosition().y, getOwner()->getWorld());
+			}
+			getOwner()->setRemoveOnNextUpdate(true);
+		}
 	}
 }
 

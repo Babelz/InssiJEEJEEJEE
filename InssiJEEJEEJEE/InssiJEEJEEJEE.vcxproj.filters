@@ -36,6 +36,7 @@
     <ClCompile Include="AltarComponents.cpp" />
     <ClCompile Include="DropComponent.cpp" />
     <ClCompile Include="PickUpComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -73,5 +74,6 @@
     <ClInclude Include="AltarComponents.h" />
     <ClInclude Include="DropComponent.h" />
     <ClInclude Include="PickUpComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
   </ItemGroup>
 </Project>

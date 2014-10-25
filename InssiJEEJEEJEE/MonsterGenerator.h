@@ -8,6 +8,7 @@
 #include "HealthComponent.h"
 #include "DropComponent.h"
 #include "soundManager.h"
+#include "EnemyComponent.h"
 
 class MonsterGenerator
 {

@@ -75,6 +75,16 @@ void Hud::draw(sf::RenderWindow& window)
 	// kuun piirto
 	moonShape.setTextureRect(sf::IntRect(moon->getMoonState(), 0, 64, 64));
 	window.draw(moonShape);
+
+	/*
+	// Kuunpimennys, tekee jos jaksaa/haluaa/kerke‰‰
+
+	sf::RectangleShape ironCurtain;
+	ironCurtain.setSize(sf::Vector2f(1280.f, 720.f));
+	ironCurtain.setFillColor(sf::Color(0, 0, 0, 128));
+	ironCurtain.setPosition(x, y);
+	window.draw(ironCurtain);
+	*/
 }
 Hud::~Hud()
 {

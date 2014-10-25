@@ -29,7 +29,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
-	player->addComponent(new BoxRendererComponent(player, gfxPlayer));
+	player->addComponent(new BoxRendererComponent(player, box));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
 	player->addComponent(new HealthComponent(player, 100));
