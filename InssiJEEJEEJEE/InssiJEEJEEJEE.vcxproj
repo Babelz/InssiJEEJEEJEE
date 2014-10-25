@@ -74,7 +74,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AltarComponents.cpp" />
-    <ClCompile Include="BoxRendererComponent.cpp" />
+    <ClCompile Include="MonsterRendererComponent.cpp" />
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="AStarPathfinder.cpp" />
@@ -99,6 +99,7 @@
     <ClCompile Include="ModelRegister.cpp" />
     <ClCompile Include="PickUpComponent.cpp" />
     <ClCompile Include="PlayerComponents.cpp" />
+    <ClCompile Include="PlayerRendererComponent.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="FollowState.cpp" />
     <ClCompile Include="MouseMovementComponent.cpp" />
@@ -126,13 +127,14 @@
     <ClInclude Include="ModelRegister.h" />
     <ClInclude Include="PickUpComponent.h" />
     <ClInclude Include="PlayerComponents.h" />
+    <ClInclude Include="PlayerRendererComponent.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="MonsterGenerator.h" />
     <ClInclude Include="MouseMovementComponent.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="StateManager.hpp" />
-    <ClInclude Include="BoxRendererComponent.h" />
+    <ClInclude Include="MonsterRendererComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectComponent.h" />

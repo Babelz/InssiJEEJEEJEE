@@ -2,7 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "GameObject.h"
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 #include "InputMovementComponent.h"
 #include "HealthComponent.h"
 #include "InssiMath.h"
