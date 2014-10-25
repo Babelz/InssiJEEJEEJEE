@@ -3,7 +3,7 @@
 class FollowState;
 
 
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 #include "InputMovementComponent.h"
 #include "MouseMovementComponent.h"
 #include "HealthComponent.h"
@@ -12,6 +12,7 @@ class FollowState;
 #include "Game.h"
 #include "PlayerComponents.h"
 #include "AltarComponents.h"
+#include "PlayerRendererComponent.h"
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createSusiBody(float x, float y, b2World& world);
@@ -30,7 +31,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());
 	player->addComponent(camera);
-	player->addComponent(new BoxRendererComponent(player, gfxPlayer));
+	player->addComponent(new PlayerRendererComponent(player, gfxPlayer));
 	player->addComponent(new InputMovementComponent(player));
 	player->addComponent(new MouseMovementComponent(player, camera, world, game->getWindow()));
 	player->addComponent(new HealthComponent(player, 100));
@@ -67,7 +68,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	GameObject* moonSwitch = new GameObject();
 	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
 	world.addGameObject(moonSwitch);
-	moonSwitch->addComponent(new BoxRendererComponent(moonSwitch, box));
+	moonSwitch->addComponent(new MonsterRendererComponent(moonSwitch, box));
 	moonSwitch->addComponent(new SwitchComponent(moonSwitch));
 }
 
@@ -104,13 +105,13 @@ b2Body* createPlayerBody(float x, float y, b2World& world) {
 
 
 	b2PolygonShape Shape;
-	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(32 / 2.f));
-
+	Shape.SetAsBox(Convert::worldToBox2d(32 / 2.f), Convert::worldToBox2d(48.f / 2.f));
+	
 	b2FixtureDef FixtureDef;
 	FixtureDef.density = 0.1f;
 	FixtureDef.friction = 0.1f;
 	//FixtureDef.restitution = 0.f;
-
+	
 	FixtureDef.shape = &Shape;
 	body->CreateFixture(&FixtureDef);
 	return body;

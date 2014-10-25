@@ -1,5 +1,5 @@
 #include "DropComponent.h"
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 #include "PickUpComponent.h"
 #include "InssiMath.h"
 #include "World.h"
@@ -40,7 +40,7 @@ void DropComponent::dropItem(float x, float y, World *world)
 
 	item->body = body;
 	body->SetUserData(item); // Tarvitaanko?
-	item->addComponent(new BoxRendererComponent(item, itemTexture));
+	item->addComponent(new MonsterRendererComponent(item, itemTexture));
 	item->addComponent(new PickUpComponent(item));
 
 	world->addGameObject(item);

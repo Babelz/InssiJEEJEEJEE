@@ -4,7 +4,7 @@
 #include "SFML\Graphics\Text.hpp"
 #include "Box2D\Dynamics\b2Body.h"
 #include "TileModel.h"
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 class Tile : public GameObject
 {
 private:

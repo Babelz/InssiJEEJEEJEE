@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BoxRendererComponent.cpp" />
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="AStarPathfinder.cpp" />
@@ -36,6 +35,8 @@
     <ClCompile Include="AltarComponents.cpp" />
     <ClCompile Include="DropComponent.cpp" />
     <ClCompile Include="PickUpComponent.cpp" />
+    <ClCompile Include="MonsterRendererComponent.cpp" />
+    <ClCompile Include="PlayerRendererComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -56,7 +57,6 @@
     <ClInclude Include="MouseMovementComponent.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="StateManager.hpp" />
-    <ClInclude Include="BoxRendererComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectComponent.h" />
@@ -73,5 +73,7 @@
     <ClInclude Include="AltarComponents.h" />
     <ClInclude Include="DropComponent.h" />
     <ClInclude Include="PickUpComponent.h" />
+    <ClInclude Include="MonsterRendererComponent.h" />
+    <ClInclude Include="PlayerRendererComponent.h" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "InssiMath.h"
 #include "World.h"
-#include "BoxRendererComponent.h"
+#include "MonsterRendererComponent.h"
 #include "HealthComponent.h"
 #include "DropComponent.h"
 #include "soundManager.h"
