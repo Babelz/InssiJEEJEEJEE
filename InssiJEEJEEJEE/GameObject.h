@@ -13,6 +13,7 @@ class GameObject
 private:
 	std::vector<GameObjectComponent*> components;
 	World *world;
+	bool removeOnNextUpdate;
 
 public:
 	b2Body *body;
@@ -43,6 +44,15 @@ public:
 
 	inline const b2Vec2& getPosition() {
 		return body->GetTransform().p;
+	}
+
+	inline void setRemoveOnNextUpdate(bool b) {
+		this->removeOnNextUpdate = b;
+	}
+
+	inline bool getRemoveOnNextUpdate()
+	{
+		return this->removeOnNextUpdate;
 	}
 
 	inline void setWorld(World* world) {

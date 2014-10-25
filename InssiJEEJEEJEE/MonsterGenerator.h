@@ -6,6 +6,7 @@
 #include "World.h"
 #include "BoxRendererComponent.h"
 #include "HealthComponent.h"
+#include "DropComponent.h"
 #include "soundManager.h"
 
 class MonsterGenerator

@@ -80,6 +80,7 @@
     <ClCompile Include="AStarPathfinder.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CooldownTimer.cpp" />
+    <ClCompile Include="DropComponent.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ModelRegister.cpp" />
+    <ClCompile Include="PickUpComponent.cpp" />
     <ClCompile Include="PlayerComponents.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="FollowState.cpp" />
@@ -111,6 +113,7 @@
     <ClInclude Include="AltarComponents.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CooldownTimer.h" />
+    <ClInclude Include="DropComponent.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="Hud.h" />
@@ -121,6 +124,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ModelRegister.h" />
+    <ClInclude Include="PickUpComponent.h" />
     <ClInclude Include="PlayerComponents.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="GameState.hpp" />

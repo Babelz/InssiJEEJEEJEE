@@ -1,5 +1,6 @@
 #include "HealthComponent.h"
 #include "InssiMath.h"
+#include "DropComponent.h"
 
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
@@ -13,7 +14,14 @@ HealthComponent::~HealthComponent()
 
 void HealthComponent::update(sf::Time& tpf) {
 	if (getHp() <= 0) {
-		getOwner()->destroy();
+		DropComponent *dropComponent = (DropComponent*)getOwner()->getComponent<DropComponent>();
+
+		if (dropComponent)
+		{
+			// TODO spawnaa itemi tähän positioon
+			dropComponent->dropItem(getOwner()->getPosition().x, getOwner()->getPosition().y, getOwner()->getWorld());
+		}
+		getOwner()->setRemoveOnNextUpdate(true);
 	}
 }
 
