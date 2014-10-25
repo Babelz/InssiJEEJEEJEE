@@ -71,7 +71,11 @@ public:
 		}
 	}
 
-
+	void stopWalkSound()
+	{
+		walkSound1.stop();
+		walkSound2.stop();
+	}
 
 	void playBackGroundMusic();
 	void playMenuMusic();

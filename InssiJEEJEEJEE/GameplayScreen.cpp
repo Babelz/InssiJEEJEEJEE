@@ -14,6 +14,9 @@ class FollowState;
 #include "AltarComponents.h"
 #include "PlayerRendererComponent.h"
 
+#include <stdlib.h>
+#include <time.h>   
+
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createSusiBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
@@ -24,6 +27,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sf::Texture box, gfxPlayer, gfxSusi;
 	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
 		return;
+
 
 	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
@@ -47,7 +51,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	GameObject* susi = new GameObject();
 	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
-	susi->addComponent(new BoxRendererComponent(susi, gfxSusi));
+	susi->addComponent(new MonsterRendererComponent(susi, gfxSusi));
 	susi->addComponent(new HealthComponent(susi, 100));
 
 	FiniteStateMachine* brain = new FiniteStateMachine(susi);
