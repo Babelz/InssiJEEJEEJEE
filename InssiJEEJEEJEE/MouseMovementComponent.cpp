@@ -44,26 +44,27 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 		if (body != owner->body && body->GetUserData() != NULL) {
 			GameObject* other = (GameObject*)body->GetUserData();
 			HealthComponent* component = (HealthComponent*)other->getComponent<HealthComponent>();
-			assert(component != NULL);
-			component->takeDamage(5);
-			/*
-			b2PolygonShape triangle;
-			float f = 8.f;
-			b2Vec2 verts[3] = {
+			if (component != NULL) {
+				component->takeDamage(5);
+				/*
+				b2PolygonShape triangle;
+				float f = 8.f;
+				b2Vec2 verts[3] = {
 				Convert::worldToBox2d(0, -f),
 				Convert::worldToBox2d(f, f),
 				Convert::worldToBox2d(-f, f)
-			};
-			b2Rot rotation;
-			rotation.Set(angle);
-			for (int i = 0; i < 3; i++) {
+				};
+				b2Rot rotation;
+				rotation.Set(angle);
+				for (int i = 0; i < 3; i++) {
 				verts[i] = b2Mul(rotation, verts[i]);
-			}
-			triangle.Set(verts, 3);
-				
-			if (b2TestOverlap(&triangle, 0, other->body->GetFixtureList()->GetShape(), 0, body->GetTransform(), other->body->GetTransform())) {
+				}
+				triangle.Set(verts, 3);
+
+				if (b2TestOverlap(&triangle, 0, other->body->GetFixtureList()->GetShape(), 0, body->GetTransform(), other->body->GetTransform())) {
 				component->takeDamage(2);
-			}*/
+				}*/
+			}
 		}
 	});
 	

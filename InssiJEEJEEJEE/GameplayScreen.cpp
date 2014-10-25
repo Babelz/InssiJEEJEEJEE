@@ -115,9 +115,8 @@ GameplayScreen::~GameplayScreen()
 }
 
 void GameplayScreen::update(sf::Time& tpf) {
-	
-	world.update(tpf);
 	monsterGenerator->spawnMonsters();
+	world.update(tpf);
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

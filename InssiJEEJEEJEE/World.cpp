@@ -45,6 +45,13 @@ void World::addGameObject(GameObject* gameObject) {
 	gameObjects.push_back(gameObject);
 }
 void World::update(sf::Time& tpf) {
+	for (int i = gameObjects.size() - 1; i >= 0; i--) {
+		GameObject* g = gameObjects[i];
+		if (!g->getRemoveOnNextUpdate()) continue;
+
+		g->destroy();
+		gameObjects.erase(gameObjects.begin() + i);
+	}
 	map->update(tpf);
 
 	world.Step(1 / 60.f, 100, 3);

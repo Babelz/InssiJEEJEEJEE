@@ -34,6 +34,8 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="PlayerComponents.cpp" />
     <ClCompile Include="AltarComponents.cpp" />
+    <ClCompile Include="DropComponent.cpp" />
+    <ClCompile Include="PickUpComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -69,5 +71,7 @@
     <ClInclude Include="JaggedVector.h" />
     <ClInclude Include="PlayerComponents.h" />
     <ClInclude Include="AltarComponents.h" />
+    <ClInclude Include="DropComponent.h" />
+    <ClInclude Include="PickUpComponent.h" />
   </ItemGroup>
 </Project>

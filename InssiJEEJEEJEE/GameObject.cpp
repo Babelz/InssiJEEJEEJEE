@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include <algorithm>
 
-GameObject::GameObject() {
+GameObject::GameObject() : removeOnNextUpdate(false) {
 }
 
 void GameObject::addComponent(GameObjectComponent* component) {
