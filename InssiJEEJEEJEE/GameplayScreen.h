@@ -28,6 +28,6 @@ public:
 	void update(sf::Time &tpf);
 	void draw(sf::RenderWindow& window);
 	void activate();
-	int pollEvent(sf::Event &event);
+	int pollEvent(sf::Event &event);	
 };
 

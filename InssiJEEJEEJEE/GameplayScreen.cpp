@@ -55,7 +55,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	world.addGameObject(susi);
 
-	//sound_manager.playDogBark();
+	sound_manager.playDogBark();
 
 	monsterGenerator = new MonsterGenerator(world, sound_manager);
 

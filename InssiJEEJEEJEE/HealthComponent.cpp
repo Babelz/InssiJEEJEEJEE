@@ -1,6 +1,7 @@
 #include "HealthComponent.h"
 #include "InssiMath.h"
 #include "DropComponent.h"
+#include "GameplayScreen.h"
 
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
