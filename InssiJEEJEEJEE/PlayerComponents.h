@@ -34,3 +34,12 @@ public:
 		return moonState;
 	}
 };
+
+class InteractionComponent : public GameObjectComponent
+{
+public:
+	InteractionComponent(GameObject* owner);
+	~InteractionComponent();
+	void update(sf::Time& tpf);
+	void draw(sf::RenderWindow& win);
+};

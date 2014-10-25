@@ -73,6 +73,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AltarComponents.cpp" />
     <ClCompile Include="BoxRendererComponent.cpp" />
     <ClCompile Include="AStarGrid.cpp" />
     <ClCompile Include="AStarNode.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AltarComponents.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CooldownTimer.h" />
     <ClInclude Include="FiniteStateMachine.h" />

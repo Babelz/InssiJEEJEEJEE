@@ -11,6 +11,7 @@ class FollowState;
 #include "InssiMath.h"
 #include "Game.h"
 #include "PlayerComponents.h"
+#include "AltarComponents.h"
 
 b2Body* createPlayerBody(float x, float y, b2World& world);
 b2Body* createTile(float x, float y, b2World& world);
@@ -34,6 +35,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	player->addComponent(new HealthComponent(player, 100));
 	player->addComponent(new SoulComponent(player));
 	player->addComponent(new MoonComponent(player));
+	player->addComponent(new InteractionComponent(player));
 	player->addComponent(new Hud(player, sf::Vector2f(1280.f, 720.f), camera));
 
 	world.addGameObject(player);
@@ -55,6 +57,13 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 15 * 64.f);
+
+
+	GameObject* moonSwitch = new GameObject();
+	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
+	world.addGameObject(moonSwitch);
+	moonSwitch->addComponent(new BoxRendererComponent(moonSwitch, box));
+	moonSwitch->addComponent(new SwitchComponent(moonSwitch));
 }
 
 b2Body* createPlayerBody(float x, float y, b2World& world) {

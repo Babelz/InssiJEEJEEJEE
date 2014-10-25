@@ -33,6 +33,7 @@
     <ClCompile Include="World.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="PlayerComponents.cpp" />
+    <ClCompile Include="AltarComponents.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -67,5 +68,6 @@
     <ClInclude Include="AStarPathfinder.h" />
     <ClInclude Include="JaggedVector.h" />
     <ClInclude Include="PlayerComponents.h" />
+    <ClInclude Include="AltarComponents.h" />
   </ItemGroup>
 </Project>
