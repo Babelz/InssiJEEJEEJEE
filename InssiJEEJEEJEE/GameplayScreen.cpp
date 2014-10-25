@@ -24,8 +24,6 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sf::Texture box, gfxPlayer, gfxSusi;
 	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
 		return;
-
-	sound_manager.initialiseSound();
 	game->getWindow().setMouseCursorVisible(true);
 	GameObject* player = new GameObject();
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
@@ -43,7 +41,7 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	world.addGameObject(player);
 	world.setPlayer(player);
 
-	sound_manager.playBattleMusic();
+	game->getSoundManager()->playBattleMusic();
 
 	GameObject* susi = new GameObject();
 	susi->body = createSusiBody(1024, 128, *world.getBoxWorld());
@@ -56,9 +54,9 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 
 	world.addGameObject(susi);
 
-	sound_manager.playDogBark();
+	game->getSoundManager()->playDogBark();
 
-	monsterGenerator = new MonsterGenerator(world, sound_manager);
+	monsterGenerator = new MonsterGenerator(world, game->getSoundManager());
 
 	monsterGenerator->generateTo(64.f * 40, 20 * 64.f);
 	monsterGenerator->generateTo(64.f * 35, 20 * 64.f);
