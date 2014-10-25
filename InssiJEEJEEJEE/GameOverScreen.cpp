@@ -21,6 +21,10 @@ void GameOverScreen::activate()
 
 void GameOverScreen::draw(sf::RenderWindow &window)
 {
+	sf::View view = window.getDefaultView();
+	view.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
+	view.reset(sf::FloatRect(0, 0, 1280.f, 720.f));
+	window.setView(view);
 	window.draw(shape);
 	window.display();
 }

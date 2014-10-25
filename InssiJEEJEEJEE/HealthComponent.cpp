@@ -4,6 +4,7 @@
 #include "World.h"
 #include "GameplayScreen.h"
 #include "soundManager.h"
+#include "GameOverScreen.h"
 
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
@@ -22,7 +23,12 @@ void HealthComponent::update(sf::Time& tpf) {
 		{	
 			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
 			//getOwner()->getWorld()->getGame()->setGameRunning(false);
-			//getOwner()->getWorld()->getGame()->getStateManager()->change(2);
+			GameObject* player = getOwner()->getWorld()->getPlayer();
+			player->getWorld()->getGame()->doNextUpdate([player]() {
+				player->getWorld()->getGame()->getStateManager()->push(new GameOverScreen(player->getWorld()->getGame()));
+			});
+				
+				
 		}
 		else
 		{

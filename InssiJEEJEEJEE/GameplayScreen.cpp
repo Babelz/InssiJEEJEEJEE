@@ -24,7 +24,8 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sf::Texture box, gfxPlayer, gfxSusi, altar;
 	if (!box.loadFromFile("temppeli.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png") || !altar.loadFromFile("temppeli.png"))
 		return;
-	game->getWindow().setMouseCursorVisible(true);
+	
+	world.setGame(game);
 	GameObject* player = new GameObject();
 	attachBody(player, createPlayerBody(64.f * 40, 25 * 64.f, *world.getBoxWorld()));
 	camera = new Camera(player, world, 1280, 720, world.getActiveMap()->getTileWidth(), world.getActiveMap()->getTileHeight());

@@ -1,5 +1,6 @@
 #include "MenuScreen.h"
 #include "Game.h"
+#include "GameplayScreen.h"
 
 
 MenuScreen::MenuScreen(Game *game) : GameState(game)
@@ -33,7 +34,7 @@ int MenuScreen::pollEvent(sf::Event &event)
 {
 	if (event.type == sf::Event::KeyPressed)
 	{
-		getGame()->getStateManager()->change(1);
+		getGame()->getStateManager()->push(new GameplayScreen(getGame()));
 	}
 	return 0;
 }

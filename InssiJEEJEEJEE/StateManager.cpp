@@ -1,10 +1,21 @@
 #include "StateManager.hpp"
 
+StateManager::StateManager()
+{
+}
+
 int StateManager::add(GameState* state)
 {
 	states.push_back(state);
 
 	return states.size() - 1;
+}
+
+void StateManager::push(GameState *state)
+{
+	if(activeStates.size() == 1) delete activeStates[0];
+	activeStates.clear();
+	activeStates.push_back(state);
 }
 
 void StateManager::push(unsigned int i)

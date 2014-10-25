@@ -22,7 +22,9 @@ public:
 	b2World* const getBoxWorld();
 	Map* const getActiveMap();
 	Game* const getGame();
-	
+	void setGame(Game* game) {
+		this->game = game;
+	}
 	void setPlayer(GameObject* player);
 	GameObject* const getPlayer();
 
