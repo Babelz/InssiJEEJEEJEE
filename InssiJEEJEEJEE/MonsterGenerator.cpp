@@ -51,6 +51,7 @@ void MonsterGenerator::spawnMonsters()
 		monster->addComponent(new MonsterRendererComponent(monster, textures[uniform_dist2(generator)]));
 		monster->addComponent(new HealthComponent(monster, 100));
 		monster->addComponent(new DropComponent(monster));
+		monster->addComponent(new EnemyComponent(monster));
 		FiniteStateMachine* brain = new FiniteStateMachine(monster);
 		brain->pushState(new FollowState(monster, brain, &world));
 		monster->addComponent(brain);

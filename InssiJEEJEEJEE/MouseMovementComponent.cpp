@@ -46,6 +46,7 @@ void MouseMovementComponent::update(sf::Time& tpf) {
 			HealthComponent* component = (HealthComponent*)other->getComponent<HealthComponent>();
 			if (component != NULL) {
 				component->takeDamage(5);
+
 				/*
 				b2PolygonShape triangle;
 				float f = 8.f;

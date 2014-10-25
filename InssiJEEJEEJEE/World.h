@@ -7,6 +7,8 @@
 #include "Map.h"
 #include "Hud.h"
 #include <queue>
+#include "Game.h"
+
 class World
 {
 private:
@@ -14,10 +16,12 @@ private:
 	Map* map;
 	std::vector<GameObject*> gameObjects;
 	GameObject* player;
+	Game* game;
 	std::queue<GameObject*> queue;
 public:
 	b2World* const getBoxWorld();
 	Map* const getActiveMap();
+	Game* const getGame();
 	
 	void setPlayer(GameObject* player);
 	GameObject* const getPlayer();

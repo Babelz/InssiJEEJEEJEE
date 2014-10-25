@@ -81,6 +81,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CooldownTimer.cpp" />
     <ClCompile Include="DropComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="ForestMapGenerator.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CooldownTimer.h" />
     <ClInclude Include="DropComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="Hud.h" />

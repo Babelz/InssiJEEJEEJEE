@@ -37,6 +37,7 @@
     <ClCompile Include="PickUpComponent.cpp" />
     <ClCompile Include="MonsterRendererComponent.cpp" />
     <ClCompile Include="PlayerRendererComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -75,5 +76,6 @@
     <ClInclude Include="PickUpComponent.h" />
     <ClInclude Include="MonsterRendererComponent.h" />
     <ClInclude Include="PlayerRendererComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
   </ItemGroup>
 </Project>

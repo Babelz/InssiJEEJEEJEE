@@ -8,6 +8,11 @@ b2World* const World::getBoxWorld() {
 Map* const World::getActiveMap() {
 	return map;
 }
+
+Game* const World::getGame() {
+	return game;
+}
+
 void World::setPlayer(GameObject* player) {
 	this->player = player;
 }

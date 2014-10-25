@@ -1,6 +1,7 @@
 #include "HealthComponent.h"
 #include "InssiMath.h"
 #include "DropComponent.h"
+#include "World.h"
 #include "GameplayScreen.h"
 #include "soundManager.h"
 
@@ -16,6 +17,14 @@ HealthComponent::~HealthComponent()
 
 void HealthComponent::update(sf::Time& tpf) {
 	if (getHp() <= 0) {
+		// Jos vaikka lopetetaan peli jos pelaaja kuolee
+		if (getOwner()->body == getOwner()->getWorld()->getPlayer()->body)
+		{
+			// TODO: Niin tästä pitäis jotenkin pystyä kutsumaan GAME OVERIA
+			//getOwner()->getWorld()->getGame()->setGameRunning(false);
+		}
+		else
+		{
 		DropComponent *dropComponent = (DropComponent*)getOwner()->getComponent<DropComponent>();
 
 		if (dropComponent)
@@ -26,6 +35,7 @@ void HealthComponent::update(sf::Time& tpf) {
 		}
 		getOwner()->setRemoveOnNextUpdate(true);
 	}
+}
 }
 
 void HealthComponent::takeDamage(int amount) {
