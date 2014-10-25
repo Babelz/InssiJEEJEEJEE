@@ -1,5 +1,6 @@
 #include "MenuScreen.h"
 #include "Game.h"
+#include "soundManager.h"
 
 
 MenuScreen::MenuScreen(Game *game) : GameState(game)
@@ -9,6 +10,7 @@ MenuScreen::MenuScreen(Game *game) : GameState(game)
 
 	shape = sf::RectangleShape(sf::Vector2f(1280.f, 720.f));
 	shape.setTexture(&menuTexture);
+	soundManager::getSound().playMenuMusic();
 }
 
 MenuScreen::~MenuScreen()
@@ -34,6 +36,8 @@ int MenuScreen::pollEvent(sf::Event &event)
 	if (event.type == sf::Event::KeyPressed)
 	{
 		getGame()->getStateManager()->change(1);
+		soundManager::destroy();
+		soundManager::getSound().playBattleMusic();
 	}
 	return 0;
 }

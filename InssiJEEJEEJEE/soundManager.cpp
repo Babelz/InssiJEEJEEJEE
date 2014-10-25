@@ -81,6 +81,7 @@ void soundManager::playMenuMusic()
 	menuMusic.setVolume(40);
 	menuMusic.play();
 }
+
 void soundManager::playBattleMusic()
 {
 	int random;
