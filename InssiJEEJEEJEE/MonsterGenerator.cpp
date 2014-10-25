@@ -59,10 +59,11 @@ void MonsterGenerator::spawnMonsters()
 	
 		if(spawnFrequency > 1 && (spawnFrequency *= 0.95) < 1) spawnFrequency = 1;
 
+
 		lastSpawn = clock.getElapsedTime().asSeconds();
-		if (lastSpawn > 3)
-			sound_manager->playSmallMonsterEntry();
+
 	}
+	
 }
 
 b2Body *MonsterGenerator::createMonsterBody(float x, float y, b2World *world) {

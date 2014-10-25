@@ -3,6 +3,7 @@
 #include "DropComponent.h"
 #include "World.h"
 #include "GameplayScreen.h"
+#include "soundManager.h"
 
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
@@ -31,6 +32,7 @@ void HealthComponent::update(sf::Time& tpf) {
 		{
 			// TODO spawnaa itemi tähän positioon
 			dropComponent->dropItem(getOwner()->getPosition().x, getOwner()->getPosition().y, getOwner()->getWorld());
+			soundManager::getSound().playSmallMonsterDeath();
 		}
 		getOwner()->setRemoveOnNextUpdate(true);
 	}
