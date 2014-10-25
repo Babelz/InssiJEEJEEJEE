@@ -20,6 +20,10 @@ GameObject* const World::getPlayer() {
 	return player;
 }
 
+std::vector<GameObject*>* World::getGameObjects() {
+	return &gameObjects;
+}
+
 World::World() : world(b2Vec2(0.0f, 0.0f)) {
 	ForestMapGenerator generator;
 

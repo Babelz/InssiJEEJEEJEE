@@ -14,29 +14,22 @@ SoulComponent::~SoulComponent() { }
 void SoulComponent::update(sf::Time& tpf) { }
 void SoulComponent::draw(sf::RenderWindow& win) { }
 
-
-
 MoonComponent::MoonComponent(GameObject* owner) 
 	: GameObjectComponent(owner) {
 	setMoonState(0);
 }
 
+// Moon component
 MoonComponent::~MoonComponent() { }
 
 void MoonComponent::update(sf::Time& tpf) { }
 void MoonComponent::draw(sf::RenderWindow& win) { }
 
-
-
-
-
-
-
-
 InteractionComponent::InteractionComponent(GameObject* owner)
 	: GameObjectComponent(owner) {
 	((SoulComponent*)owner->getComponent<SoulComponent>())->setSouls(5000);
 }
+
 
 InteractionComponent::~InteractionComponent() {
 

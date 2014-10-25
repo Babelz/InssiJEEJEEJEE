@@ -18,7 +18,9 @@ private:
 	std::vector<sf::Vector2f> spawnPoints;
 	float lastSpawn;
 	float spawnFrequency;
+
 	sf::Clock clock;
+	sf::Clock soundTimer;
 	soundManager &sound_manager;
 
 	void addTexture(char *texturePath);

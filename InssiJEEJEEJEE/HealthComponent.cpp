@@ -4,9 +4,26 @@
 #include "World.h"
 #include "GameplayScreen.h"
 
+
+void HealthComponent::addHitPoints(int amount) {
+	maxHitPoints + amount;
+	hitPoints += amount;
+}
+void HealthComponent::removeHitPoints(int amount) {
+	maxHitPoints -= amount;
+	hitPoints += amount;
+}
+void HealthComponent::resetToDefault() {
+	
+	int diff = maxHitPoints - defMaxHitPoints;
+
+	hitPoints -= diff;
+}
+
 HealthComponent::HealthComponent(GameObject* owner, unsigned int maxHP)
 : GameObjectComponent(owner), maxHitPoints(maxHP), hitPoints(maxHP)
 {
+	defMaxHitPoints = maxHP;
 }
 
 

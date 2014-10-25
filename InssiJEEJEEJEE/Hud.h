@@ -22,9 +22,11 @@ private:
 	sf::Texture moonTexture, soulTexture, healthTexture;
 	sf::CircleShape moonShape;
 	sf::RectangleShape soulShape, healthShape;
+
 	SoulComponent *souls;
 	HealthComponent *health;
 	MoonComponent *moon;
+
 	sf::Vector2f windowSize;
 };
 

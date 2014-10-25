@@ -20,6 +20,8 @@ b2Body* createTile(float x, float y, b2World& world);
 //b2Body* createMonsterBody(float x, float y, b2World& world);
 void attachBody(GameObject* owner, b2Body* body);
 
+SwitchComponent* switchComponent;
+
 GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	sf::Texture box, gfxPlayer, gfxSusi;
 	if (!box.loadFromFile("box.png") || !gfxPlayer.loadFromFile("player.png") || !gfxSusi.loadFromFile("susi.png"))
@@ -68,8 +70,10 @@ GameplayScreen::GameplayScreen(Game* game) : GameState(game) {
 	GameObject* moonSwitch = new GameObject();
 	attachBody(moonSwitch, createTile(64.f * 40, 23 * 64.f, *world.getBoxWorld()));
 	world.addGameObject(moonSwitch);
+
+	switchComponent = new SwitchComponent(moonSwitch);
 	moonSwitch->addComponent(new MonsterRendererComponent(moonSwitch, box));
-	moonSwitch->addComponent(new SwitchComponent(moonSwitch));
+	moonSwitch->addComponent(switchComponent);
 }
 
 b2Body* createSusiBody(float x, float y, b2World& world) {
@@ -146,6 +150,33 @@ GameplayScreen::~GameplayScreen()
 void GameplayScreen::update(sf::Time& tpf) {
 	monsterGenerator->spawnMonsters();
 	world.update(tpf);
+
+	if (switchComponent->moonStateChanged()) {
+		std::vector<GameObject*>* gameObjects = world.getGameObjects();
+		
+		GameObject* p = world.getPlayer();
+
+		for (int i = 0; i < gameObjects->size(); i++) {
+			GameObject* o = gameObjects->at(i);
+			HealthComponent* c = (HealthComponent*)o->getComponent<HealthComponent>();
+
+			if (c != 0) {
+				if (typeid(c) == typeid(p)) {
+					continue;;
+				}
+
+				int moonVal = switchComponent->getMoonStateVal();
+
+				if (moonVal < 512) {
+					int m = switchComponent->getMoonStateVal() / 5;
+
+					c->addHitPoints(m);
+				} else {
+					c->resetToDefault();
+				}
+			}
+		}
+	}
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {
